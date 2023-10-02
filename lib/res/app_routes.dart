@@ -1,5 +1,5 @@
-
 import 'package:esalerz/ui/auth/login.dart';
+import 'package:esalerz/ui/homepage.dart';
 import 'package:esalerz/ui/on_boarding/boarding_screen.dart';
 import 'package:esalerz/ui/welcomepage.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,21 +7,19 @@ import 'package:flutter/material.dart';
 
 import '../splash_screen.dart';
 
-
-
 class AppRoutes {
   static const String splashScreen = 'splashScreen';
   static const String onBoardingScreen = 'onBoardingScreen';
   static const String welcomeScreen = 'welcomeScreen';
   static const String loginScreen = 'loginScreen';
- 
+  static const String homePage = 'homePage';
 
   static Map<String, Widget Function(BuildContext)> routes = {
-    splashScreen: (context) =>   const SplashScreen(),
-    onBoardingScreen: (context) =>   const OnboardingScreen(),
-    welcomeScreen: (context) =>   const WelcomePage(),
-    loginScreen: (context) =>   const LoginScreen(),
-    
+    splashScreen: (context) => const SplashScreen(),
+    onBoardingScreen: (context) => const OnboardingScreen(),
+    welcomeScreen: (context) => const WelcomePage(),
+    loginScreen: (context) => const LoginScreen(),
+    homePage: (context) => const HomePage(),
   };
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -29,20 +27,23 @@ class AppRoutes {
       // Add your screen here as well as the transition you want
       case splashScreen:
         return MaterialPageRoute(
-          builder: (context) =>   const SplashScreen(),
+          builder: (context) => const SplashScreen(),
         );
-     case onBoardingScreen:
+      case onBoardingScreen:
         return MaterialPageRoute(
-          builder: (context) =>   const OnboardingScreen(),
+          builder: (context) => const OnboardingScreen(),
         );
-         case welcomeScreen:
+      case welcomeScreen:
         return MaterialPageRoute(
-          builder: (context) =>   const WelcomePage(),
+          builder: (context) => const WelcomePage(),
         );
-         case loginScreen:
-
-         return MaterialPageRoute(
-          builder: (context) =>   const LoginScreen(),
+      case loginScreen:
+        return MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+        );
+        case homePage:
+        return MaterialPageRoute(
+          builder: (context) => const HomePage(),
         );
       default:
         return CupertinoPageRoute(

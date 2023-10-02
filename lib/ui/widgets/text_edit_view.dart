@@ -1,7 +1,7 @@
+import 'package:esalerz/res/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'custom_text.dart';
-
 
 class TextEditView extends StatelessWidget {
   final ValueChanged<String>? onChanged;
@@ -64,7 +64,8 @@ class TextEditView extends StatelessWidget {
       this.focusNode,
       this.helperText,
       this.maxLength,
-      this.maxLines = 1, this.textViewTitle = ''})
+      this.maxLines = 1,
+      this.textViewTitle = ''})
       : super(key: key);
 
   OutlineInputBorder _border(BuildContext context) => OutlineInputBorder(
@@ -84,14 +85,16 @@ class TextEditView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomText(
-                              textAlign: TextAlign.left,
-                              maxLines: 2,
-                              text: textViewTitle,
-                              weight: FontWeight.w500,
-                              size: 13,
-                              color: Colors.black,
-                            ),
-                            const SizedBox(height: 5,),
+            textAlign: TextAlign.left,
+            maxLines: 2,
+            text: textViewTitle,
+            weight: FontWeight.w500,
+            size: 13,
+            color: Colors.black,
+          ),
+          const SizedBox(
+            height: 5,
+          ),
           TextFormField(
             controller: controller,
             keyboardType: keyboardType,
@@ -116,14 +119,15 @@ class TextEditView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(borderRadius),
                     borderSide: BorderSide(
                         width: borderWidth,
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: AppColors.lightPrimary,
+                        
                         style: BorderStyle.solid)),
                 focusedErrorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(borderRadius),
                     borderSide: BorderSide(
                         width: borderWidth,
-                        color:
-                            borderColor ?? Theme.of(context).colorScheme.secondary,
+                        color: borderColor ??
+                            Theme.of(context).colorScheme.secondary,
                         style: BorderStyle.solid)),
                 errorBorder: _border(context),
                 disabledBorder: _border(context),
@@ -133,8 +137,8 @@ class TextEditView extends StatelessWidget {
                 labelStyle: TextStyle(color: textColor),
                 filled: filled,
                 isDense: isDense,
-                fillColor:
-                    fillColor ?? Theme.of(context).shadowColor.withOpacity(0.05),
+                fillColor: fillColor ??
+                    Theme.of(context).shadowColor.withOpacity(0.05),
                 helperText: helperText,
                 helperMaxLines: 2,
                 helperStyle: const TextStyle(fontSize: 10),
@@ -150,4 +154,3 @@ class TextEditView extends StatelessWidget {
     );
   }
 }
-

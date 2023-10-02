@@ -12,7 +12,6 @@ class Esalerz extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return MaterialApp(
@@ -21,7 +20,7 @@ class Esalerz extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(fontFamily: AppStrings.montserrat),
       routes: AppRoutes.routes,
-      initialRoute: AppRoutes.splashScreen,
+      initialRoute: AppRoutes.homePage,
       onGenerateRoute: AppRoutes.generateRoute,
     );
   }
