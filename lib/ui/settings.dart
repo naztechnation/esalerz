@@ -15,6 +15,7 @@ class Settings extends StatelessWidget {
         itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.all(8.0),
             child: TrendingServiceModel(
+                onPressed: () {},
                 imageUrl: 'assets/images/cleaner.jpg',
                 title: 'House cleaning',
                 price: 20.99,

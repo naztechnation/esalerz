@@ -1,4 +1,4 @@
-import 'package:esalerz/ui/auth/login.dart';
+import 'package:esalerz/ui/auth/auth.dart';
 import 'package:esalerz/ui/landingpage.dart';
 import 'package:esalerz/ui/on_boarding/boarding_screen.dart';
 import 'package:esalerz/ui/welcomepage.dart';
@@ -12,14 +12,14 @@ class AppRoutes {
   static const String onBoardingScreen = 'onBoardingScreen';
   static const String welcomeScreen = 'welcomeScreen';
   static const String loginScreen = 'loginScreen';
-  static const String homePage = 'homePage';
+  static const String landingPage = 'landingPage';
 
   static Map<String, Widget Function(BuildContext)> routes = {
     splashScreen: (context) => const SplashScreen(),
     onBoardingScreen: (context) => const OnboardingScreen(),
     welcomeScreen: (context) => const WelcomePage(),
     loginScreen: (context) => const LoginScreen(),
-    homePage: (context) => const LandingPage(),
+    landingPage: (context) => const LandingPage(),
   };
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -41,7 +41,7 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) => const LoginScreen(),
         );
-      case homePage:
+      case landingPage:
         return MaterialPageRoute(
           builder: (context) => const LandingPage(),
         );
