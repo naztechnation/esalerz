@@ -9,8 +9,12 @@ import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 
+import '../provider/items.dart';
 import '../res/app_images.dart';
+import 'widgets/location_container.dart';
+import 'widgets/modals.dart';
 
 class Home extends StatefulWidget {
   const Home({
@@ -44,6 +48,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final pageIndexProvider = Provider.of<PageIndexProvider>(context);
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -58,8 +64,11 @@ class _HomeState extends State<Home> {
               backgroundColor: AppColors.cardColor,
               elevation: 0,
               title: const Text(
-                'Hello, Emma!',
-                style: TextStyle(fontSize: 15, color: Colors.black),
+                'What are You Searching For Today?',
+                style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w900),
               ),
               leading: Container(
                 decoration: BoxDecoration(
@@ -69,19 +78,6 @@ class _HomeState extends State<Home> {
                   child: Icon(Icons.menu, color: AppColors.lightPrimary),
                 ),
               ),
-              actions: [
-                Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Center(
-                    child: Icon(Icons.notifications,
-                        color: AppColors.lightPrimary),
-                  ),
-                ),
-              ],
             ),
           ),
         ),
@@ -107,22 +103,38 @@ class _HomeState extends State<Home> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.location_on_sharp,
-                          color: AppColors.lightSecondary,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Expanded(
-                          child: SmallText(
-                            size: 14,
-                            text: '58 iweka road, Onitsha.',
+                    GestureDetector(
+                      onTap: () {
+                        Modals.showBottomSheetModal(context,
+                            page: CountryListWidget(
+                              countries: countries,
+                            ),
+                            heightFactor: 1,
+                            isScrollControlled: true);
+                      },
+                      child: const Row(
+                        children: [
+                          Icon(
+                            Icons.location_on_sharp,
+                            color: AppColors.lightSecondary,
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            '58 iweka road, Onitsha.',
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                          Icon(
+                            Icons.keyboard_arrow_down,
+                            size: 30,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 10,
@@ -173,15 +185,23 @@ class _HomeState extends State<Home> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        BigText(
-                          text: 'Services',
-                          size: 16,
+                        const Text(
+                          'Services',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w800),
                         ),
-                        SmallText(
-                          text: 'View all',
-                          size: 12,
-                          color: AppColors.lightSecondary,
-                          decoration: TextDecoration.underline,
+                        GestureDetector(
+                          onTap: () {
+                            pageIndexProvider.changePageIndex(1);
+                          },
+                          child: const Text(
+                            'View all',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: AppColors.lightSecondary,
+                              // decoration: TextDecoration.underline,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -238,23 +258,31 @@ class _HomeState extends State<Home> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        BigText(
-                          text: 'Trending services',
-                          size: 15,
+                        const Text(
+                          'Trending Ads',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w800),
                         ),
-                        SmallText(
-                          text: 'View all',
-                          size: 12,
-                          color: AppColors.lightSecondary,
-                          decoration: TextDecoration.underline,
+                        GestureDetector(
+                          onTap: () {
+                            pageIndexProvider.changePageIndex(2);
+                          },
+                          child: const Text(
+                            'View all',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: AppColors.lightSecondary,
+                              // decoration: TextDecoration.underline,
+                            ),
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 15),
                     SizedBox(
-                      height: 900,
+                      height: 460,
                       child: MasonryGridView.builder(
-                        itemCount: 6,
+                        itemCount: 4,
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate:
                             const SliverSimpleGridDelegateWithFixedCrossAxisCount(
@@ -264,11 +292,11 @@ class _HomeState extends State<Home> {
                             child: TrendingServiceModel(
                                 onPressed: () {
                                   NavigationHelper.navigateToPage(
-                                      context, UserServiceInfo());
+                                      context, const UserServiceInfo());
                                 },
-                                imageUrl: 'assets/images/cleaner.jpg',
+                                imageUrl: 'assets/images/laugage.png',
                                 title: 'House cleaning',
-                                price: 20.99,
+                                price: '20.99',
                                 rating: 4)),
                       ),
                     ),
@@ -281,4 +309,43 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+  List<String> countries = [
+    'Abia',
+    'Adamawa',
+    'Akwa Ibom',
+    'Anambra',
+    'Bauchi',
+    'Bayelsa',
+    'Benue',
+    'Borno',
+    'Cross River',
+    'Delta',
+    'Ebonyi',
+    'Edo',
+    'Ekiti',
+    'Enugu',
+    'Gombe',
+    'Imo',
+    'Jigawa',
+    'Kaduna',
+    'Kano',
+    'Katsina',
+    'Kebbi',
+    'Kogi',
+    'Kwara',
+    'Lagos',
+    'Nasarawa',
+    'Niger',
+    'Ogun',
+    'Ondo',
+    'Osun',
+    'Oyo',
+    'Plateau',
+    'Rivers',
+    'Sokoto',
+    'Taraba',
+    'Yobe',
+    'Zamfara',
+  ];
 }

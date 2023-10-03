@@ -1,4 +1,5 @@
 import 'package:esalerz/model/service_contents.dart';
+import 'package:esalerz/model/service_term.dart';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/bigtext.dart';
@@ -100,7 +101,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
           ),
           SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -183,7 +184,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   //
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -243,6 +244,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                         ),
                         const SizedBox(height: 10),
                         DefaultButton(
+                          bordercolor: AppColors.lightSecondary,
                           title: 'Start chat',
                           textcolor: Colors.white,
                           backgroundcolor: AppColors.lightSecondary,
@@ -251,8 +253,304 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                       ],
                     ),
                   ),
+                  const SizedBox(
+                    height: 15,
+                  ),
 
-                  
+                  //
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: AppColors.lightSecondary.withOpacity(0.1),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListTile(
+                          minVerticalPadding: 3,
+                          minLeadingWidth: 4,
+                          dense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 1, vertical: 1),
+                          title: SmallText(
+                            text: 'COMPANY NAME',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          subtitle: SmallText(text: serviceTerm.companyName),
+                        ),
+                        ListTile(
+                          minVerticalPadding: 3,
+                          minLeadingWidth: 4,
+                          dense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 1, vertical: 1),
+                          title: SmallText(
+                            text: 'FUMIGATION SERVICE INCLUDE',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          subtitle: SmallText(text: serviceTerm.service),
+                        ),
+                        ListTile(
+                          minVerticalPadding: 3,
+                          minLeadingWidth: 4,
+                          dense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 1, vertical: 1),
+                          title: SmallText(
+                            text: 'FREQUENCY',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          subtitle: SmallText(text: serviceTerm.frequency),
+                        ),
+                        ListTile(
+                          minVerticalPadding: 3,
+                          minLeadingWidth: 4,
+                          dense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 1, vertical: 1),
+                          title: SmallText(
+                            text: 'ROUND THE CLOCK SERVICE',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          subtitle: SmallText(text: serviceTerm.roundTheClock),
+                        ),
+                        ListTile(
+                          minVerticalPadding: 3,
+                          minLeadingWidth: 4,
+                          dense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 1, vertical: 1),
+                          title: SmallText(
+                            text: 'FUMIGATION TYPE',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          subtitle: SmallText(text: serviceTerm.type),
+                        ),
+                        ListTile(
+                          minVerticalPadding: 3,
+                          minLeadingWidth: 4,
+                          dense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 1, vertical: 1),
+                          title: SmallText(
+                            text: 'SERVICE AREA',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          subtitle: SmallText(text: serviceTerm.serviceArea),
+                        ),
+                        ListTile(
+                          minVerticalPadding: 3,
+                          minLeadingWidth: 4,
+                          dense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 1, vertical: 1),
+                          title: SmallText(
+                            text: 'WORK EXPERIENCE',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          subtitle: SmallText(text: serviceTerm.workExperience),
+                        ),
+                        ListTile(
+                          minVerticalPadding: 3,
+                          minLeadingWidth: 4,
+                          dense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 1, vertical: 1),
+                          title: SmallText(
+                            text: 'PROVIDE REGULAR SERVICE',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          subtitle: SmallText(text: serviceTerm.regularService),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  //
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: AppColors.lightSecondary.withOpacity(0.1),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: ListTile(
+                      minVerticalPadding: 3,
+                      minLeadingWidth: 4,
+                      dense: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 1, vertical: 1),
+                      leading: const Icon(Icons.storefront_outlined),
+                      title: SmallText(text: 'Store address'),
+                      trailing: SmallText(
+                        text: 'show',
+                        color: AppColors.lightPrimary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+
+                  //
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: AppColors.lightSecondary.withOpacity(0.1),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        SmallText(
+                          text:
+                              "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+                        ),
+                        const SizedBox(height: 15),
+                        DefaultButton(
+                          bordercolor: AppColors.lightPrimary,
+                          title: 'Make an offer',
+                          textcolor: AppColors.lightPrimary,
+                          backgroundcolor: Colors.white,
+                          onpressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 15),
+                  //
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: AppColors.lightSecondary.withOpacity(0.1),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          minVerticalPadding: 3,
+                          minLeadingWidth: 4,
+                          dense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 1, vertical: 1),
+                          leading: CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.grey,
+                            child: BigText(
+                              text: 'C',
+                              color: Colors.white,
+                            ),
+                          ),
+                          title: BigText(
+                            text: 'Drago119',
+                            size: 16,
+                          ),
+                          subtitle: SmallText(
+                            text: 'online 57 min ago',
+                            size: 12,
+                          ),
+                          trailing: SmallText(
+                            text: 'View ad',
+                            color: AppColors.lightPrimary,
+                          ),
+                        ),
+                        //
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: AppColors.cardColor),
+                          child: ListTile(
+                              minVerticalPadding: 3,
+                              minLeadingWidth: 4,
+                              dense: true,
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 1, vertical: 1),
+                              leading: const CircleAvatar(
+                                backgroundImage:
+                                    AssetImage('assets/images/cleaner.jpg'),
+                                radius: 15,
+                                backgroundColor: Colors.transparent,
+                              ),
+                              title: BigText(
+                                text: 'Chukwuemeka',
+                                size: 16,
+                              ),
+                              subtitle: SmallText(
+                                text: 'Fantasstic customer support and service',
+                                size: 12,
+                              ),
+                              trailing: const Icon(
+                                Icons.tag_faces,
+                                color: AppColors.lightPrimary,
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        DefaultButton(
+                          title: 'Leave feedback',
+                          textcolor: AppColors.lightSecondary,
+                          backgroundcolor: Colors.white,
+                          onpressed: () {},
+                          bordercolor: AppColors.lightSecondary,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        DefaultButton(
+                          title: 'Report abuse',
+                          textcolor: AppColors.red,
+                          backgroundcolor: Colors.white,
+                          onpressed: () {},
+                          bordercolor: AppColors.red,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        DefaultButton(
+                          title: 'Post ad like this',
+                          textcolor: AppColors.lightPrimary,
+                          backgroundcolor: Colors.white,
+                          onpressed: () {},
+                          bordercolor: AppColors.lightPrimary,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -262,3 +560,6 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
     );
   }
 }
+
+ServiceTerm serviceTerm = serviceTerms[0];
+String companyName = serviceTerm.companyName;

@@ -6,17 +6,17 @@ import '../res/app_colors.dart';
 import 'widgets/horizontal_selection.dart';
 import 'widgets/text_edit_view.dart';
 
-class Report extends StatelessWidget {
-  Report({super.key});
+class Services extends StatelessWidget {
+  Services({super.key});
 
   final searchController = TextEditingController();
 
   final List<String> items = [
     'All',
-    'Laptops',
-    'Home Appliances',
-    'Phones',
-    'Cars',
+    'House Cleaning',
+    'Capenter',
+    'Mechanic',
+    'Dry Cleaning',
   ];
 
   @override
@@ -27,7 +27,7 @@ class Report extends StatelessWidget {
           elevation: 1,
           centerTitle: true,
           title: const Text(
-            'Ads Services',
+            'Trending Services',
             style: TextStyle(fontSize: 18, color: Colors.black),
           )),
       body: Column(
@@ -44,7 +44,7 @@ class Report extends StatelessWidget {
                   flex: 6,
                   child: TextEditView(
                     controller: searchController,
-                    hintText: 'What are you looking for...',
+                    hintText: 'Search your service here...',
                     filled: false,
                     autofocus: false,
                     isDense: true,
@@ -78,7 +78,6 @@ class Report extends StatelessWidget {
               ],
             ),
           ),
-
           HorizontalCardList(
             items: items,
           ),
@@ -86,46 +85,22 @@ class Report extends StatelessWidget {
             height: 15,
           ),
           Expanded(
-            child: GridView.custom(
-              gridDelegate: SliverWovenGridDelegate.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 0,
-                crossAxisSpacing: 0,
-                pattern: [
-                  const WovenGridTile(0.8),
-                  const WovenGridTile(
-                    5 / 7,
-                    crossAxisRatio: 0.9,
-                    alignment: AlignmentDirectional.centerEnd,
-                  ),
-                ],
-              ),
-              childrenDelegate: SliverChildBuilderDelegate(
-                (context, index) =>  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TrendingServiceModel(
-                      onPressed: (){},
-                        imageUrl: 'assets/images/laugage.png',
-                        title: 'Travel bag',
-                        price: '20.99',
-                        rating: 4)),
-              ),
+            child: MasonryGridView.builder(
+              itemCount: 6,
+              gridDelegate:
+                  const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+              itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TrendingServiceModel(
+                    imageUrl: 'assets/images/cleaner.jpg',
+                    title: 'House cleaning',
+                    price: '20.99',
+                    rating: 4,
+                    onPressed: () {},
+                  )),
             ),
           ),
-          // Expanded(
-          //   child: MasonryGridView.builder(
-          //     itemCount: 6,
-          //     gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-          //         crossAxisCount: 2),
-          //     itemBuilder: (context, index) => const Padding(
-          //         padding: EdgeInsets.all(8.0),
-          //         child: TrendingServiceModel(
-          //             imageUrl: 'assets/images/laugage.png',
-          //             title: 'House cleaning',
-          //             price: '20.99',
-          //             rating: 4)),
-          //   ),
-          // ),
         ],
       ),
     );

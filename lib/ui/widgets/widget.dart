@@ -22,9 +22,9 @@ class ServiceBoard extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.1),
-                spreadRadius: 2,
+                spreadRadius: 4,
                 blurRadius: 5,
-                offset: const Offset(0, 3),
+                offset: const Offset(0, 8),
               ),
             ],
           ),
@@ -97,11 +97,26 @@ Widget promoCard(ServiceContents data, VoidCallback onPressed) {
   );
 }
 
+//servicescard
+Widget servicecard(ServiceContents data, VoidCallback onPressed) {
+  return GestureDetector(
+    onTap: onPressed,
+    child: Container(
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          image: const DecorationImage(
+              image: AssetImage('assets/images/cleaner.jpg'),
+              fit: BoxFit.cover)),
+    ),
+  );
+}
+
 //trending service model
 class TrendingServiceModel extends StatelessWidget {
   final String imageUrl;
   final String title;
-  final double price;
+  final String price;
   final double rating;
   final VoidCallback onPressed;
 
@@ -119,80 +134,135 @@ class TrendingServiceModel extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: const EdgeInsets.only(bottom: 15),
+        padding: const EdgeInsets.only(bottom: 0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
         ),
-        width: double.infinity, // Takes full width
-        child: Column(
-          children: [
-            // Image
-            Container(
-              height: MediaQuery.of(context).size.height /
-                  5, // Half of the container height
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20)),
-                image: DecorationImage(
-                  image: AssetImage(imageUrl),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            // Title and Like Icon Row
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        width: double.infinity,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: Column(
+            children: [
+              // Image
+              Stack(
                 children: [
-                  SmallText(
-                    text: title,
-                  ),
-                  // IconButton(
-                  //   icon: const Icon(Icons.favorite_border),
-                  //   onPressed: () {
-                  //     // Handle like button tap
-                  //   },
-                  // ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-
-            // Price and Rating Row
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '\$$price', // Assuming price is in dollars
-                    style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Row(
-                    children: [
-                      const Icon(Icons.star, color: AppColors.lightPrimary),
-                      Text(
-                        '$rating',
-                        style: const TextStyle(
-                            fontSize: 14, color: AppColors.lightPrimary),
+                  Container(
+                    height: 120, // Half of the container height
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20)),
+                      image: DecorationImage(
+                        image: AssetImage(imageUrl),
+                        fit: BoxFit.cover,
                       ),
-                    ],
+                    ),
+                  ),
+                  Container(
+                    height: 120,
+                    decoration: BoxDecoration(
+                        color: AppColors.lightPrimary.withOpacity(0.2),
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20))),
+                  ),
+                  Positioned(
+                    top: 5,
+                    right: 5,
+                    child: SizedBox(
+                      height: 42,
+                      width: 42,
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35.0),
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.favorite_border,
+                            color: AppColors.lightSecondary,
+                            size: 25,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
-            ),
-          ],
+              // Title and Like Icon Row
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              '₦$price',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              const Icon(Icons.star,
+                                  size: 16, color: AppColors.lightPrimary),
+                              const SizedBox(
+                                width: 3,
+                              ),
+                              Text(
+                                '$rating',
+                                style: const TextStyle(
+                                    fontSize: 12,
+                                    color: AppColors.lightPrimary),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -267,11 +337,13 @@ class DefaultButton extends StatelessWidget {
       required this.title,
       required this.textcolor,
       required this.backgroundcolor,
-      required this.onpressed});
+      required this.onpressed,
+      required this.bordercolor});
   final VoidCallback onpressed;
   final String title;
   final Color textcolor;
   final Color backgroundcolor;
+  final Color bordercolor;
 
   @override
   Widget build(BuildContext context) {
@@ -281,6 +353,9 @@ class DefaultButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundcolor,
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: bordercolor,
+          ),
         ),
         height: 40,
         width: MediaQuery.of(context).size.width,
@@ -297,48 +372,4 @@ class DefaultButton extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget buildServiceTermsGrid(List<ServiceTerm> terms) {
-  return GridView.builder(
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2, // Two columns
-      childAspectRatio: 2.0, // Adjust as needed
-    ),
-    itemCount: terms.length,
-    itemBuilder: (context, index) {
-      final term = terms[index];
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: AppColors.lightSecondary.withOpacity(0.1),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              term.companyName,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(
-              term.workExperienceHeading,
-              style: TextStyle(color: Colors.blue),
-            ),
-            Text(
-              term.subtitle,
-            ),
-          ],
-        ),
-      );
-    },
-  );
 }
