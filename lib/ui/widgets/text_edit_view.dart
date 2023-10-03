@@ -84,17 +84,7 @@ class TextEditView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomText(
-            textAlign: TextAlign.left,
-            maxLines: 2,
-            text: textViewTitle,
-            weight: FontWeight.w500,
-            size: 13,
-            color: Colors.black,
-          ),
-          const SizedBox(
-            height: 5,
-          ),
+         
           TextFormField(
             controller: controller,
             keyboardType: keyboardType,
@@ -132,7 +122,7 @@ class TextEditView extends StatelessWidget {
                 errorBorder: _border(context),
                 disabledBorder: _border(context),
                 hintText: hintText,
-                hintStyle: TextStyle(color: textColor),
+                hintStyle: TextStyle(color: textColor, fontSize: 14),
                 labelText: labelText,
                 labelStyle: TextStyle(color: textColor),
                 filled: filled,

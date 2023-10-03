@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../res/app_routes.dart';
+import '../../utils/navigator/page_navigator.dart';
 import 'progress_indicator.dart';
 
 class ButtonView extends StatelessWidget {
@@ -39,12 +41,14 @@ class ButtonView extends StatelessWidget {
       return SizedBox(
         width: double.maxFinite,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+             
+          },
           style: ElevatedButton.styleFrom(
             primary: disabled
                 ? Theme.of(context).backgroundColor
                 : (color ?? Theme.of(context).colorScheme.secondary),
-            padding: EdgeInsets.symmetric(vertical: 12),
+            padding: const EdgeInsets.symmetric(vertical: 12),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
                 side: BorderSide(

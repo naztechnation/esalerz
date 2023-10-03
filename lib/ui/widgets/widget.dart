@@ -14,7 +14,7 @@ class ServiceBoard extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
@@ -30,18 +30,19 @@ class ServiceBoard extends StatelessWidget {
           child: Center(
             child: Image.asset(
               asset,
-              fit: BoxFit.cover,
+              height: 50,
+              fit: BoxFit.contain,
               color: AppColors.lightPrimary,
-              width: 60,
+              width: 50,
             ),
           ),
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         SmallText(
           text: title,
-          size: 16,
+          size: 13,
         ),
       ],
     );
@@ -135,21 +136,25 @@ class TrendingServiceModel extends StatelessWidget {
             ),
           ),
           // Title and Like Icon Row
+           const SizedBox(height: 10,),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SmallText(text: title),
-                IconButton(
-                  icon: const Icon(Icons.favorite_border),
-                  onPressed: () {
-                    // Handle like button tap
-                  },
-                ),
+               
+                SmallText(text: title,  ),
+                // IconButton(
+                //   icon: const Icon(Icons.favorite_border),
+                //   onPressed: () {
+                //     // Handle like button tap
+                //   },
+                // ),
               ],
             ),
           ),
+                const SizedBox(height: 10,),
+
           // Price and Rating Row
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),

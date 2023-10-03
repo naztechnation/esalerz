@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../../utils/constants.dart';
+import '../../res/app_routes.dart';
 import '../../utils/change_animation.dart';
 import '../../utils/helper_functions.dart';
+import '../../utils/navigator/page_navigator.dart';
 import 'bottom_text.dart';
 import 'top_text.dart';
 
@@ -57,7 +59,10 @@ class _LoginContentState extends State<LoginContent>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 135, vertical: 16),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          AppNavigator.pushAndReplaceName(context,
+                                  name: AppRoutes.homePage); 
+        },
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 14),
           shape: const StadiumBorder(),

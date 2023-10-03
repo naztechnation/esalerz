@@ -20,7 +20,7 @@ class Esalerz extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(fontFamily: AppStrings.montserrat),
       routes: AppRoutes.routes,
-      initialRoute: AppRoutes.homePage,
+      initialRoute: AppRoutes.splashScreen,
       onGenerateRoute: AppRoutes.generateRoute,
     );
   }

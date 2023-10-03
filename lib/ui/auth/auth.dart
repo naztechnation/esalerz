@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../res/app_images.dart';
-import '../widgets/center_widget/center_widget.dart';
 import '../widgets/login_content.dart';
 
 class LoginScreen extends StatefulWidget {

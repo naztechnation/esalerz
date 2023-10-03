@@ -7,12 +7,13 @@ class SmallText extends StatelessWidget {
   double size;
   FontWeight? fontWeight;
   TextAlign? align;
-
+  TextDecoration? decoration;
   SmallText({
     super.key,
     this.align,
     this.color = const Color(0xFF332d2d),
     required this.text,
+    decoration = TextDecoration.none,
     this.size = 15,
     this.fontWeight,
   });
@@ -21,8 +22,10 @@ class SmallText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      
       textAlign: align,
       style: TextStyle(
+        decoration: decoration,
         color: color,
         fontSize: size,
         fontWeight: fontWeight,

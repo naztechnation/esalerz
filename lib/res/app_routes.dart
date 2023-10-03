@@ -1,4 +1,4 @@
-import 'package:esalerz/ui/auth/login.dart';
+import 'package:esalerz/ui/auth/auth.dart';
 import 'package:esalerz/ui/homepage.dart';
 import 'package:esalerz/ui/on_boarding/boarding_screen.dart';
 import 'package:esalerz/ui/welcomepage.dart';
