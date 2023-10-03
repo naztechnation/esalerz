@@ -97,6 +97,37 @@ Widget promoCard(ServiceContents data, VoidCallback onPressed) {
   );
 }
 
+//serviceview
+Widget serviceView(int index, BuildContext context) {
+  return servicecard(
+    datalist[index],
+    () {
+      // Use Navigator to push the corresponding route
+      switch (index) {
+        case 0:
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Container()));
+          break;
+        case 1:
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Container()));
+          break;
+        case 2:
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Container()));
+          break;
+        case 3:
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Container()));
+          break;
+        // Add more cases for additional cards
+        default:
+          break;
+      }
+    },
+  );
+}
+
 //servicescard
 Widget servicecard(ServiceContents data, VoidCallback onPressed) {
   return GestureDetector(
@@ -106,7 +137,7 @@ Widget servicecard(ServiceContents data, VoidCallback onPressed) {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           image: const DecorationImage(
-              image: AssetImage('assets/images/cleaner.jpg'),
+              image: AssetImage('assets/images/fumigation.jpeg'),
               fit: BoxFit.cover)),
     ),
   );

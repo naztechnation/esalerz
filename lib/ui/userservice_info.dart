@@ -106,7 +106,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AspectRatio(
-                    aspectRatio: 2.2,
+                    aspectRatio: 1.5,
                     child: PageView.builder(
                       itemCount: datalist.length,
                       physics: const BouncingScrollPhysics(),
@@ -117,7 +117,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                         });
                       },
                       itemBuilder: (context, index) {
-                        return promoView(index, context);
+                        return serviceView(index, context);
                       },
                     ),
                   ),
@@ -131,15 +131,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                         horizontal: 15, vertical: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: AppColors.lightSecondary.withOpacity(0.1),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
+                      color: AppColors.lightSecondary.withOpacity(0.03),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,15 +183,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                         horizontal: 15, vertical: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: AppColors.lightSecondary.withOpacity(0.1),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
+                      color: AppColors.lightSecondary.withOpacity(0.03),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -262,15 +246,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: AppColors.lightSecondary.withOpacity(0.1),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
+                      color: AppColors.lightSecondary.withOpacity(0.03),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -381,15 +357,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                         horizontal: 15, vertical: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: AppColors.lightSecondary.withOpacity(0.1),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
+                      color: AppColors.lightSecondary.withOpacity(0.03),
                     ),
                     child: ListTile(
                       minVerticalPadding: 3,
@@ -413,15 +381,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                         horizontal: 15, vertical: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: AppColors.lightSecondary.withOpacity(0.1),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
+                      color: AppColors.lightSecondary.withOpacity(0.03),
                     ),
                     child: Column(
                       children: [
@@ -448,15 +408,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                         horizontal: 15, vertical: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: AppColors.lightSecondary.withOpacity(0.1),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          spreadRadius: 2,
-                          blurRadius: 5,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
+                      color: AppColors.lightSecondary.withOpacity(0.03),
                     ),
                     child: Column(
                       children: [
