@@ -60,8 +60,8 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: Visibility(
           visible: !keyboardIsOpen,
           child: FloatingActionButton(
-            heroTag: "Scan",
-            elevation: 5,
+            heroTag: "Sell",
+            elevation: 10,
             backgroundColor: AppColors.lightPrimary,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100.0),
@@ -73,10 +73,12 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       bottomNavigationBar: Container(
+        height: 50,
         decoration: const BoxDecoration( boxShadow: <BoxShadow>[
                 BoxShadow(
                   color: AppColors.cardColor,
-                  blurRadius: 10,
+                  blurRadius: 14,
+                  spreadRadius: 3
                 ),
               ],),
         child: FABBottomAppBar(
