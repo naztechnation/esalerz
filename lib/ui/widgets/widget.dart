@@ -21,9 +21,9 @@ class ServiceBoard extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.1),
-                spreadRadius: 2,
+                spreadRadius: 4,
                 blurRadius: 5,
-                offset: const Offset(0, 3),
+                offset: const Offset(0, 8),
               ),
             ],
           ),
@@ -100,7 +100,7 @@ Widget promoCard(ServiceContents data, VoidCallback onPressed) {
 class TrendingServiceModel extends StatelessWidget {
   final String imageUrl;
   final String title;
-  final double price;
+  final String price;
   final double rating;
 
   const TrendingServiceModel({
@@ -114,74 +114,136 @@ class TrendingServiceModel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 15),
+      padding: const EdgeInsets.only(bottom: 0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
-      width: double.infinity, // Takes full width
-      child: Column(
-        children: [
-          // Image
-          Container(
-            height: MediaQuery.of(context).size.height /
-                4, // Half of the container height
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-              image: DecorationImage(
-                image: AssetImage(imageUrl),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          // Title and Like Icon Row
-           const SizedBox(height: 10,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      width: double.infinity,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Column(
+          children: [
+            // Image
+            Stack(
               children: [
-               
-                SmallText(text: title,  ),
-                // IconButton(
-                //   icon: const Icon(Icons.favorite_border),
-                //   onPressed: () {
-                //     // Handle like button tap
-                //   },
-                // ),
-              ],
-            ),
-          ),
-                const SizedBox(height: 10,),
-
-          // Price and Rating Row
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '\$$price', // Assuming price is in dollars
-                  style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500),
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.star, color: AppColors.lightPrimary),
-                    Text(
-                      '$rating',
-                      style: const TextStyle(
-                          fontSize: 14, color: AppColors.lightPrimary),
+                Container(
+                  height: 120, // Half of the container height
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20)),
+                    image: DecorationImage(
+                      image: AssetImage(imageUrl),
+                      fit: BoxFit.cover,
                     ),
-                  ],
+                  ),
+                ),
+                Container(
+                  height: 120,
+                   decoration:   BoxDecoration(
+                    color: AppColors.lightPrimary.withOpacity(0.2),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))),
+                  
+         
+          ),
+                Positioned(
+                  top: 5,
+                  right: 5,
+                  child: SizedBox(
+                    height: 42,
+                    width: 42,
+                    child: Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(35.0),
+                      ),
+                      child: const Center(
+                        child: Icon(
+                               Icons.favorite_border,
+                          color: AppColors.lightSecondary,
+                          size: 25,
+                           
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
+            // Title and Like Icon Row
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                         Expanded(
+                           child: Text(
+                             title,
+
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                             style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                                                 ),
+                         ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '₦$price',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 14,
+                                
+                                color: Colors.black,
+                                 ),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.star,
+                            size: 16,
+                                color: AppColors.lightPrimary),
+                               const SizedBox(width: 3,),
+                            Text(
+                              '$rating',
+                              style: const TextStyle(
+                                  fontSize: 12,
+                                  color: AppColors.lightPrimary),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15,)
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
