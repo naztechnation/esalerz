@@ -124,7 +124,7 @@ class TrendingServiceModel extends StatelessWidget {
           // Image
           Container(
             height: MediaQuery.of(context).size.height /
-                4, // Half of the container height
+                5, // Half of the container height
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20)),

@@ -96,6 +96,7 @@ class _HomeState extends State<Home> {
                     Expanded(
                       child: SmallText(
                         text: '50 Moonee Beach Rd, Coffs Harbour, South Wales',
+                        size: 13,
                       ),
                     ),
                   ],
@@ -202,20 +203,20 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 const SizedBox(height: 15),
-                Container(
-                  height: 200,
+                SizedBox(
+                  height: 500,
                   child: MasonryGridView.builder(
+                    crossAxisSpacing: 7,
+                    mainAxisSpacing: 7,
                     itemCount: 6,
                     gridDelegate:
                         const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2),
-                    itemBuilder: (context, index) => const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TrendingServiceModel(
-                            imageUrl: 'assets/images/cleaner.jpg',
-                            title: 'House cleaning',
-                            price: 20.99,
-                            rating: 4)),
+                    itemBuilder: (context, index) => const TrendingServiceModel(
+                        imageUrl: 'assets/images/cleaner.jpg',
+                        title: 'House cleaning',
+                        price: 20.99,
+                        rating: 4),
                   ),
                 ),
               ],

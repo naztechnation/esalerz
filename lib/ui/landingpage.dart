@@ -6,14 +6,14 @@ import 'package:esalerz/ui/profile.dart';
 import 'package:esalerz/ui/report.dart';
 import 'package:esalerz/ui/settings.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class LandingPage extends StatefulWidget {
+  const LandingPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<LandingPage> createState() => _LandingPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _LandingPageState extends State<LandingPage> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   List<BottomNavigationBarItem> _navItems() {
-    const labels = ['Home', 'Settings', 'Report', 'Profile'];
+    const labels = ['Home', 'Services', 'Booking', 'Profile'];
     const icons = [
       'assets/images/homee.png',
       'assets/images/setting.png',
@@ -55,9 +55,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        
-      },
+      onTap: () {},
       child: Scaffold(
         bottomNavigationBar: Container(
           margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10),

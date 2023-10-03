@@ -1,5 +1,5 @@
 import 'package:esalerz/ui/auth/login.dart';
-import 'package:esalerz/ui/homepage.dart';
+import 'package:esalerz/ui/landingpage.dart';
 import 'package:esalerz/ui/on_boarding/boarding_screen.dart';
 import 'package:esalerz/ui/welcomepage.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +19,7 @@ class AppRoutes {
     onBoardingScreen: (context) => const OnboardingScreen(),
     welcomeScreen: (context) => const WelcomePage(),
     loginScreen: (context) => const LoginScreen(),
-    homePage: (context) => const HomePage(),
+    homePage: (context) => const LandingPage(),
   };
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -41,9 +41,9 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) => const LoginScreen(),
         );
-        case homePage:
+      case homePage:
         return MaterialPageRoute(
-          builder: (context) => const HomePage(),
+          builder: (context) => const LandingPage(),
         );
       default:
         return CupertinoPageRoute(
