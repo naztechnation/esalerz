@@ -6,8 +6,8 @@ import '../res/app_colors.dart';
 import 'widgets/horizontal_selection.dart';
 import 'widgets/text_edit_view.dart';
 
-class Report extends StatelessWidget {
-  Report({super.key});
+class Ads extends StatelessWidget {
+  Ads({super.key});
 
   final searchController = TextEditingController();
 
@@ -101,14 +101,14 @@ class Report extends StatelessWidget {
                 ],
               ),
               childrenDelegate: SliverChildBuilderDelegate(
-                (context, index) =>  Padding(
+                (context, index) => Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TrendingServiceModel(
-                      onPressed: (){},
+                    child: SimilarAdsModel(
+                        onPressed: () {},
                         imageUrl: 'assets/images/laugage.png',
                         title: 'Travel bag',
                         price: '20.99',
-                        rating: 4)),
+                        rating: 4, isListView: false,)),
               ),
             ),
           ),

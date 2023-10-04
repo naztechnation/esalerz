@@ -3,11 +3,13 @@ import 'package:esalerz/model/service_term.dart';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/bigtext.dart';
+import 'package:esalerz/ui/widgets/customer_reviews.dart';
 import 'package:esalerz/ui/widgets/dotindicator.dart';
 import 'package:esalerz/ui/widgets/smalltext.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class UserServiceInfo extends StatefulWidget {
   const UserServiceInfo({super.key});
@@ -20,6 +22,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
   final messageController = TextEditingController();
   late PageController _pageController;
   int _currentPage = 0;
+  bool isGridView = true;
 
   @override
   void initState() {
@@ -352,26 +355,11 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                   ),
                   const SizedBox(height: 15),
                   //
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: AppColors.lightSecondary.withOpacity(0.03),
-                    ),
-                    child: ListTile(
-                      minVerticalPadding: 3,
-                      minLeadingWidth: 4,
-                      dense: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 1, vertical: 1),
-                      leading: const Icon(Icons.storefront_outlined),
-                      title: SmallText(text: 'Store address'),
-                      trailing: SmallText(
-                        text: 'show',
-                        color: AppColors.lightPrimary,
-                      ),
-                    ),
+                  ExpandableContainer(
+                    heading: 'Store Adress',
+                    icon: Icons.storefront_outlined,
+                    address:
+                        'No. 28 Ngozika estate, awka Anambra state Nigeria',
                   ),
                   const SizedBox(height: 15),
 
@@ -440,38 +428,58 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           ),
                         ),
                         //
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: AppColors.cardColor),
-                          child: ListTile(
-                              minVerticalPadding: 3,
-                              minLeadingWidth: 4,
-                              dense: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 1, vertical: 1),
-                              leading: const CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('assets/images/cleaner.jpg'),
-                                radius: 15,
-                                backgroundColor: Colors.transparent,
+                        Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: AppColors.cardColor),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    minVerticalPadding: 3,
+                                    minLeadingWidth: 4,
+                                    dense: true,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 1, vertical: 1),
+                                    leading: const CircleAvatar(
+                                      backgroundImage: AssetImage(
+                                          'assets/images/cleaner.jpg'),
+                                      radius: 15,
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                    title: BigText(
+                                      text: 'Chukwuemeka',
+                                      size: 16,
+                                    ),
+                                    subtitle: SmallText(
+                                      text:
+                                          'Fantastic customer support and service',
+                                      size: 12,
+                                    ),
+                                    trailing: const Icon(
+                                      Icons.tag_faces,
+                                      color: AppColors.lightPrimary,
+                                    ),
+                                  ),
+                                  DefaultButton(
+                                    title: 'See more reviews',
+                                    bordercolor: AppColors.lightPrimary,
+                                    textcolor: AppColors.lightPrimary,
+                                    backgroundcolor: Colors.white,
+                                    onpressed: () {
+                                      NavigationHelper.navigateToPage(
+                                          context, const CustomerReviews());
+                                    },
+                                  ),
+                                ],
                               ),
-                              title: BigText(
-                                text: 'Chukwuemeka',
-                                size: 16,
-                              ),
-                              subtitle: SmallText(
-                                text: 'Fantasstic customer support and service',
-                                size: 12,
-                              ),
-                              trailing: const Icon(
-                                Icons.tag_faces,
-                                color: AppColors.lightPrimary,
-                              )),
+                            ),
+                          ],
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 30,
                         ),
                         DefaultButton(
                           title: 'Leave feedback',
@@ -503,6 +511,57 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                       ],
                     ),
                   ),
+
+                  //similar ads
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SmallText(
+                        text: 'Similar Ads',
+                        fontWeight: FontWeight.bold,
+                      ),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                isGridView =
+                                    !isGridView; // Toggle the view mode
+                              });
+                            },
+                            icon: Icon(
+                              Icons.grid_view_rounded,
+                              color: isGridView
+                                  ? AppColors.lightPrimary
+                                  : Colors.black,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                isGridView =
+                                    !isGridView; // Toggle the view mode
+                              });
+                            },
+                            icon: Icon(
+                              Icons.list,
+                              color: isGridView
+                                  ? Colors.black
+                                  : AppColors.lightPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Visibility(
+                    visible: isGridView,
+                    child: buildMasonryGridView(),
+                  ),
+                  Visibility(
+                    visible: !isGridView,
+                    child: buildListView(),
+                  ),
                 ],
               ),
             ),
@@ -515,3 +574,53 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
 
 ServiceTerm serviceTerm = serviceTerms[0];
 String companyName = serviceTerm.companyName;
+
+Widget buildMasonryGridView() {
+  return SizedBox(
+    height: 500 * 2.5,
+    child: MasonryGridView.builder(
+      itemCount: 10,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2),
+      itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SimilarAdsModel(
+            onPressed: () {
+              // NavigationHelper.navigateToPage(
+              //     context, const UserServiceInfo());
+            },
+            imageUrl: 'assets/images/ford.jpg',
+            title: 'Car repair',
+            price: '20.99',
+            rating: 4,
+            isListView: false,
+          )),
+    ),
+  );
+}
+
+Widget buildListView() {
+  return SizedBox(
+    height: 500 * 2,
+    child: ListView.builder(
+      itemCount: 10,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SimilarAdsModel(
+            onPressed: () {
+              // Handle item tap
+            },
+            imageUrl: 'assets/images/ford.jpg',
+            title: 'Car repair',
+            price: '20.99',
+            rating: 4,
+            isListView: true,
+          ),
+        );
+      },
+    ),
+  );
+}

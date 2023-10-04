@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -73,8 +71,7 @@ class Modals {
   static Future<dynamic> showBottomSheetModal(BuildContext context,
       {required Widget page,
       double? heightFactor = 0.5,
-        bool isDissmissible = false,
-
+      bool isDissmissible = false,
       bool isScrollControlled = false,
       double borderRadius = 20.0}) async {
     final data = await showModalBottomSheet<dynamic>(
@@ -85,7 +82,6 @@ class Modals {
         backgroundColor: AppColors.cardColor,
         isDismissible: isDissmissible,
         useSafeArea: true,
-
         isScrollControlled: isScrollControlled,
         builder: (BuildContext bc) {
           return FractionallySizedBox(heightFactor: heightFactor, child: page);
