@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:esalerz/model/service_contents.dart';
 import 'package:esalerz/model/service_term.dart';
 import 'package:esalerz/res/app_colors.dart';
@@ -7,6 +9,7 @@ import 'package:esalerz/ui/widgets/smalltext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:image_picker/image_picker.dart';
 
 //service board
 class ServiceBoard extends StatelessWidget {
@@ -766,6 +769,7 @@ class _ExpandableContainerState extends State<ExpandableContainer> {
     );
   }
 }
+
 Widget buildMasonryGridView() {
   return SizedBox(
     height: 500 * 2.5,
@@ -814,4 +818,99 @@ Widget buildListView() {
       },
     ),
   );
+}
+
+//pick image function
+class ProfileImagePicker extends StatefulWidget {
+  @override
+  _ProfileImagePickerState createState() => _ProfileImagePickerState();
+}
+
+class _ProfileImagePickerState extends State<ProfileImagePicker> {
+  XFile? _imageFile; // Stores the selected image file
+
+  Future<void> _pickImage(ImageSource source) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = pickedFile;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // Show a dialog to choose between camera and gallery
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Choose Image Source'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    ListTile(
+                      leading: Icon(Icons.camera),
+                      title: Text('Camera'),
+                      onTap: () {
+                        _pickImage(ImageSource.camera);
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.image),
+                      title: Text('Gallery'),
+                      onTap: () {
+                        _pickImage(ImageSource.gallery);
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+      child: Container(
+        height: 200,
+        width: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          border: _imageFile == null
+              ? Border.all(
+                  width: 1,
+                  color:
+                      Colors.grey) // Apply the border when no image is selected
+              : null, // No border when an image is selected
+        ),
+        child: _imageFile != null
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Image.file(
+                  File(_imageFile!.path),
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
+              )
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.add),
+                    SmallText(
+                      text: "Take an image or choose from Gallery",
+                      align: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+      ),
+    );
+  }
 }
