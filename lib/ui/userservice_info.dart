@@ -444,8 +444,8 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                                     contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 1, vertical: 1),
                                     leading: const CircleAvatar(
-                                      backgroundImage: AssetImage(
-                                          'assets/images/cleaner.jpg'),
+                                      backgroundImage:
+                                          AssetImage('assets/images/man.jpg'),
                                       radius: 15,
                                       backgroundColor: Colors.transparent,
                                     ),
@@ -574,53 +574,3 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
 
 ServiceTerm serviceTerm = serviceTerms[0];
 String companyName = serviceTerm.companyName;
-
-Widget buildMasonryGridView() {
-  return SizedBox(
-    height: 500 * 2.5,
-    child: MasonryGridView.builder(
-      itemCount: 10,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2),
-      itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SimilarAdsModel(
-            onPressed: () {
-              // NavigationHelper.navigateToPage(
-              //     context, const UserServiceInfo());
-            },
-            imageUrl: 'assets/images/ford.jpg',
-            title: 'Car repair',
-            price: '20.99',
-            rating: 4,
-            isListView: false,
-          )),
-    ),
-  );
-}
-
-Widget buildListView() {
-  return SizedBox(
-    height: 500 * 2,
-    child: ListView.builder(
-      itemCount: 10,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SimilarAdsModel(
-            onPressed: () {
-              // Handle item tap
-            },
-            imageUrl: 'assets/images/ford.jpg',
-            title: 'Car repair',
-            price: '20.99',
-            rating: 4,
-            isListView: true,
-          ),
-        );
-      },
-    ),
-  );
-}
