@@ -9,7 +9,6 @@ import 'package:esalerz/ui/widgets/smalltext.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class UserServiceInfo extends StatefulWidget {
   const UserServiceInfo({super.key});

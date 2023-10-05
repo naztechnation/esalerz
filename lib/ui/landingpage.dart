@@ -21,10 +21,10 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   final List<Widget> _pages = [
-    const Home(),
+    Home(),
     Services(),
     Ads(),
-    const Profile(),
+    Profile(),
   ];
 
   List<BottomNavigationBarItem> _navItems(int selectedIndex) {

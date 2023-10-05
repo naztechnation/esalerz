@@ -849,21 +849,21 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Choose Image Source'),
+              title: const Text('Choose Image Source'),
               content: SingleChildScrollView(
                 child: ListBody(
                   children: <Widget>[
                     ListTile(
-                      leading: Icon(Icons.camera),
-                      title: Text('Camera'),
+                      leading: const Icon(Icons.camera),
+                      title: const Text('Camera'),
                       onTap: () {
                         _pickImage(ImageSource.camera);
                         Navigator.of(context).pop();
                       },
                     ),
                     ListTile(
-                      leading: Icon(Icons.image),
-                      title: Text('Gallery'),
+                      leading: const Icon(Icons.image),
+                      title: const Text('Gallery'),
                       onTap: () {
                         _pickImage(ImageSource.gallery);
                         Navigator.of(context).pop();
@@ -902,14 +902,42 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.add),
+                    const Icon(Icons.add),
                     SmallText(
-                      text: "Take an image or choose from Gallery",
+                      text: "Upload a profile image",
                       align: TextAlign.center,
                     ),
                   ],
                 ),
               ),
+      ),
+    );
+  }
+}
+
+// simple textfield
+class TextInputField {
+  static Widget customTextField({
+    required TextEditingController controller,
+    required String hintText,
+    required String labeText,
+    TextInputType keyboardType = TextInputType.text,
+    Color focusedBorderColor = Colors.blue,
+    Color enabledBorderColor = Colors.grey,
+  }) {
+    return TextField(
+      
+      controller: controller,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        labelText: labeText,
+        hintText: hintText,
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: focusedBorderColor),
+        ),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: enabledBorderColor),
+        ),
       ),
     );
   }
