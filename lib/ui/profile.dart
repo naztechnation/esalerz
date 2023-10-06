@@ -43,10 +43,12 @@ class Profile extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Center(
-              child: Icon(Icons.notifications_sharp,
-                  color: AppColors.lightPrimary),
-            ),
+            child: Center(
+                child: Image.asset(
+              'assets/images/notification1.png',
+              height: 25,
+              color: AppColors.lightPrimary,
+            )),
           ),
         ],
       ),

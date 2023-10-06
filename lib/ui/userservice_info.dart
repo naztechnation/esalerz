@@ -1,8 +1,10 @@
+import 'package:esalerz/model/chat/chatmodel.dart';
 import 'package:esalerz/model/service_contents.dart';
 import 'package:esalerz/model/service_term.dart';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/bigtext.dart';
+import 'package:esalerz/ui/widgets/chat_screen.dart';
 import 'package:esalerz/ui/widgets/customer_reviews.dart';
 import 'package:esalerz/ui/widgets/dotindicator.dart';
 import 'package:esalerz/ui/widgets/smalltext.dart';
@@ -234,7 +236,20 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           title: 'Start chat',
                           textcolor: Colors.white,
                           backgroundcolor: AppColors.lightSecondary,
-                          onpressed: () {},
+                          onpressed: () {
+                            final initialMessages = [
+                              ChatMessage(
+                                  text: messageController.text,
+                                  timestamp: DateTime.now(),
+                                  isMe: true)
+                            ];
+                            NavigationHelper.navigateToPage(
+                              context,
+                              ChatScreen(
+                                  initialMessages:
+                                      initialMessages), // Pass initial messages
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -528,8 +543,9 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                                     !isGridView; // Toggle the view mode
                               });
                             },
-                            icon: Icon(
-                              Icons.grid_view_rounded,
+                            icon: Image.asset(
+                              'assets/images/grid.png',
+                              height: 20,
                               color: isGridView
                                   ? AppColors.lightPrimary
                                   : Colors.black,
@@ -542,8 +558,9 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                                     !isGridView; // Toggle the view mode
                               });
                             },
-                            icon: Icon(
-                              Icons.list,
+                            icon: Image.asset(
+                              'assets/images/list.png',
+                              height: 20,
                               color: isGridView
                                   ? Colors.black
                                   : AppColors.lightPrimary,

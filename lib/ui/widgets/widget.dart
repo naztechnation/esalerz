@@ -854,7 +854,19 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                 child: ListBody(
                   children: <Widget>[
                     ListTile(
-                      leading: const Icon(Icons.camera),
+                      leading: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.lightPrimary,
+                        ),
+                        child: Image.asset(
+                          'assets/images/camera.png',
+                          fit: BoxFit.cover,
+                          height: 30,
+                          color: Colors.white,
+                        ),
+                      ),
                       title: const Text('Camera'),
                       onTap: () {
                         _pickImage(ImageSource.camera);
@@ -862,7 +874,19 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.image),
+                      leading: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.lightPrimary,
+                        ),
+                        child: Image.asset(
+                          'assets/images/gallery.png',
+                          fit: BoxFit.contain,
+                          height: 30,
+                          color: Colors.white,
+                        ),
+                      ),
                       title: const Text('Gallery'),
                       onTap: () {
                         _pickImage(ImageSource.gallery);
@@ -926,7 +950,6 @@ class TextInputField {
     Color enabledBorderColor = Colors.grey,
   }) {
     return TextField(
-      
       controller: controller,
       keyboardType: keyboardType,
       decoration: InputDecoration(
