@@ -12,6 +12,8 @@ import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 
+import 'widgets/button_view.dart';
+
 class UserServiceInfo extends StatefulWidget {
   const UserServiceInfo({super.key});
 
@@ -47,8 +49,8 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
         backgroundColor: AppColors.cardColor,
         elevation: 0,
         title: const Text(
-          'Services',
-          style: TextStyle(fontSize: 15, color: Colors.black),
+          'Product Services',
+          style: TextStyle(fontSize: 16, color: Colors.black),
         ),
         leading: GestureDetector(
           onTap: () {
@@ -161,19 +163,54 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SmallButton(
-                              title: 'Request call back',
-                              bordercolor: AppColors.lightPrimary,
-                              textcolor: AppColors.lightPrimary,
-                              backgroundcolor: Colors.white,
-                              onpressed: () {},
+                            Expanded(
+                              flex: 6,
+                              child: ButtonView(
+                                onPressed: () {},
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 0),
+                                color: Colors.white,
+                                borderColor: AppColors.lightPrimary,
+                                expanded: false,
+                                child: const Text(
+                                  'Request call back',
+                                  style: TextStyle(
+                                    color: AppColors.lightPrimary,
+                                  ),
+                                ),
+                              ),
                             ),
-                            SmallButton(
-                              title: 'Call',
-                              bordercolor: AppColors.lightPrimary,
-                              textcolor: Colors.white,
-                              backgroundcolor: AppColors.lightPrimary,
-                              onpressed: () {},
+                            const SizedBox(
+                              width: 12,
+                            ),
+                            Expanded(
+                              flex: 4,
+                              child: ButtonView(
+                                onPressed: () {},
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                color: AppColors.lightPrimary,
+                                borderColor: Colors.white,
+                                expanded: false,
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.call,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      'Call',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -194,33 +231,59 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                       children: [
                         SmallText(text: 'Start Esalerz chat with seller'),
                         const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Wrap(
                           children: [
-                            SmallButton(
-                              title: 'Make an offer',
-                              bordercolor: AppColors.lightPrimary,
-                              textcolor: AppColors.lightPrimary,
-                              backgroundcolor: Colors.white,
-                              onpressed: () {},
+                            ButtonView(
+                              onPressed: () {},
+                              color: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                              borderColor: AppColors.lightPrimary,
+                              expanded: false,
+                              child: const Text(
+                                'Make an offer',
+                                style: TextStyle(
+                                  color: AppColors.lightPrimary,
+                                ),
+                              ),
                             ),
-                            SmallButton(
-                              title: 'Is this available',
-                              bordercolor: AppColors.lightPrimary,
-                              textcolor: AppColors.lightPrimary,
-                              backgroundcolor: Colors.white,
-                              onpressed: () {},
+                            const SizedBox(
+                              width: 12,
                             ),
-                            SmallButton(
-                              title: 'Last price',
-                              bordercolor: AppColors.lightPrimary,
-                              textcolor: AppColors.lightPrimary,
-                              backgroundcolor: Colors.white,
-                              onpressed: () {},
+                            ButtonView(
+                              onPressed: () {},
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                              color: Colors.white,
+                              borderColor: AppColors.lightPrimary,
+                              expanded: false,
+                              child: const Text(
+                                'Is this available',
+                                style: TextStyle(
+                                  color: AppColors.lightPrimary,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 12,
+                            ),
+                            ButtonView(
+                              onPressed: () {},
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                              color: Colors.white,
+                              borderColor: AppColors.lightPrimary,
+                              expanded: false,
+                              child: const Text(
+                                'Last price',
+                                style: TextStyle(
+                                  color: AppColors.lightPrimary,
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 14),
                         TextEditView(
                           borderWidth: 0.5,
                           controller: messageController,
@@ -230,26 +293,32 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           isDense: true,
                           borderColor: AppColors.lightPrimary,
                         ),
-                        const SizedBox(height: 10),
-                        DefaultButton(
-                          bordercolor: AppColors.lightSecondary,
-                          title: 'Start chat',
-                          textcolor: Colors.white,
-                          backgroundcolor: AppColors.lightSecondary,
-                          onpressed: () {
+                        const SizedBox(height: 25),
+                        ButtonView(
+                          onPressed: () {
                             final initialMessages = [
                               ChatMessage(
                                   text: messageController.text,
                                   timestamp: DateTime.now(),
                                   isMe: true)
                             ];
+
                             NavigationHelper.navigateToPage(
                               context,
-                              ChatScreen(
-                                  initialMessages:
-                                      initialMessages), // Pass initial messages
+                              ChatScreen(initialMessages: initialMessages),
                             );
                           },
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 13, horizontal: 14),
+                          color: AppColors.lightPrimary,
+                          borderColor: Colors.white,
+                          expanded: true,
+                          child: const Text(
+                            'Start Chat',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -392,12 +461,20 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                               "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
                         ),
                         const SizedBox(height: 15),
-                        DefaultButton(
-                          bordercolor: AppColors.lightPrimary,
-                          title: 'Make an offer',
-                          textcolor: AppColors.lightPrimary,
-                          backgroundcolor: Colors.white,
-                          onpressed: () {},
+                        ButtonView(
+                          onPressed: () {},
+                          color: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          borderRadius: 5,
+                          borderWidth: 1,
+                          borderColor: AppColors.lightPrimary,
+                          child: const Text(
+                            'Make an offer',
+                            style: TextStyle(
+                              color: AppColors.lightPrimary,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -477,16 +554,27 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                                       color: AppColors.lightPrimary,
                                     ),
                                   ),
-                                  DefaultButton(
-                                    title: 'See more reviews',
-                                    bordercolor: AppColors.lightPrimary,
-                                    textcolor: AppColors.lightPrimary,
-                                    backgroundcolor: Colors.white,
-                                    onpressed: () {
+                                  const SizedBox(height: 15),
+                                   ButtonView(
+                              onPressed: () {
                                       NavigationHelper.navigateToPage(
                                           context, const CustomerReviews());
-                                    },
-                                  ),
+                                          
+                              },
+                              color: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                                  borderRadius: 5,
+                                  borderWidth: 1,
+                              borderColor: AppColors.lightPrimary,
+                              child: const Text(
+                                'See more reviews',
+                                style: TextStyle(
+                                  color: AppColors.lightPrimary,
+                                ),
+                              ),
+                            ),
+                                 
                                 ],
                               ),
                             ),
@@ -495,33 +583,70 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                         const SizedBox(
                           height: 30,
                         ),
-                        DefaultButton(
-                          title: 'Leave feedback',
-                          textcolor: AppColors.lightSecondary,
-                          backgroundcolor: Colors.white,
-                          onpressed: () {},
-                          bordercolor: AppColors.lightSecondary,
-                        ),
+                         ButtonView(
+                              onPressed: () {
+                                      NavigationHelper.navigateToPage(
+                                          context, const CustomerReviews());
+                                          
+                              },
+                              color: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                                  borderRadius: 5,
+                                  borderWidth: 1,
+                              borderColor: AppColors.lightSecondary,
+                              child: const Text(
+                                'Leave feedback',
+                                style: TextStyle(
+                                  color: AppColors.lightSecondary,
+                                ),
+                              ),
+                            ),
+                        
                         const SizedBox(
                           height: 10,
                         ),
-                        DefaultButton(
-                          title: 'Report abuse',
-                          textcolor: AppColors.red,
-                          backgroundcolor: Colors.white,
-                          onpressed: () {},
-                          bordercolor: AppColors.red,
-                        ),
+                        ButtonView(
+                              onPressed: () {
+                                      NavigationHelper.navigateToPage(
+                                          context, const CustomerReviews());
+                                          
+                              },
+                              color: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                                  borderRadius: 5,
+                                  borderWidth: 1,
+                              borderColor: AppColors.lightSecondary,
+                              child: const Text(
+                                'Report abuse',
+                                style: TextStyle(
+                                  color: AppColors.lightSecondary,
+                                ),
+                              ),
+                            ),
                         const SizedBox(
                           height: 10,
                         ),
-                        DefaultButton(
-                          title: 'Post ad like this',
-                          textcolor: AppColors.lightPrimary,
-                          backgroundcolor: Colors.white,
-                          onpressed: () {},
-                          bordercolor: AppColors.lightPrimary,
-                        ),
+                        ButtonView(
+                              onPressed: () {
+                                      NavigationHelper.navigateToPage(
+                                          context, const CustomerReviews());
+                                          
+                              },
+                              color: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                                  borderRadius: 5,
+                                  borderWidth: 1,
+                              borderColor: AppColors.lightPrimary,
+                              child: const Text(
+                                'Post ads like this',
+                                style: TextStyle(
+                                  color: AppColors.lightPrimary,
+                                ),
+                              ),
+                            ),
                       ],
                     ),
                   ),
