@@ -4,7 +4,6 @@ import 'package:esalerz/model/service_term.dart';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/bigtext.dart';
-import 'package:esalerz/ui/widgets/chat_screen.dart';
 import 'package:esalerz/ui/widgets/customer_reviews.dart';
 import 'package:esalerz/ui/widgets/dotindicator.dart';
 import 'package:esalerz/ui/widgets/smalltext.dart';
@@ -168,7 +167,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                               child: ButtonView(
                                 onPressed: () {},
                                 padding: const EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 0),
+                                    vertical: 10, horizontal: 0),
                                 color: Colors.white,
                                 borderColor: AppColors.lightPrimary,
                                 expanded: false,
@@ -303,10 +302,10 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                                   isMe: true)
                             ];
 
-                            NavigationHelper.navigateToPage(
-                              context,
-                              ChatScreen(initialMessages: initialMessages),
-                            );
+                          //   NavigationHelper.navigateToPage(
+                          //     context,
+                          //  //   ChatScreen(initialMessages: initialMessages),
+                          //   );
                           },
                           padding: const EdgeInsets.symmetric(
                               vertical: 13, horizontal: 14),
