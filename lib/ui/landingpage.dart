@@ -1,3 +1,4 @@
+import 'package:esalerz/kyc/service_kyc_one.dart';
 import 'package:esalerz/ui/post_ad.dart';
 import 'package:esalerz/ui/widgets/custom_button_nav.dart/custom_button_nav.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
@@ -21,13 +22,11 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   final List<Widget> _pages = [
-   const Home(),
+    const Home(),
     Services(),
     Ads(),
     Profile(),
   ];
-
-   
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +48,7 @@ class _LandingPageState extends State<LandingPage> {
           splashColor: AppColors.lightPrimary,
           child: const Text('Sell'),
           onPressed: () {
-            NavigationHelper.navigateToPage(context, const PostAd());
+            NavigationHelper.navigateToPage(context, KycServiceScreenOne());
           },
         ),
       ),

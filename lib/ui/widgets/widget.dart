@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ionicons/ionicons.dart';
 
 //service board
 class ServiceBoard extends StatelessWidget {
@@ -964,4 +965,22 @@ class TextInputField {
       ),
     );
   }
+}
+
+//back button
+
+Widget backButton(BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.pop(context);
+    },
+    child: const Row(
+      children: [
+        Icon(
+          Ionicons.arrow_back,
+          color: Colors.black,
+        ),
+      ],
+    ),
+  );
 }
