@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../res/app_routes.dart';
-import '../../utils/navigator/page_navigator.dart';
 import 'progress_indicator.dart';
 
 class ButtonView extends StatelessWidget {

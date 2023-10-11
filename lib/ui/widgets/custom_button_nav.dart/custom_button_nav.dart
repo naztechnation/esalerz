@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../provider/items.dart';
 
 class FABBottomAppBarItem {
   FABBottomAppBarItem({
@@ -51,6 +54,7 @@ class FABBottomAppBar extends StatefulWidget {
 class FABBottomAppBarState extends State<FABBottomAppBar> {
   int _selectedIndex = 0;
 
+
   _updateIndex(int index) {
     widget.onTabSelected(index);
     setState(() {
@@ -60,6 +64,8 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    final pageIndexProvider = Provider.of<PageIndexProvider>(context);
+
     List<Widget> items = List.generate(
         widget.items.length, (int index) {
       return _buildTabItem(
@@ -73,12 +79,12 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     return BottomAppBar(
       shape: widget.notchedShape,
       notchMargin: 3.0,
+      color: widget.backgroundColor,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: items,
-      ),
-      color: widget.backgroundColor
+      )
     );
   }
 

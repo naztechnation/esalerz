@@ -21,34 +21,13 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   final List<Widget> _pages = [
-    Home(),
+   const Home(),
     Services(),
     Ads(),
     Profile(),
   ];
 
-  List<BottomNavigationBarItem> _navItems(int selectedIndex) {
-    const labels = ['Home', 'Services', 'Ads', 'Profile'];
-    const icons = [
-      'assets/images/homee.png',
-      'assets/images/setting.png',
-      'assets/images/reportt.png',
-      'assets/images/person.png',
-    ];
-
-    return List.generate(
-      labels.length,
-      (index) => BottomNavigationBarItem(
-        tooltip: labels.elementAt(index),
-        icon: Image.asset(
-          icons[index],
-          height: 30,
-          color: selectedIndex == index ? AppColors.lightPrimary : Colors.grey,
-        ),
-        label: labels[index],
-      ),
-    );
-  }
+   
 
   @override
   Widget build(BuildContext context) {
