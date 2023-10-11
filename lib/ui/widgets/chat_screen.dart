@@ -15,6 +15,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  String formattedTime = '';
   final List<ChatMessage> messages;
   _ChatScreenState({required this.messages});
 
@@ -33,6 +34,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final currentTime = TimeOfDay.now();
+    formattedTime = '${currentTime.hour}:${currentTime.minute}';
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.cardColor,
@@ -137,7 +140,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                       subtitle: Text(
-                        message.isMe ? 'You' : 'Other User',
+                        message.isMe ? formattedTime : 'Other User',
                         textAlign:
                             message.isMe ? TextAlign.right : TextAlign.left,
                       ),

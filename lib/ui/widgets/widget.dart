@@ -862,8 +862,8 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                         ),
                         child: Image.asset(
                           'assets/images/camera.png',
-                          fit: BoxFit.cover,
-                          height: 30,
+                          fit: BoxFit.contain,
+                          height: 25,
                           color: Colors.white,
                         ),
                       ),
@@ -883,7 +883,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                         child: Image.asset(
                           'assets/images/gallery.png',
                           fit: BoxFit.contain,
-                          height: 30,
+                          height: 25,
                           color: Colors.white,
                         ),
                       ),
@@ -908,8 +908,8 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           border: _imageFile == null
               ? Border.all(
                   width: 1,
-                  color:
-                      Colors.grey) // Apply the border when no image is selected
+                  color: Colors.grey,
+                )
               : null, // No border when an image is selected
         ),
         child: _imageFile != null
