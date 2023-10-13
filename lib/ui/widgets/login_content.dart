@@ -57,7 +57,7 @@ class _LoginContentState extends State<LoginContent>
 
   Widget loginButton(String title) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 135, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
       child: ElevatedButton(
         onPressed: () {
           AppNavigator.pushAndReplaceName(context, name: AppRoutes.landingPage);
@@ -146,6 +146,10 @@ class _LoginContentState extends State<LoginContent>
   @override
   void initState() {
     createAccountContent = [
+      const Padding(
+        padding: EdgeInsets.only(left:22.0),
+        child: TopText(),
+      ),
       inputField('Name', Ionicons.person_outline),
       inputField('Email', Ionicons.mail_outline),
       inputField('Password', Ionicons.lock_closed_outline),
@@ -155,6 +159,10 @@ class _LoginContentState extends State<LoginContent>
     ];
 
     loginContent = [
+      const Padding(
+        padding: EdgeInsets.only(left:22.0),
+        child: TopText(),
+      ),
       inputField('Email', Ionicons.mail_outline),
       inputField('Password', Ionicons.lock_closed_outline),
       loginButton('Log In'),
@@ -195,13 +203,9 @@ class _LoginContentState extends State<LoginContent>
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const Positioned(
-          top: 136,
-          left: 24,
-          child: TopText(),
-        ),
+         
         Padding(
-          padding: const EdgeInsets.only(top: 100),
+          padding:   EdgeInsets.only(top: MediaQuery.sizeOf(context).height* 0.01),
           child: Stack(
             children: [
               Container(
