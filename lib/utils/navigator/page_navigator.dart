@@ -24,7 +24,7 @@ class AppNavigator {
   }
 
   static Future<dynamic> pushAndRemovePreviousPages(BuildContext context,
-      {required Widget page}) async {
+      {required Widget page, required String name}) async {
     final result = await Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (BuildContext context) => page),

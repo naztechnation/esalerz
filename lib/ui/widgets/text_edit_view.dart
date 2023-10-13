@@ -84,7 +84,6 @@ class TextEditView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-         
           TextFormField(
             controller: controller,
             keyboardType: keyboardType,
@@ -110,7 +109,6 @@ class TextEditView extends StatelessWidget {
                     borderSide: BorderSide(
                         width: borderWidth,
                         color: AppColors.lightPrimary,
-                        
                         style: BorderStyle.solid)),
                 focusedErrorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(borderRadius),
@@ -124,7 +122,9 @@ class TextEditView extends StatelessWidget {
                 hintText: hintText,
                 hintStyle: TextStyle(color: textColor, fontSize: 14),
                 labelText: labelText,
-                labelStyle: TextStyle(color: textColor),
+                labelStyle: TextStyle(
+                  color: AppColors.lightPrimary,
+                ),
                 filled: filled,
                 isDense: isDense,
                 fillColor: fillColor ??
@@ -137,7 +137,7 @@ class TextEditView extends StatelessWidget {
                 iconColor: iconColor,
                 prefixIconColor: iconColor,
                 suffixIcon: suffixIcon,
-                suffixIconColor: iconColor),
+                suffixIconColor: AppColors.lightPrimary),
           ),
         ],
       ),

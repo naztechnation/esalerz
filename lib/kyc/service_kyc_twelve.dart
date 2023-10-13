@@ -99,8 +99,8 @@ class KycServiceScreenTwelve extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20),
                   child: ButtonView(
                     onPressed: () {
-                      AppNavigator.pushAndReplaceName(context,
-                          name: AppRoutes.landingPage);
+                      AppNavigator.pushNamedAndRemoveUntil(context,
+                          name: AppRoutes.postAd);
                     },
                     color: AppColors.lightPrimary,
                     child: const CustomText(
