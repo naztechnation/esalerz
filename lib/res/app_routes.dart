@@ -1,6 +1,7 @@
 import 'package:esalerz/ui/auth/auth.dart';
 import 'package:esalerz/ui/landingpage.dart';
 import 'package:esalerz/ui/on_boarding/boarding_screen.dart';
+import 'package:esalerz/ui/post_ad.dart';
 import 'package:esalerz/ui/welcomepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class AppRoutes {
   static const String welcomeScreen = 'welcomeScreen';
   static const String loginScreen = 'loginScreen';
   static const String landingPage = 'landingPage';
+  static const String postAd = 'postAd';
 
   static Map<String, Widget Function(BuildContext)> routes = {
     splashScreen: (context) => const SplashScreen(),
@@ -20,6 +22,7 @@ class AppRoutes {
     welcomeScreen: (context) => const WelcomePage(),
     loginScreen: (context) => const LoginScreen(),
     landingPage: (context) => const LandingPage(),
+    postAd: (context) => const PostAd(),
   };
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -44,6 +47,10 @@ class AppRoutes {
       case landingPage:
         return MaterialPageRoute(
           builder: (context) => const LandingPage(),
+        );
+      case postAd:
+        return MaterialPageRoute(
+          builder: (context) => const PostAd(),
         );
       default:
         return CupertinoPageRoute(
