@@ -7,7 +7,6 @@ import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 import '../../../res/app_colors.dart';
 
@@ -81,9 +80,9 @@ class KycServiceScreenFour extends StatelessWidget {
                   ),
                   const SizedBox(height: 55),
                   const CustomText(
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.left,
                     maxLines: 1,
-                    text: 'Your age',
+                    text: 'Date of Birth',
                     weight: FontWeight.w700,
                     size: 32,
                     fontFamily: AppStrings.interSans,

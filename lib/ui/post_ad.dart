@@ -1,11 +1,17 @@
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart';
+import 'package:esalerz/ui/landingpage.dart';
+import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/category_selection.dart';
 import 'package:esalerz/ui/widgets/modals.dart';
 import 'package:esalerz/ui/widgets/smalltext.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
+
+import '../res/app_strings.dart';
+import '../utils/navigator/page_navigator.dart';
+import 'widgets/custom_text.dart';
 
 class PostAd extends StatefulWidget {
   const PostAd({super.key});
@@ -192,12 +198,25 @@ class _PostAdState extends State<PostAd> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  DefaultButton(
-                    title: 'Post Ad',
-                    textcolor: Colors.white,
-                    backgroundcolor: AppColors.lightPrimary,
-                    onpressed: () {},
-                    bordercolor: AppColors.lightPrimary,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: ButtonView(
+                          onPressed: () {
+                             AppNavigator.pushAndReplacePage(context, page: LandingPage());
+                          },
+                          color:   AppColors.lightPrimary ,
+                          borderRadius: 32,
+                          borderColor: Colors.white,
+                          child: CustomText(
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            text: 'Post Ads',
+                            weight: FontWeight.w700,
+                            size: 16,
+                            fontFamily: AppStrings.interSans,
+                            color:    AppColors.cardColor  ,
+                          ),
+                        ),
                   ),
                 ],
               ),

@@ -25,6 +25,7 @@ enum CreateComboOverlayType { vendors, chow }
 enum ProductsType { food, drinks, groceries, pharmacy }
 
 enum BookingsType { myBookings, bookingRequest }
+enum GenderType{ none, male, female }
 
 enum MenuOptions {
   showUserAgent,

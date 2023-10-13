@@ -4,12 +4,13 @@ import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:provider/provider.dart';
 
 import '../../../res/app_colors.dart';
 import '../../../res/app_strings.dart';
 import '../../../utils/navigator/page_navigator.dart';
+import '../res/enum.dart';
 import '../ui/widgets/button_view.dart';
+import '../ui/widgets/choice_card.dart';
 import '../ui/widgets/custom_text.dart';
 import 'service_kyc_four.dart';
 
@@ -23,7 +24,7 @@ class KycServiceScreenThree extends StatefulWidget {
 }
 
 class _KycServiceScreenThreeState extends State<KycServiceScreenThree> {
-  // PetGenderType _petGenderType = PetGenderType.none;
+    GenderType _petGenderType =  GenderType.none;
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +108,22 @@ class _KycServiceScreenThreeState extends State<KycServiceScreenThree> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  inputField('Enter gender', Ionicons.person_outline),
+                    Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ChoiceCard(_petGenderType ==  GenderType.male, 'Male', () {
+                  setState(() {
+                    _petGenderType =  GenderType.male;
+                  });
+                }),
+                ChoiceCard(_petGenderType ==  GenderType.female, 'Female',
+                    () {
+                  setState(() {
+                    _petGenderType = GenderType.female;
+                  });
+                })
+              ],
+            ),
                   const Spacer(),
                   // if (_petGenderType != PetGenderType.none)
                   Padding(
