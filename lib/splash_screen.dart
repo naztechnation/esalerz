@@ -2,9 +2,13 @@ import 'dart:async';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/res/app_routes.dart';
+import 'package:esalerz/ui/auth/auth.dart';
 import 'package:esalerz/ui/widgets/image_view.dart';
 import 'package:esalerz/utils/navigator/page_navigator.dart';
 import 'package:flutter/material.dart';
+
+import 'handlers/secure_handler.dart';
+import 'ui/landingpage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,6 +24,14 @@ class SplashScreenState extends State<SplashScreen>
   late AnimationController animationController;
   late Animation<double> animation;
 
+    bool userLoggedIn = false;
+  String isOnBoarding = '';
+
+  getUserDetails() async {
+    userLoggedIn = await StorageHandler.isLoggedIn();
+    isOnBoarding = await StorageHandler.getOnBoardState();
+  }
+
   startTime() async {
     // var duration = const Duration(seconds: 3);
     Future.delayed(const Duration(seconds:2, ),(){
@@ -28,17 +40,31 @@ class SplashScreenState extends State<SplashScreen>
     //  Timer(duration, navigationPage);
   }
 
-  void navigationPage() {
-    AppNavigator.pushAndReplaceName(context, name: AppRoutes.onBoardingScreen);
+    void navigationPage() {
+
+    if (isOnBoarding == '') {
+          AppNavigator.pushAndReplaceName(context, name: AppRoutes.onBoardingScreen);
+
+    } else if (userLoggedIn) {
+      AppNavigator.pushAndReplacePage(context,
+                      page: const LandingPage());
+     
+    }else{
+      StorageHandler.logout();
+       AppNavigator.pushAndReplacePage(context, page:LoginScreen());
+    }
   }
 
   @override
   void initState() {
     super.initState();
+    getUserDetails();
     animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 3));
     animation =
         CurvedAnimation(parent: animationController, curve: Curves.easeOut);
+
+       
 
     animation.addListener(() => setState(() {}));
     animationController.forward();

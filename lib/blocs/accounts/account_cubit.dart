@@ -14,7 +14,7 @@ class AccountCubit extends Cubit<AccountStates> {
   final AccountViewModel viewModel;
 
   Future<void> registerUser({
-    required String gender,
+    required String fullName,
     required String email,
     required String password,
     required String phoneNumber,
@@ -23,7 +23,7 @@ class AccountCubit extends Cubit<AccountStates> {
       emit(AccountProcessing());
 
       final user = await accountRepository.registerUser(
-        gender: gender,
+        fullName: fullName,
         email: email,
         password: password,
         phone: phoneNumber,
@@ -46,30 +46,30 @@ class AccountCubit extends Cubit<AccountStates> {
     }
   }
 
-//   Future<void> loginUser(
-//       {required String password, required String email}) async {
-//     try {
-//       emit(AccountLoading());
+  Future<void> loginUser(
+      {required String password, required String email}) async {
+    try {
+      emit(AccountLoading());
 
-//       final userData =
-//           await accountRepository.loginUser(email: email, password: password);
+      final userData =
+          await accountRepository.loginUser(email: email, password: password);
 
-//       await viewModel.setToken(userData.token ?? '');
-//       emit(AccountUpdated(userData));
-//     } on ApiException catch (e) {
-//       emit(AccountApiErr(e.message));
-//     } catch (e) {
-//       if (e is NetworkException ||
-//           e is BadRequestException ||
-//           e is UnauthorisedException ||
-//           e is FileNotFoundException ||
-//           e is AlreadyRegisteredException) {
-//         emit(AccountNetworkErr(e.toString()));
-//       } else {
-//         rethrow;
-//       }
-//     }
-//   }
+      // await viewModel.setToken(userData.token ?? '');
+      emit(AccountUpdated(userData));
+    } on ApiException catch (e) {
+      emit(AccountApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(AccountNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
 
 //   Future<void> verifyCode({required String code, required String token}) async {
 //     try {

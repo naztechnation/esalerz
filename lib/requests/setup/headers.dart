@@ -1,5 +1,4 @@
 
-import '../../res/app_strings.dart';
 
 Future<Map<String, String>> rawDataHeader([String? token]) async {
   final accessToken = token;

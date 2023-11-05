@@ -2,6 +2,7 @@ import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:flutter/material.dart';
 
+import '../handlers/secure_handler.dart';
 import '../res/app_routes.dart';
 import '../utils/animation.dart';
 import '../utils/navigator/page_navigator.dart';
@@ -16,15 +17,13 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage>
     with TickerProviderStateMixin {
-  late AnimationController _scaleController;
 
   bool hide = false;
 
   @override
   void initState() {
     super.initState();
-    _scaleController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 800));
+   
   }
 
   @override
@@ -79,23 +78,49 @@ class _WelcomePageState extends State<WelcomePage>
                     const SizedBox(
                       height: 100,
                     ),
-                    FadeAnimation(
-                        1.7,
-                        Padding(
+                    // FadeAnimation(
+                    //     1.7,
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(bottom: 20),
+                    //       child: InkWell(
+                    //         onTap: () {
+                    //           AppNavigator.pushAndReplaceName(context,
+                    //               name: AppRoutes.loginScreen);   
+                    //         },
+                    //         child: Container(
+                    //           height: 50,
+                    //           decoration: BoxDecoration(
+                    //               color: AppColors.lightPrimary,
+                    //               borderRadius: BorderRadius.circular(50)),
+                    //           child: const Center(
+                    //             child: Text(
+                    //               "Get started",
+                    //               style: TextStyle(
+                    //                   color: Colors.white,
+                    //                   fontWeight: FontWeight.bold),
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     )),
+                    
+                         Padding(
                           padding: const EdgeInsets.only(bottom: 20),
                           child: InkWell(
                             onTap: () {
+                               StorageHandler.saveOnboardState('true');
+                               
                               AppNavigator.pushAndReplaceName(context,
                                   name: AppRoutes.loginScreen);   
                             },
-                            child: Container(
+                            child:  Container(
                               height: 50,
                               decoration: BoxDecoration(
-                                  color: AppColors.lightPrimary,
+                                  border: Border.all(color: AppColors.lightPrimary),
                                   borderRadius: BorderRadius.circular(50)),
                               child: const Center(
                                 child: Text(
-                                  "Get started",
+                                  "Create Account",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
@@ -103,23 +128,7 @@ class _WelcomePageState extends State<WelcomePage>
                               ),
                             ),
                           ),
-                        )),
-                    FadeAnimation(
-                        1.7,
-                        Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: AppColors.lightPrimary),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: const Center(
-                            child: Text(
-                              "Create Account",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        )),
+                        ),
                   ],
                 ),
               ],

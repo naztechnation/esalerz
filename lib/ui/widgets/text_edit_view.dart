@@ -55,7 +55,7 @@ class TextEditView extends StatelessWidget {
       this.borderWidth = 1.5,
       this.suffixIcon,
       this.iconColor,
-      this.textColor,
+      this.textColor = Colors.black,
       this.prefixIcon,
       this.borderColor,
       this.filled = true,

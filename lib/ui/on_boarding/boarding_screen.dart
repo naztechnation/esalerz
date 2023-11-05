@@ -137,6 +137,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               padding: const EdgeInsets.all(30),
                               child: ElevatedButton(
                                 onPressed: () {
+                                  
                                   AppNavigator.pushAndReplaceName(context,
                                       name: AppRoutes.welcomeScreen);
                                 },
@@ -154,7 +155,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   textStyle: TextStyle(
                                       fontSize: (width <= 550) ? 13 : 17),
                                 ),
-                                child: const Text("START"),
+                                child: const Text("GET STARTED"),
                               ),
                             )
                           : Padding(

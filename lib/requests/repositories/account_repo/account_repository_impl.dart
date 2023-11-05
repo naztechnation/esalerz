@@ -1,5 +1,4 @@
-
-import '../../../model/auth_model/auth_user.dart'; 
+import '../../../model/auth_model/auth_user.dart';
 import '../../../res/app_strings.dart';
 import '../../setup/requests.dart';
 import 'account_repository.dart';
@@ -9,30 +8,26 @@ class AccountRepositoryImpl implements AccountRepository {
   Future<AuthUser> registerUser(
       {required String email,
       required String password,
-      required String gender,
-      
+      required String fullName,
       required String phone}) async {
     final map = await Requests().post(AppStrings.registerUrl, body: {
       "email": email,
       "password": password,
-      "gender": gender,
-      "phone": phone,
-      "subscribed_users": 'subscribed_users',
-      
+      "name": fullName,
+      // "phone": phone,
     });
     return AuthUser.fromJson(map);
   }
-  
-  // @override
-  // Future<AuthData> loginUser({required String email, required String password}) async {
-  //   final map = await Requests().post(AppStrings.loginUrl, body: {
-  //     "email": email,
-  //     "password": password,
-      
-  //   });
-  //   return AuthData.fromJson(map);
-  // }
 
+  // @override
+  Future<AuthUser> loginUser({required String email, required String password}) async {
+    final map = await Requests().post(AppStrings.loginUrl, body: {
+      "email": email,
+      "password": password,
+
+    });
+    return AuthUser.fromJson(map);
+  }
 
   // @override
   // Future<AuthData> verifyCode(
@@ -45,12 +40,12 @@ class AccountRepositoryImpl implements AccountRepository {
 
   //   return AuthData.fromJson(map);
   // }
-  
+
   // @override
   // Future<AuthData> forgetPassword({required String email}) async {
   //   final map = await Requests().post(AppStrings.forgotPasswordUrl, body: {
   //     "email": email,
-      
+
   //   });
   //   return AuthData.fromJson(map);
   // }
@@ -65,5 +60,5 @@ class AccountRepositoryImpl implements AccountRepository {
   //   });
 
   //   return AuthData.fromJson(map);
- // }
+  // }
 }
