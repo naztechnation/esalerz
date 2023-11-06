@@ -1,4 +1,3 @@
- 
 import 'package:esalerz/ui/auth/otp_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +13,6 @@ import '../../res/enum.dart';
 import '../../utils/navigator/page_navigator.dart';
 import '../../utils/validator.dart';
 import '../widgets/button_view.dart';
-import '../widgets/image_view.dart';
 import '../widgets/modals.dart';
 import '../widgets/text_edit_view.dart';
 
@@ -46,7 +44,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             if (state.userData.status == 1) {
               Modals.showToast(state.userData.message ?? '',
                   messageType: MessageType.success);
-                // setToken.setToken(state.userData.token!);
+              // setToken.setToken(state.userData.token!);
 
               AppNavigator.pushAndReplacePage(context,
                   page: OtpScreen(
@@ -68,104 +66,127 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           }
         },
         builder: (context, state) => SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Container(
+          child: Stack(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(
+                          AppImages.bg,
+                        ),
+                        fit: BoxFit.cover)),
+              ),
+              Container(
+                color: Colors.white12,
                 height: MediaQuery.sizeOf(context).height,
                 width: MediaQuery.sizeOf(context).width,
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [
-                    AppColors.lightSecondary,
-                    AppColors.lightPrimary,
-                  ],
-                  stops: [0.1, 0.8],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                )),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.sizeOf(context).height * 0.05,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 20.0),
-                            child: Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,),
-                          )),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.sizeOf(context).height * 0.18,
-                    ),
-                    const Text(
-                      'Forgot Password',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 32,
+              ),
+              Container(
+                height: MediaQuery.sizeOf(context).height,
+                color: Colors.transparent,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.sizeOf(context).height * 0.05,
                       ),
-                    ),
-                    const SizedBox(height: 31),
-                    const Text(
-                      'Enter your email address',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 61,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 12),
-                      child: TextEditView(
-                        controller: _emailController,
-                        labelText: 'Email',
-                        validator: Validator.validateEmail,
-                        prefixIcon: const Icon(
-                          Ionicons.mail_outline,
-                          color: Colors.white,
-                        ),
-                        filled: false,
-                        borderColor: Colors.white,
-                        textColor: Colors.white,
-                        borderRadius: 16,
-                        borderWidth: 1,
-                        isDense: true,
-                      ),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 16),
-                      child: ButtonView(
-                        color: Colors.white,
-                        processing: state is AccountProcessing,
-                        borderColor: Colors.white,
-                        borderRadius: 30,
-                        onPressed: () {
-                          // forgotPassword(context);
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
                         },
-                        child: const Text(
-                          'Continue',
-                          style: TextStyle(color: AppColors.lightSecondary),
+                        child: const Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 20.0),
+                              child: Icon(
+                                Icons.arrow_back_ios,
+                                color: AppColors.lightPrimary,
+                                size: 25,
+                              ),
+                            )),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.sizeOf(context).height * 0.18,
+                      ),
+                      const Text(
+                        'Forgot Password',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.lightPrimary,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 32,
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 100,
-                    )
-                  ],
-                )),
+                      const SizedBox(height: 31),
+                      const Text(
+                        'Enter your email address',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 61,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 12),
+                        child: Material(
+                          elevation: 1,
+                          shadowColor: Colors.black87,
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                          child: TextEditView(
+                            controller: _emailController,
+                            validator: Validator.validateEmail,
+                            labelText: 'Email',
+                            prefixIcon: const Icon(
+                              Ionicons.mail_outline,
+                              color: AppColors.lightPrimary,
+                            ),
+                            filled: false,
+                            borderColor: Colors.white,
+                            textColor: Colors.black,
+                            borderRadius: 30,
+                            borderWidth: 1,
+                            isDense: true,
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 16),
+                        child: ButtonView(
+                          color: AppColors.lightPrimary,
+                          processing: state is AccountProcessing,
+                          borderColor: AppColors.lightPrimary,
+                          borderRadius: 30,
+                          onPressed: () {
+                            AppNavigator.pushAndReplacePage(context,
+                                page: OtpScreen(
+                                  email: _emailController.text.trim(),
+                                  isForgotPassword: true,
+                                ));
+                            // forgotPassword(context);
+                          },
+                          child: const Text(
+                            'Continue',
+                            style: TextStyle(color: AppColors.lightBackground),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 100,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

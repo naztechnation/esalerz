@@ -100,16 +100,7 @@ class _OtpScreenState extends State<OtpScreen> {
           child: Container(
               height: MediaQuery.sizeOf(context).height,
               width: MediaQuery.sizeOf(context).width,
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                colors: [
-                  AppColors.lightSecondary,
-                  AppColors.lightPrimary,
-                ],
-                stops: [0.1, 0.8],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              )),
+              
               child: Column(
                 children: [
                   SizedBox(
@@ -134,9 +125,9 @@ class _OtpScreenState extends State<OtpScreen> {
                     'Check Your Email',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 32,
+                      color: AppColors.lightPrimary,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 28,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -146,7 +137,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     )}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: AppColors.lightPrimary,
                       fontWeight: FontWeight.w400,
                       fontSize: 14,
                     ),
@@ -161,6 +152,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           horizontal: MediaQuery.sizeOf(context).width * 0.14),
                       child: PinCodeView(
                           length: 4,
+                          obscureText: true,
                           controller: _pinController,
                           onChanged: (_) {},
                           onCompleted: (_) {
@@ -178,7 +170,7 @@ class _OtpScreenState extends State<OtpScreen> {
                               text: (!isCountdownComplete) ? 'Send Code again' : '',
                               style: const TextStyle(
                                   fontSize: 16,
-                                  color: AppColors.lightSecondary,
+                                  color: AppColors.lightPrimary,
                                   fontWeight: FontWeight.w400,
                                   fontFamily: AppStrings.urbanist,
                                   height: 2),
@@ -188,7 +180,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                       text: ' in $countdown seconds',
                                       style: const TextStyle(
                                         fontSize: 14,
-                                        color: Colors.white,
+                                        color: Colors.red,
                                   fontFamily: AppStrings.urbanist,
 
                                         fontWeight: FontWeight.w500,
@@ -207,6 +199,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                       TextSpan(
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
+                                             
                                               // forgotPassword(context);
                                             },
                                           text: (state is AccountProcessing) ? '':'Resend',
@@ -228,21 +221,26 @@ class _OtpScreenState extends State<OtpScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 16),
                     child: ButtonView(
-                      color: Colors.white,
-                      borderColor: Colors.white,
+                      color: AppColors.lightPrimary,
+                      borderColor: AppColors.lightPrimary,
                       processing: state is AccountLoading || state is AccountProcessing,
                       borderRadius: 30,
                       onPressed: () {
+                         AppNavigator.pushAndReplacePage(context,
+                    page: ResetPasswordScreen(
+                      email: widget.email,
+                      token: 'state.userData.token!',
+                    ));
                         // _verifyCode(context, getToken.token);
                       },
                       child: const Text(
                         'Verify Code',
-                        style: TextStyle(color: AppColors.lightSecondary),
+                        style: TextStyle(color: AppColors.lightBackground),
                       ),
                     ),
                   ),
                   const SizedBox(
-                    height: 100,
+                    height: 30,
                   )
                 ],
               )),

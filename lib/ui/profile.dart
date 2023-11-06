@@ -29,13 +29,12 @@ class Profile extends StatelessWidget {
           'Hello, John',
           style: TextStyle(fontSize: 15, color: Colors.black),
         ),
-        
         actions: [
           SafeArea(
             child: GestureDetector(
-              onTap: (){
+              onTap: () {
                 StorageHandler.clearCache();
-                AppNavigator.pushAndReplacePage(context, page:LoginScreen());
+                AppNavigator.pushAndReplacePage(context, page: LoginScreen());
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 20.0, top: 15),
@@ -98,148 +97,142 @@ class Profile extends StatelessWidget {
                     child: Column(
                       children: [
                         Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 12),
-                                child: Material(
-                                  elevation: 4,
-                                  shadowColor: Colors.black87,
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: TextEditView(
-                                    controller: firstNameController,
-                                    labelText: 'First Name',
-                                    prefixIcon: const Icon(
-                                      Ionicons.mail_outline,
-                                      color: AppColors.lightPrimary,
-                                    ),
-                                    filled: false,
-                          hintText: 'Enter first name',
-
-                                    borderColor: Colors.white,
-                                    textColor: Colors.black,
-                                    borderRadius: 30,
-                                    borderWidth: 1,
-                                    isDense: true,
-                                  ),
-                                ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 0.0, vertical: 8),
+                          child: Material(
+                            elevation: 0,
+                            shadowColor: Colors.black87,
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4),
+                            child: TextEditView(
+                              controller: firstNameController,
+                              labelText: 'First Name',
+                              prefixIcon: const Icon(
+                                Ionicons.person,
+                                color: AppColors.lightPrimary,
                               ),
-                        
-                        const SizedBox(height: 20),
-                         Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 12),
-                                child: Material(
-                                  elevation: 4,
-                                  shadowColor: Colors.black87,
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: TextEditView(
-                                    controller: lastNameController,
-                                    labelText: 'Last Name',
-                                    prefixIcon: const Icon(
-                                      Ionicons.mail_outline,
-                                      color: AppColors.lightPrimary,
-                                    ),
-                                    filled: false,
-                          hintText: 'Enter last name',
-
-                                    borderColor: Colors.white,
-                                    textColor: Colors.black,
-                                    borderRadius: 30,
-                                    borderWidth: 1,
-                                    isDense: true,
-                                  ),
-                                ),
+                              filled: false,
+                              hintText: 'Enter first name',
+                              borderColor: Colors.white,
+                              textColor: Colors.black,
+                              borderRadius: 4,
+                              borderWidth: 1,
+                              isDense: true,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 0.0, vertical: 8),
+                          child: Material(
+                            elevation: 0,
+                            shadowColor: Colors.black87,
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4),
+                            child: TextEditView(
+                              controller: lastNameController,
+                              labelText: 'Last Name',
+                              prefixIcon: const Icon(
+                                Ionicons.person,
+                                color: AppColors.lightPrimary,
                               ),
-                         
-                        const SizedBox(height: 20),
-                       Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 12),
-                                child: Material(
-                                  elevation: 4,
-                                  shadowColor: Colors.black87,
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: TextEditView(
-                                    controller: emailController,
-                                    labelText: 'Email',
-                                    prefixIcon: const Icon(
-                                      Ionicons.mail_outline,
-                                      color: AppColors.lightPrimary,
-                                    ),
-                                    filled: false,
-                          hintText: 'Enter Email address',
-
-                                    borderColor: Colors.white,
-                                    textColor: Colors.black,
-                                    borderRadius: 30,
-                                    borderWidth: 1,
-                                    isDense: true,
-                                  ),
-                                ),
+                              filled: false,
+                              hintText: 'Enter last name',
+                              borderColor: Colors.white,
+                              textColor: Colors.black,
+                              borderRadius: 4,
+                              borderWidth: 1,
+                              isDense: true,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 0.0, vertical: 8),
+                          child: Material(
+                            elevation: 0,
+                            shadowColor: Colors.black87,
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4),
+                            child: TextEditView(
+                              controller: emailController,
+                              labelText: 'Email',
+                              prefixIcon: const Icon(
+                                Ionicons.mail_outline,
+                                color: AppColors.lightPrimary,
                               ),
-                        const SizedBox(height: 20),
-                         Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 12),
-                                child: Material(
-                                  elevation: 4,
-                                  shadowColor: Colors.black87,
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: TextEditView(
-                                    controller: phoneController,
-                                    labelText: 'Phone Number',
-                                    prefixIcon: const Icon(
-                                      Ionicons.mail_outline,
-                                      color: AppColors.lightPrimary,
-                                    ),
-                                    filled: false,
-                          hintText: 'Enter Phone number',
-
-                                    borderColor: Colors.white,
-                                    textColor: Colors.black,
-                                    borderRadius: 30,
-                                    borderWidth: 1,
-                                    isDense: true,
-                                  ),
-                                ),
+                              filled: false,
+                              hintText: 'Enter Email address',
+                              borderColor: Colors.white,
+                              textColor: Colors.black,
+                              borderRadius: 4,
+                              borderWidth: 1,
+                              isDense: true,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 0.0, vertical: 8),
+                          child: Material(
+                            elevation: 0,
+                            shadowColor: Colors.black87,
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4),
+                            child: TextEditView(
+                              controller: phoneController,
+                              labelText: 'Phone Number',
+                              prefixIcon: const Icon(
+                                Ionicons.phone_portrait,
+                                color: AppColors.lightPrimary,
                               ),
-                        const SizedBox(height: 20),
-                         Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 12),
-                                child: Material(
-                                  elevation: 4,
-                                  shadowColor: Colors.black87,
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: TextEditView(
-                                    controller: phoneController,
-                                    labelText: 'Address',
-                                    prefixIcon: const Icon(
-                                      Ionicons.mail_outline,
-                                      color: AppColors.lightPrimary,
-                                    ),
-                                    filled: false,
-                          hintText: 'Enter Address',
-
-                                    borderColor: Colors.white,
-                                    textColor: Colors.black,
-                                    borderRadius: 30,
-                                    borderWidth: 1,
-                                    isDense: true,
-                                  ),
-                                ),
+                              filled: false,
+                              hintText: 'Enter Phone number',
+                              borderColor: Colors.white,
+                              textColor: Colors.black,
+                              borderRadius: 4,
+                              borderWidth: 1,
+                              isDense: true,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 0.0, vertical: 8),
+                          child: Material(
+                            elevation: 0,
+                            shadowColor: Colors.black87,
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4),
+                            child: TextEditView(
+                              controller: addressController,
+                              labelText: 'Address',
+                              prefixIcon: const Icon(
+                                Ionicons.location,
+                                color: AppColors.lightPrimary,
                               ),
+                              filled: false,
+                              hintText: 'Enter Address',
+                              borderColor: Colors.white,
+                              textColor: Colors.black,
+                              borderRadius: 4,
+                              borderWidth: 1,
+                              isDense: true,
+                            ),
+                          ),
+                        ),
                         const SizedBox(height: 40),
                         ButtonView(
                             color: AppColors.lightPrimary,
+                            expanded: true,
+                            borderRadius: 4,
                             onPressed: () {},
-                            child: BigText(
-                              text: 'Save',
-                              color: Colors.white,
+                            child: Text(
+                                'Save',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              
                             )),
                         const SizedBox(height: 70),
                       ],

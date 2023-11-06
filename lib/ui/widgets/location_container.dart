@@ -1,6 +1,10 @@
+import 'package:esalerz/extentions/custom_string_extension.dart';
 import 'package:esalerz/res/app_colors.dart';
+import 'package:esalerz/ui/widgets/modals.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../model/view_models/account_view_model.dart';
 import 'text_edit_view.dart';
 
 class CountryListWidget extends StatelessWidget {
@@ -13,6 +17,8 @@ class CountryListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<AccountViewModel>(context, listen: true);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -43,7 +49,7 @@ class CountryListWidget extends StatelessWidget {
 
           ListTile(
             title: const Text('My Location'),
-            subtitle: const Text('ifite awka'),
+            subtitle:   Text('${user.address.capitalizeFirstOfEach}'),
             trailing: const Icon(Icons.keyboard_arrow_right,
                 color: AppColors.lightPrimary),
             onTap: () {},
@@ -77,7 +83,12 @@ class CountryListWidget extends StatelessWidget {
                 title: Text(countries[index]),
                 trailing: const Icon(Icons.keyboard_arrow_right,
                     color: AppColors.lightPrimary),
-                onTap: () {},
+                onTap: () {
+                   user.updateAddress(countries[index]);
+                  Navigator.pop(context);
+                  
+
+                },
               );
             },
           ),

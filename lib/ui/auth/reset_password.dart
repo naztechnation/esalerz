@@ -32,6 +32,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool isShowPassword = true;
+
+  showPassword() {
+    setState(() {
+      isShowPassword = !isShowPassword;
+    });
+  }
 
   @override
   void initState() {
@@ -75,16 +82,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             child: Container(
                 height: MediaQuery.sizeOf(context).height,
                 width: MediaQuery.sizeOf(context).width,
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [
-                    AppColors.lightSecondary,
-                    AppColors.lightPrimary,
-                  ],
-                  stops: [0.1, 0.8],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                )),
+                 
                 child: Column(
                   children: [
                     SizedBox(
@@ -108,8 +106,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       'Reset Password',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightPrimary,
+                        fontWeight: FontWeight.w700,
                         fontSize: 32,
                       ),
                     ),
@@ -118,7 +116,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       'Enter your new password.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColors.lightPrimary,
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
                       ),
@@ -126,69 +124,96 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     const SizedBox(
                       height: 61,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 12),
-                      child: TextEditView(
-                        controller: _emailController,
-                        validator: Validator.validateEmail,
-                        labelText: 'Email',
-                        readOnly: true,
-                        prefixIcon: const Icon(
-                          Ionicons.mail_outline,
-                          color: Colors.white,
-                        ),
-                        filled: false,
-                        borderColor: Colors.white,
-                        textColor: Colors.white,
-                        borderRadius: 16,
-                        borderWidth: 1,
-                        isDense: true,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 12),
-                      child: TextEditView(
-                        controller: _passwordController,
-                        validator: Validator.validate,
-                        labelText: 'Enter new Password',
-                        prefixIcon: const Icon(
-                          Ionicons.lock_closed_outline,
-                          color: Colors.white,
-                        ),
-                        suffixIcon: const Icon(
-                          Ionicons.eye,
-                          color: Colors.white,
-                        ),
-                        filled: false,
-                        borderColor: Colors.white,
-                        textColor: Colors.white,
-                        borderRadius: 16,
-                        borderWidth: 1,
-                        isDense: true,
-                      ),
-                    ),
+                     Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 12),
+                                child: Material(
+                                  elevation: 1,
+                                  shadowColor: Colors.black87,
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: TextEditView(
+                                    controller: _emailController,
+                                    validator: Validator.validateEmail,
+                                    labelText: 'Email',
+                                    prefixIcon: const Icon(
+                                      Ionicons.mail_outline,
+                                      color: AppColors.lightPrimary,
+                                    ),
+                                    filled: false,
+                                    borderColor: Colors.white,
+                                    textColor: Colors.black,
+                                    borderRadius: 30,
+                                    borderWidth: 1,
+                                    isDense: true,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 12),
+                                child: Material(
+                                  elevation: 1,
+                                  shadowColor: Colors.black87,
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: TextEditView(
+                                    controller: _passwordController,
+                                    obscureText: isShowPassword,
+                                    labelText: 'Password',
+                                    prefixIcon: const Icon(
+                                      Ionicons.lock_closed_outline,
+                                      color: AppColors.lightPrimary,
+                                    ),
+                                    suffixIcon: isShowPassword
+                                        ? GestureDetector(
+                                            onTap: () {
+                                              showPassword();
+                                            },
+                                            child: Icon(
+                                              Ionicons.eye,
+                                              color: AppColors.lightPrimary,
+                                              size: 25,
+                                            ))
+                                        : GestureDetector(
+                                            onTap: () {
+                                              showPassword();
+                                            },
+                                            child: Icon(
+                                              Ionicons.eye_off,
+                                              color: AppColors.lightPrimary,
+                                              size: 25,
+                                            )),
+                                    filled: false,
+                                    borderColor: Colors.white,
+                                    textColor: Colors.black,
+                                    borderRadius: 30,
+                                    borderWidth: 1,
+                                    isDense: true,
+                                  ),
+                                ),
+                              ),
                     const Spacer(),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 16),
                       child: ButtonView(
-                        color: Colors.white,
+                        color: AppColors.lightPrimary,
                         processing: state is ResetPasswordLoading,
-                        borderColor: Colors.white,
+                        borderColor: AppColors.lightPrimary,
                         borderRadius: 30,
                         onPressed: () {
+                          navigateToNextPage(context, );
                        //   resetPassword(context);
                         },
                         child: const Text(
                           'Continue',
-                          style: TextStyle(color: AppColors.lightSecondary),
+                          style: TextStyle(color: AppColors.lightBackground),
                         ),
                       ),
                     ),
                     const SizedBox(
-                      height: 100,
+                      height: 30,
                     )
                   ],
                 )),

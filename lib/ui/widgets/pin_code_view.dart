@@ -43,30 +43,30 @@ class PinCodeView extends StatelessWidget {
           length: length,
           obscureText: obscureText,
           autoFocus: autoFocus,
-          
+          obscuringCharacter: '*',
           keyboardType: TextInputType.number,
           animationType: AnimationType.fade,
           autoDismissKeyboard: true,
           validator: validator,
           enablePinAutofill: true,
-          textStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
+          textStyle: const TextStyle(color: AppColors.lightPrimary, fontWeight: FontWeight.w300),
           pinTheme: PinTheme(
             
             shape: PinCodeFieldShape.box,
             borderRadius: BorderRadius.circular(16.0),
-            borderWidth: 0.7,
+            borderWidth: 1.8,
             activeBorderWidth: 0.7,
             inactiveBorderWidth: 0.7,
             selectedBorderWidth: 0.7,
             fieldHeight: 55,
             fieldWidth: 55,
             
-            selectedColor: Colors.white,
-            activeFillColor: AppColors.lightPrimary,
-            selectedFillColor: AppColors.lightPrimary,
-            inactiveFillColor: AppColors.lightPrimary,
-            inactiveColor: Colors.white,
-            activeColor: Colors.white
+            selectedColor: AppColors.lightPrimary,
+            activeFillColor: Colors.white,
+            selectedFillColor: Colors.white,
+            inactiveFillColor: Colors.white,
+            inactiveColor: AppColors.lightPrimary,
+            activeColor: AppColors.lightPrimary
           ),
           
           enableActiveFill: true,

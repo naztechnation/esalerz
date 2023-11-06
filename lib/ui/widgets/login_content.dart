@@ -12,6 +12,7 @@ import '../../res/app_images.dart';
 import '../../res/enum.dart';
 import '../../utils/navigator/page_navigator.dart';
 import '../../utils/validator.dart';
+import '../auth/forgot_password.dart';
 import '../landingpage.dart';
 import 'button_view.dart';
 import 'image_view.dart';
@@ -64,8 +65,8 @@ class _LoginContentState extends State<LoginContent> {
   Widget forgotPassword() {
     return TextButton(
       onPressed: () {
-        // AppNavigator.pushAndStackPage(context,
-        //     page: const ForgotPasswordScreen());
+        AppNavigator.pushAndStackPage(context,
+            page: const ForgotPasswordScreen());
       },
       child: Align(
         alignment: Alignment.center,
@@ -94,8 +95,7 @@ class _LoginContentState extends State<LoginContent> {
           listener: (context, state) {
             if (state is AccountLoaded) {
               if (state.userData.status == 1) {
-                 setToken.setToken(state.userData.data!.bkey!);
-                 StorageHandler.saveUserEmail(_emailController.text);
+                
                 Modals.showToast(state.userData.message ?? '',
                     messageType: MessageType.success);
                 //     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -119,6 +119,9 @@ class _LoginContentState extends State<LoginContent> {
                  Modals.showToast(
                     state.user.message ?? '',
                   );
+                   setToken.setToken(state.user.data!.bkey!);
+                 StorageHandler.saveUserEmail(_emailController.text);
+                 StorageHandler.saveUserDetails(state.user.data!.fullName);
                   StorageHandler.login();
                   AppNavigator.pushAndReplacePage(context,
                       page: const LandingPage());
@@ -167,7 +170,7 @@ class _LoginContentState extends State<LoginContent> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: AppColors.lightPrimary,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w700,
                                   fontSize: 32,
                                 ),
                               ),
@@ -186,7 +189,7 @@ class _LoginContentState extends State<LoginContent> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 12),
                                 child: Material(
-                                  elevation: 4,
+                                  elevation: 2,
                                   shadowColor: Colors.black87,
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30),
@@ -211,7 +214,7 @@ class _LoginContentState extends State<LoginContent> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 12),
                                 child: Material(
-                                  elevation: 4,
+                                  elevation: 2,
                                   shadowColor: Colors.black87,
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30),
@@ -235,7 +238,7 @@ class _LoginContentState extends State<LoginContent> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 12),
                                 child:  Material(
-                                  elevation: 4,
+                                  elevation: 2,
                                   shadowColor: Colors.black87,
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30),
@@ -260,7 +263,7 @@ class _LoginContentState extends State<LoginContent> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 12),
                                 child:  Material(
-                                  elevation: 4,
+                                  elevation: 2,
                                   shadowColor: Colors.black87,
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30),
@@ -337,7 +340,7 @@ class _LoginContentState extends State<LoginContent> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: AppColors.lightPrimary,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w700,
                                   fontSize: 32,
                                 ),
                               ),
@@ -356,7 +359,7 @@ class _LoginContentState extends State<LoginContent> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 12),
                                 child: Material(
-                                  elevation: 4,
+                                  elevation: 2,
                                   shadowColor: Colors.black87,
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30),
@@ -381,7 +384,7 @@ class _LoginContentState extends State<LoginContent> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 12),
                                 child: Material(
-                                  elevation: 4,
+                                  elevation: 2,
                                   shadowColor: Colors.black87,
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30),
@@ -456,7 +459,7 @@ class _LoginContentState extends State<LoginContent> {
                       });
                     },
                     child: Align(
-                      alignment: Alignment.bottomCenter,
+                      alignment: Alignment.center,
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 50),
                         child: Padding(
@@ -473,15 +476,18 @@ class _LoginContentState extends State<LoginContent> {
                                       ? 'Don\'t have an account?  '
                                       : 'Already have an account?  ',
                                   style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.lightSecondary,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 18
+
                                   ),
                                 ),
                                 TextSpan(
                                   text: isLogin ? 'Sign Up' : 'Log In',
                                   style: const TextStyle(
                                     color: AppColors.lightSecondary,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18
                                   ),
                                 ),
                               ],

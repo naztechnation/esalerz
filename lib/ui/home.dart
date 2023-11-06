@@ -1,3 +1,4 @@
+import 'package:esalerz/extentions/custom_string_extension.dart';
 import 'package:esalerz/model/service_contents.dart';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/ui/userservice_info.dart';
@@ -8,8 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
+import '../model/view_models/account_view_model.dart';
 import '../provider/items.dart';
 import '../res/app_images.dart';
+import '../utils/navigator/page_navigator.dart';
+import 'search_page.dart';
 import 'widgets/location_container.dart';
 import 'widgets/modals.dart';
 
@@ -46,6 +50,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final pageIndexProvider = Provider.of<PageIndexProvider>(context);
+    final user = Provider.of<AccountViewModel>(context, listen: true);
+
 
     return GestureDetector(
       onTap: () {
@@ -54,7 +60,7 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         backgroundColor: AppColors.cardColor,
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60.0),
+          preferredSize: const Size.fromHeight(80.0),
           child: Container(
             margin: const EdgeInsets.all(8.0),
             child: AppBar(
@@ -63,18 +69,18 @@ class _HomeState extends State<Home> {
               title: const Text(
                 'What are You Searching For Today?',
                 style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 18,
                     color: Colors.black,
-                    fontWeight: FontWeight.w900),
+                    fontWeight: FontWeight.w600),
               ),
-              leading: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Center(
-                  child: Icon(Icons.menu, color: AppColors.lightPrimary),
-                ),
-              ),
+              // leading: Container(
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(10),
+              //   ),
+              //   child: const Center(
+              //     child: Icon(Icons.menu, color: AppColors.lightPrimary),
+              //   ),
+              // ),
             ),
           ),
         ),
@@ -109,7 +115,7 @@ class _HomeState extends State<Home> {
                             heightFactor: 1,
                             isScrollControlled: true);
                       },
-                      child: const Row(
+                      child:   Row(
                         children: [
                           Icon(
                             Icons.location_on_sharp,
@@ -119,7 +125,7 @@ class _HomeState extends State<Home> {
                             width: 5,
                           ),
                           Text(
-                            '58 iweka road, Onitsha.',
+                            '${user.address.capitalizeFirstOfEach}',
                             maxLines: 1,
                             style: TextStyle(
                               fontSize: 14,
@@ -146,34 +152,23 @@ class _HomeState extends State<Home> {
                             hintText: 'Search your service here...',
                             filled: false,
                             autofocus: false,
+                            borderWidth: 1,
                             isDense: true,
+                            onTap: (){
+                              AppNavigator.pushAndStackPage(context, page: SearchPage(postsLists: ['Clothes', 'Television', 'Washing Machine', 'Laptops', 'Watches'],));
+                            },
                             borderColor: AppColors.lightPrimary,
                             suffixIcon: const Icon(
                               Icons.search,
                               color: Colors.black,
+                              size: 25,
                             ),
                           ),
                         ),
                         const SizedBox(
                           width: 10,
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            height: 50,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: AppColors.lightPrimary,
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.filter_list,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
+                        
                       ],
                     ),
                     const SizedBox(
