@@ -6,7 +6,6 @@ import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/bigtext.dart';
 import 'package:esalerz/ui/widgets/customer_reviews.dart';
 import 'package:esalerz/ui/widgets/dotindicator.dart';
-import 'package:esalerz/ui/widgets/smalltext.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
@@ -145,7 +144,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             const Icon(Icons.location_on),
-                            SmallText(text: 'Awka, Ngozika estate'),
+                            Text(  'Awka, Ngozika estate'),
                           ],
                         ),
                         const SizedBox(height: 5),
@@ -154,9 +153,10 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           size: 15,
                         ),
                         const SizedBox(height: 5),
-                        SmallText(
-                          text: "N15,000",
-                          color: Colors.green,
+                         Text(
+                           "N15,000",
+                           style: TextStyle(color: Colors.green,),
+                          
                         ),
                         const SizedBox(height: 5),
                         Row(
@@ -228,7 +228,7 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SmallText(text: 'Start Esalerz chat with seller'),
+                         Text(  'Start Esalerz chat with seller'),
                         const SizedBox(height: 5),
                         Wrap(
                           children: [
@@ -342,11 +342,14 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           dense: true,
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 1, vertical: 1),
-                          title: SmallText(
-                            text: 'COMPANY NAME',
+                          title:  Text(
+                             'COMPANY NAME',
+                             style: TextStyle(
                             fontWeight: FontWeight.bold,
+
+                             ),
                           ),
-                          subtitle: SmallText(text: serviceTerm.companyName),
+                          subtitle: Text( serviceTerm.companyName),
                         ),
                         ListTile(
                           minVerticalPadding: 3,
@@ -354,11 +357,14 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           dense: true,
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 1, vertical: 1),
-                          title: SmallText(
-                            text: 'FUMIGATION SERVICE INCLUDE',
+                          title:  Text(
+                              'FUMIGATION SERVICE INCLUDE',
+                              style: TextStyle(
                             fontWeight: FontWeight.bold,
+
+                              ),
                           ),
-                          subtitle: SmallText(text: serviceTerm.service),
+                          subtitle: Text(  serviceTerm.service),
                         ),
                         ListTile(
                           minVerticalPadding: 3,
@@ -366,11 +372,14 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           dense: true,
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 1, vertical: 1),
-                          title: SmallText(
-                            text: 'FREQUENCY',
+                          title:  Text(
+                             'FREQUENCY',
+                             style: TextStyle(
                             fontWeight: FontWeight.bold,
+
+                             ),
                           ),
-                          subtitle: SmallText(text: serviceTerm.frequency),
+                          subtitle:  Text(  serviceTerm.frequency),
                         ),
                         ListTile(
                           minVerticalPadding: 3,
@@ -378,11 +387,14 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           dense: true,
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 1, vertical: 1),
-                          title: SmallText(
-                            text: 'ROUND THE CLOCK SERVICE',
+                          title:  Text(
+                              'ROUND THE CLOCK SERVICE',
+                              style: TextStyle(
                             fontWeight: FontWeight.bold,
+
+                              ),
                           ),
-                          subtitle: SmallText(text: serviceTerm.roundTheClock),
+                          subtitle:  Text(  serviceTerm.roundTheClock),
                         ),
                         ListTile(
                           minVerticalPadding: 3,
@@ -390,11 +402,14 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           dense: true,
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 1, vertical: 1),
-                          title: SmallText(
-                            text: 'FUMIGATION TYPE',
+                          title: Text(
+                              'FUMIGATION TYPE',
+                              style: TextStyle(
                             fontWeight: FontWeight.bold,
+
+                              ),
                           ),
-                          subtitle: SmallText(text: serviceTerm.type),
+                          subtitle: Text(  serviceTerm.type),
                         ),
                         ListTile(
                           minVerticalPadding: 3,
@@ -402,11 +417,14 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           dense: true,
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 1, vertical: 1),
-                          title: SmallText(
-                            text: 'SERVICE AREA',
+                          title: Text(
+                              'SERVICE AREA',
+                              style: TextStyle(
                             fontWeight: FontWeight.bold,
+
+                              ),
                           ),
-                          subtitle: SmallText(text: serviceTerm.serviceArea),
+                          subtitle:  Text( serviceTerm.serviceArea),
                         ),
                         ListTile(
                           minVerticalPadding: 3,
@@ -414,11 +432,14 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           dense: true,
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 1, vertical: 1),
-                          title: SmallText(
-                            text: 'WORK EXPERIENCE',
+                          title: Text(
+                             'WORK EXPERIENCE',
+                            style: TextStyle(
                             fontWeight: FontWeight.bold,
+
+                              ),
                           ),
-                          subtitle: SmallText(text: serviceTerm.workExperience),
+                          subtitle: Text(  serviceTerm.workExperience),
                         ),
                         ListTile(
                           minVerticalPadding: 3,
@@ -426,11 +447,14 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                           dense: true,
                           contentPadding: const EdgeInsets.symmetric(
                               horizontal: 1, vertical: 1),
-                          title: SmallText(
-                            text: 'PROVIDE REGULAR SERVICE',
+                          title:  Text(
+                             'PROVIDE REGULAR SERVICE',
+                            style: TextStyle(
                             fontWeight: FontWeight.bold,
+
+                              ),
                           ),
-                          subtitle: SmallText(text: serviceTerm.regularService),
+                          subtitle:  Text(  serviceTerm.regularService),
                         ),
                       ],
                     ),
@@ -455,8 +479,8 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                     ),
                     child: Column(
                       children: [
-                        SmallText(
-                          text:
+                         Text(
+                           
                               "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
                         ),
                         const SizedBox(height: 15),
@@ -508,13 +532,20 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                             text: 'Drago119',
                             size: 16,
                           ),
-                          subtitle: SmallText(
-                            text: 'online 57 min ago',
-                            size: 12,
+                          subtitle: Text(
+                             'online 57 min ago',
+                           style: TextStyle(
+                            fontSize: 13,
+
+                              ),
                           ),
-                          trailing: SmallText(
-                            text: 'View ad',
-                            color: AppColors.lightPrimary,
+                          trailing: Text(
+                              'View ad',
+                              style: TextStyle(
+                             
+color: AppColors.lightPrimary,
+                              ),
+                            
                           ),
                         ),
                         //
@@ -543,10 +574,13 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                                       text: 'Chukwuemeka',
                                       size: 16,
                                     ),
-                                    subtitle: SmallText(
-                                      text:
+                                    subtitle: Text(
+                                      
                                           'Fantastic customer support and service',
-                                      size: 12,
+                                          style: TextStyle(
+                            fontSize: 12,
+
+                              ),
                                     ),
                                     trailing: const Icon(
                                       Icons.tag_faces,
@@ -654,9 +688,12 @@ class _UserServiceInfoState extends State<UserServiceInfo> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SmallText(
-                        text: 'Similar Ads',
-                        fontWeight: FontWeight.bold,
+                      Text(
+                         'Similar Ads',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+
+                              ),
                       ),
                       Row(
                         children: [

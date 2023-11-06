@@ -19,7 +19,7 @@ class AccountRepositoryImpl implements AccountRepository {
     return AuthUser.fromJson(map);
   }
 
-  // @override
+   @override
   Future<AuthUser> loginUser({required String email, required String password}) async {
     final map = await Requests().post(AppStrings.loginUrl, body: {
       "email": email,

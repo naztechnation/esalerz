@@ -1,10 +1,7 @@
 import 'package:esalerz/model/service_contents.dart';
 import 'package:esalerz/res/app_colors.dart';
-import 'package:esalerz/ui/profile.dart';
 import 'package:esalerz/ui/userservice_info.dart';
-import 'package:esalerz/ui/widgets/bigtext.dart';
 import 'package:esalerz/ui/widgets/dotindicator.dart';
-import 'package:esalerz/ui/widgets/smalltext.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';

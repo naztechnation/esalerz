@@ -1,9 +1,7 @@
 import 'dart:io';
 
-import 'package:esalerz/res/app_images.dart';
-import 'package:esalerz/ui/widgets/widget.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:esalerz/res/app_images.dart'; 
+import 'package:flutter/material.dart'; 
 
 import '../../../res/app_colors.dart';
 import '../../../res/app_strings.dart';
@@ -61,7 +59,7 @@ class _KycServiceScreenTwoState extends State<KycServiceScreenTwo> {
                     child: SizedBox(height: (Platform.isAndroid) ? 30 : 0)),
                 Row(
                   children: [
-                    backButton(context),
+                    Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,),
                     const SizedBox(
                       width: 40,
                     ),

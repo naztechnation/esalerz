@@ -41,67 +41,11 @@ class _LoginContentState extends State<LoginContent> {
     });
   }
 
-  Widget inputField(String hint, IconData iconData) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 8),
-      child: SizedBox(
-        height: 50,
-        child: Material(
-          elevation: 8,
-          shadowColor: Colors.black87,
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
-          child: TextField(
-            textAlignVertical: TextAlignVertical.bottom,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide.none,
-              ),
-              filled: true,
-              fillColor: Colors.white,
-              hintText: hint,
-              prefixIcon: Icon(iconData),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  
 
   bool isLogin = true;
 
-  Widget orDivider() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 130, vertical: 8),
-      child: Row(
-        children: [
-          Flexible(
-            child: Container(
-              height: 1,
-              color: AppColors.lightSecondary,
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              'or',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Flexible(
-            child: Container(
-              height: 1,
-              color: AppColors.lightSecondary,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+ 
 
   Widget logos() {
     return Padding(
@@ -150,8 +94,8 @@ class _LoginContentState extends State<LoginContent> {
           listener: (context, state) {
             if (state is AccountLoaded) {
               if (state.userData.status == 1) {
-                // setToken.setToken(state.userData.token!);
-                // StorageHandler.saveUserEmail(_emailController.text);
+                 setToken.setToken(state.userData.data!.bkey!);
+                 StorageHandler.saveUserEmail(_emailController.text);
                 Modals.showToast(state.userData.message ?? '',
                     messageType: MessageType.success);
                 //     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -172,23 +116,13 @@ class _LoginContentState extends State<LoginContent> {
             }
             if (state is AccountUpdated) {
               if (state.user.status == 1) {
-                if (state.user.data!.status! == '1') {
-                  // setToken.setToken(state.user.token!);
-                  // StorageHandler.saveUserEmail(_emailController.text);
-                  // StorageHandler.saveUserPassword(_passwordController.text);
-                  // StorageHandler.saveUserGender(state.user.data!.gender!);
-                  // StorageHandler.saveUserPhone(state.user.data!.phone!);
-                  // StorageHandler.saveUserAdmin(state.user.data!.isAdmin!);
-                  Modals.showToast(
+                 Modals.showToast(
                     state.user.message ?? '',
                   );
                   StorageHandler.login();
                   AppNavigator.pushAndReplacePage(context,
                       page: const LandingPage());
-                } else {
-                  Modals.showToast(state.user.message ?? '',
-                      messageType: MessageType.success);
-                }
+               
               } else {
                 Modals.showToast(state.user.message ?? '',
                     messageType: MessageType.success);
@@ -283,7 +217,7 @@ class _LoginContentState extends State<LoginContent> {
                                   borderRadius: BorderRadius.circular(30),
                                   child: TextEditView(
                                     controller: _fullNameController,
-                                    labelText: 'Full name',
+                                    labelText: 'Full Name (Surname First)',
                                     prefixIcon: const Icon(
                                       Ionicons.mail_outline,
                                       color: AppColors.lightPrimary,

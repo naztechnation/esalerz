@@ -4,9 +4,7 @@ import 'package:esalerz/ui/landingpage.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/category_selection.dart';
 import 'package:esalerz/ui/widgets/modals.dart';
-import 'package:esalerz/ui/widgets/smalltext.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart';
-import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 
 import '../res/app_strings.dart';
@@ -101,9 +99,12 @@ class _PostAdState extends State<PostAd> {
                             ),
                             width: MediaQuery.of(context).size.width,
                             child: ListTile(
-                              title: SmallText(
-                                text: 'Categories*',
-                                color: Colors.grey,
+                              title:  Text(
+                                  'Categories*',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                
                               ),
                               trailing: const Icon(
                                 Icons.arrow_forward_ios,

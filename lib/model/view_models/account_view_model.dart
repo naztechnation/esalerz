@@ -11,7 +11,7 @@ import 'base_viewmodel.dart';
 
 class AccountViewModel extends BaseViewModel {
   AccountViewModel() {
-    //getToken();
+    getToken();
   }
 
   String _token = "";
@@ -22,18 +22,18 @@ class AccountViewModel extends BaseViewModel {
 
 //   bool _showPassword = false;
 
-  // setToken(String token) async {
-  //   _token = token;
+  setToken(String token) async {
+    _token = token;
 
-  //   StorageHandler.saveUserToken(_token);
-  //   setViewState(ViewState.success);
-  // }
+    StorageHandler.saveUserToken(_token);
+    setViewState(ViewState.success);
+  }
 
-  // getToken() async {
-  //   _token = await StorageHandler.getUserToken() ?? '';
-  //   setViewState(ViewState.success);
-  // }
+  getToken() async {
+    _token = await StorageHandler.getUserToken() ?? '';
+    setViewState(ViewState.success);
+  }
 
 
-  //  String get token => _token;
+   String get token => _token;
 }

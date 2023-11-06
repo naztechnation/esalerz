@@ -4,16 +4,13 @@ import 'package:esalerz/kyc/service_kyc_ten.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/custom_text.dart';
-import 'package:esalerz/ui/widgets/text_edit_view.dart';
-import 'package:esalerz/ui/widgets/widget.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:esalerz/ui/widgets/text_edit_view.dart'; 
+import 'package:flutter/material.dart'; 
 
 import '../../../res/app_colors.dart';
 import '../../../res/app_strings.dart';
 import '../../../utils/navigator/page_navigator.dart';
-
-import 'service_kyc_seven.dart';
+ 
 
 class KycServiceScreenSix extends StatefulWidget {
   KycServiceScreenSix({
@@ -62,7 +59,7 @@ class _KycServiceScreenSixState extends State<KycServiceScreenSix> {
                   ),
                   Row(
                     children: [
-                      backButton(context),
+                      Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,),
                       const SizedBox(
                         width: 40,
                       ),

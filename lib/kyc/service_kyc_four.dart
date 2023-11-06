@@ -60,7 +60,7 @@ class KycServiceScreenFour extends StatelessWidget {
                       child: SizedBox(height: (Platform.isAndroid) ? 30 : 0)),
                   Row(
                     children: [
-                      backButton(context),
+                      Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,),
                       const SizedBox(
                         width: 40,
                       ),

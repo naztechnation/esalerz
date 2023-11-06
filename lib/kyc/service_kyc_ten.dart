@@ -4,8 +4,7 @@ import 'package:esalerz/kyc/service_kyc_twelve.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/custom_text.dart';
-import 'package:esalerz/ui/widgets/modals.dart';
-import 'package:esalerz/ui/widgets/widget.dart';
+import 'package:esalerz/ui/widgets/modals.dart'; 
 import 'package:esalerz/utils/navigator/page_navigator.dart';
 import 'package:flutter/material.dart';
 
@@ -56,7 +55,7 @@ class KycServiceScreenTen extends StatelessWidget {
                       child: SizedBox(height: (Platform.isAndroid) ? 30 : 0)),
                   Row(
                     children: [
-                      backButton(context),
+                      Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,),
                       const SizedBox(
                         width: 40,
                       ),

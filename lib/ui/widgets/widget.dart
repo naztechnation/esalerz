@@ -1,16 +1,12 @@
 import 'dart:io';
 
 import 'package:esalerz/model/service_contents.dart';
-import 'package:esalerz/model/service_term.dart';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/ui/widgets/bigtext.dart';
-import 'package:esalerz/ui/widgets/category_selection.dart';
-import 'package:esalerz/ui/widgets/smalltext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ionicons/ionicons.dart';
 
 //service board
 class ServiceBoard extends StatelessWidget {
@@ -49,9 +45,12 @@ class ServiceBoard extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        SmallText(
-          text: title,
-          size: 13,
+         Text(
+            title,
+            style: TextStyle(
+          fontSize: 13,
+
+            ),
         ),
       ],
     );
@@ -324,7 +323,7 @@ class SimilarAdsModel extends StatelessWidget {
     required this.price,
     required this.rating,
     required this.onPressed,
-    required this.isListView, // Add a flag to determine the layout
+    required this.isListView,  
   }) : super(key: key);
 
   @override
@@ -339,8 +338,8 @@ class SimilarAdsModel extends StatelessWidget {
           ),
           child: ListTile(
             leading: Container(
-              width: 80, // Adjust the width as needed
-              height: 200, // Half of the container height
+              width: 80,  
+              height: 200, 
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
@@ -661,16 +660,22 @@ Widget buildContainerWithListTile({
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SmallText(
-            text: subtitle,
-            color: Colors.grey,
+           Text(
+              subtitle,
+              style: TextStyle(
+                 color: Colors.grey,
+              ),
+           
           ),
           const SizedBox(
             height: 10,
           ),
-          SmallText(
-            text: thirdLineText,
-            color: Colors.black54,
+           Text(
+              thirdLineText,
+              style: TextStyle(
+                 color: Colors.black54,
+              ),
+             
           ),
         ],
       ),
@@ -734,9 +739,12 @@ class _ExpandableContainerState extends State<ExpandableContainer> {
         title: Row(
           children: [
             Expanded(
-                child: SmallText(
-              text: widget.heading,
-              fontWeight: FontWeight.bold,
+                child:  Text(
+                widget.heading,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              
             )),
             Text(
               _expanded ? 'Hide' : 'Show',
@@ -759,9 +767,9 @@ class _ExpandableContainerState extends State<ExpandableContainer> {
                   const SizedBox(
                     height: 10,
                   ),
-                  SmallText(
-                    text: widget.address,
-                    size: 13,
+                   Text(
+                     widget.address,
+                    style: TextStyle(fontSize: 13),
                   ),
                 ],
               )
@@ -821,7 +829,6 @@ Widget buildListView() {
   );
 }
 
-//pick image function
 class ProfileImagePicker extends StatefulWidget {
   @override
   _ProfileImagePickerState createState() => _ProfileImagePickerState();
@@ -845,7 +852,6 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Show a dialog to choose between camera and gallery
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -905,7 +911,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
         height: 200,
         width: 200,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(100),
           border: _imageFile == null
               ? Border.all(
                   width: 1,
@@ -915,7 +921,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
         ),
         child: _imageFile != null
             ? ClipRRect(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(100),
                 child: Image.file(
                   File(_imageFile!.path),
                   fit: BoxFit.cover,
@@ -928,9 +934,9 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(Icons.add),
-                    SmallText(
-                      text: "Upload a profile image",
-                      align: TextAlign.center,
+                     Text(
+                        "Upload a profile image",
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
@@ -940,47 +946,4 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
   }
 }
 
-// simple textfield
-class TextInputField {
-  static Widget customTextField({
-    required TextEditingController controller,
-    required String hintText,
-    required String labeText,
-    TextInputType keyboardType = TextInputType.text,
-    Color focusedBorderColor = Colors.blue,
-    Color enabledBorderColor = Colors.grey,
-  }) {
-    return TextField(
-      controller: controller,
-      keyboardType: keyboardType,
-      decoration: InputDecoration(
-        labelText: labeText,
-        hintText: hintText,
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: focusedBorderColor),
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: enabledBorderColor),
-        ),
-      ),
-    );
-  }
-}
-
-//back button
-
-Widget backButton(BuildContext context) {
-  return GestureDetector(
-    onTap: () {
-      Navigator.pop(context);
-    },
-    child: const Row(
-      children: [
-        Icon(
-          Ionicons.arrow_back,
-          color: Colors.black,
-        ),
-      ],
-    ),
-  );
-}
+ 

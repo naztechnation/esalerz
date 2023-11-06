@@ -4,10 +4,8 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/custom_text.dart';
-import 'package:esalerz/ui/widgets/modals.dart';
-import 'package:esalerz/ui/widgets/widget.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:esalerz/ui/widgets/modals.dart'; 
+import 'package:flutter/material.dart'; 
 
 import '../../../res/app_colors.dart';
 
@@ -61,7 +59,7 @@ class KycServiceScreenFive extends StatelessWidget {
                       child: SizedBox(height: (Platform.isAndroid) ? 30 : 0)),
                   Row(
                     children: [
-                      backButton(context),
+                      Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,),
                       const SizedBox(
                         width: 40,
                       ),

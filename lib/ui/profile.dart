@@ -4,6 +4,12 @@ import 'package:esalerz/ui/widgets/bigtext.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
+
+import '../handlers/secure_handler.dart';
+import '../utils/navigator/page_navigator.dart';
+import 'auth/auth.dart';
+import 'widgets/text_edit_view.dart';
 
 class Profile extends StatelessWidget {
   Profile({super.key});
@@ -23,32 +29,34 @@ class Profile extends StatelessWidget {
           'Hello, John',
           style: TextStyle(fontSize: 15, color: Colors.black),
         ),
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Center(
-              child: Icon(Icons.arrow_back, color: AppColors.lightPrimary),
-            ),
-          ),
-        ),
+        
         actions: [
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+          SafeArea(
+            child: GestureDetector(
+              onTap: (){
+                StorageHandler.clearCache();
+                AppNavigator.pushAndReplacePage(context, page:LoginScreen());
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 20.0, top: 15),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Container(
+                    height: 30,
+                    width: 40,
+                    decoration: BoxDecoration(
+                        // borderRadius: BorderRadius.circular(80),
+                        color: AppColors.lightPrimary),
+                    child: Center(
+                        child: Icon(
+                      Icons.logout_outlined,
+                      color: Colors.white,
+                      size: 30,
+                    )),
+                  ),
+                ),
+              ),
             ),
-            child: Center(
-                child: Image.asset(
-              'assets/images/notification1.png',
-              height: 25,
-              color: AppColors.lightPrimary,
-            )),
           ),
         ],
       ),
@@ -89,47 +97,142 @@ class Profile extends StatelessWidget {
                         )),
                     child: Column(
                       children: [
-                        TextInputField.customTextField(
-                          labeText: 'First Name',
-                          controller: firstNameController,
+                        Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 12),
+                                child: Material(
+                                  elevation: 4,
+                                  shadowColor: Colors.black87,
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: TextEditView(
+                                    controller: firstNameController,
+                                    labelText: 'First Name',
+                                    prefixIcon: const Icon(
+                                      Ionicons.mail_outline,
+                                      color: AppColors.lightPrimary,
+                                    ),
+                                    filled: false,
                           hintText: 'Enter first name',
-                          focusedBorderColor: AppColors.lightPrimary,
-                          enabledBorderColor: Colors.grey,
-                        ),
+
+                                    borderColor: Colors.white,
+                                    textColor: Colors.black,
+                                    borderRadius: 30,
+                                    borderWidth: 1,
+                                    isDense: true,
+                                  ),
+                                ),
+                              ),
+                        
                         const SizedBox(height: 20),
-                        TextInputField.customTextField(
-                          labeText: 'Last Name',
-                          controller: lastNameController,
+                         Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 12),
+                                child: Material(
+                                  elevation: 4,
+                                  shadowColor: Colors.black87,
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: TextEditView(
+                                    controller: lastNameController,
+                                    labelText: 'Last Name',
+                                    prefixIcon: const Icon(
+                                      Ionicons.mail_outline,
+                                      color: AppColors.lightPrimary,
+                                    ),
+                                    filled: false,
                           hintText: 'Enter last name',
-                          focusedBorderColor: AppColors.lightPrimary,
-                          enabledBorderColor: Colors.grey,
-                        ),
+
+                                    borderColor: Colors.white,
+                                    textColor: Colors.black,
+                                    borderRadius: 30,
+                                    borderWidth: 1,
+                                    isDense: true,
+                                  ),
+                                ),
+                              ),
+                         
                         const SizedBox(height: 20),
-                        TextInputField.customTextField(
-                          labeText: 'Email',
-                          keyboardType: TextInputType.emailAddress,
-                          controller: emailController,
-                          hintText: 'Enter email',
-                          focusedBorderColor: AppColors.lightPrimary,
-                          enabledBorderColor: Colors.grey,
-                        ),
+                       Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 12),
+                                child: Material(
+                                  elevation: 4,
+                                  shadowColor: Colors.black87,
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: TextEditView(
+                                    controller: emailController,
+                                    labelText: 'Email',
+                                    prefixIcon: const Icon(
+                                      Ionicons.mail_outline,
+                                      color: AppColors.lightPrimary,
+                                    ),
+                                    filled: false,
+                          hintText: 'Enter Email address',
+
+                                    borderColor: Colors.white,
+                                    textColor: Colors.black,
+                                    borderRadius: 30,
+                                    borderWidth: 1,
+                                    isDense: true,
+                                  ),
+                                ),
+                              ),
                         const SizedBox(height: 20),
-                        TextInputField.customTextField(
-                          labeText: 'Phone Number',
-                          keyboardType: TextInputType.phone,
-                          controller: phoneController,
-                          hintText: 'Enter number',
-                          focusedBorderColor: AppColors.lightPrimary,
-                          enabledBorderColor: Colors.grey,
-                        ),
+                         Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 12),
+                                child: Material(
+                                  elevation: 4,
+                                  shadowColor: Colors.black87,
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: TextEditView(
+                                    controller: phoneController,
+                                    labelText: 'Phone Number',
+                                    prefixIcon: const Icon(
+                                      Ionicons.mail_outline,
+                                      color: AppColors.lightPrimary,
+                                    ),
+                                    filled: false,
+                          hintText: 'Enter Phone number',
+
+                                    borderColor: Colors.white,
+                                    textColor: Colors.black,
+                                    borderRadius: 30,
+                                    borderWidth: 1,
+                                    isDense: true,
+                                  ),
+                                ),
+                              ),
                         const SizedBox(height: 20),
-                        TextInputField.customTextField(
-                          labeText: 'Address',
-                          controller: addressController,
-                          hintText: 'Enter adress',
-                          focusedBorderColor: AppColors.lightPrimary,
-                          enabledBorderColor: Colors.grey,
-                        ),
+                         Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 12),
+                                child: Material(
+                                  elevation: 4,
+                                  shadowColor: Colors.black87,
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: TextEditView(
+                                    controller: phoneController,
+                                    labelText: 'Address',
+                                    prefixIcon: const Icon(
+                                      Ionicons.mail_outline,
+                                      color: AppColors.lightPrimary,
+                                    ),
+                                    filled: false,
+                          hintText: 'Enter Address',
+
+                                    borderColor: Colors.white,
+                                    textColor: Colors.black,
+                                    borderRadius: 30,
+                                    borderWidth: 1,
+                                    isDense: true,
+                                  ),
+                                ),
+                              ),
                         const SizedBox(height: 40),
                         ButtonView(
                             color: AppColors.lightPrimary,
