@@ -51,6 +51,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final pageIndexProvider = Provider.of<PageIndexProvider>(context);
     final user = Provider.of<AccountViewModel>(context, listen: true);
+    
 
 
     return GestureDetector(

@@ -65,7 +65,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
   @override
   Widget build(BuildContext context) {
     final pageIndexProvider = Provider.of<PageIndexProvider>(context);
-
+_selectedIndex = pageIndexProvider.currentPageIndex;
     List<Widget> items = List.generate(
         widget.items.length, (int index) {
       return _buildTabItem(

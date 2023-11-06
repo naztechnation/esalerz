@@ -1,5 +1,4 @@
 import 'package:esalerz/kyc/service_kyc_one.dart';
-import 'package:esalerz/ui/post_ad.dart';
 import 'package:esalerz/ui/widgets/custom_button_nav.dart/custom_button_nav.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
