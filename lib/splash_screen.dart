@@ -8,7 +8,7 @@ import 'package:esalerz/utils/navigator/page_navigator.dart';
 import 'package:flutter/material.dart';
 
 import 'handlers/secure_handler.dart';
-import 'ui/landingpage.dart';
+import 'ui/services/landingpage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

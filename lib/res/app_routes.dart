@@ -1,12 +1,12 @@
 import 'package:esalerz/ui/auth/auth.dart';
-import 'package:esalerz/ui/landingpage.dart';
 import 'package:esalerz/ui/on_boarding/boarding_screen.dart';
-import 'package:esalerz/ui/post_ad.dart';
 import 'package:esalerz/ui/welcomepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../splash_screen.dart';
+import '../ui/services/landingpage.dart';
+import '../ui/services/post_ad.dart';
 
 class AppRoutes {
   static const String splashScreen = 'splashScreen';

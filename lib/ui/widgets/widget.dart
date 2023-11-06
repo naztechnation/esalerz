@@ -8,6 +8,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../services/userservice_info.dart';
+
+
 //service board
 class ServiceBoard extends StatelessWidget {
   const ServiceBoard({super.key, required this.title, required this.asset});
@@ -329,68 +332,82 @@ class SimilarAdsModel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isListView) {
-      // For List View layout
+      
       return GestureDetector(
         onTap: onPressed,
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          child: ListTile(
-            leading: Container(
-              width: 80,  
-              height: 200, 
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: AssetImage(imageUrl),
-                  fit: BoxFit.cover,
-                ),
-              ),
+        child: Container(
+          height: 150,
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
             ),
-            title: Text(
-              title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            subtitle: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '₦$price per service',
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal:5.0, vertical: 10),
+              child: Row(
+                  children: [
+                    Container(
+                      width: 150,  
+                      height: 450, 
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: AssetImage(imageUrl),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 20,),
+                    Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                  title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                Row(
-                  children: [
-                    const Icon(Icons.star,
-                        size: 16, color: AppColors.lightPrimary),
-                    const SizedBox(width: 3),
+                    const SizedBox(height: 10,),
+
                     Text(
-                      '$rating',
+                      '₦$price per service',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                        fontSize: 12,
-                        color: AppColors.lightPrimary,
+                        fontSize: 14,
+                        color: Colors.black,
                       ),
+                    ),
+                    const SizedBox(height: 10,),
+                    Row(
+                      children: [
+                        const Icon(Icons.star,
+                            size: 16, color: AppColors.lightPrimary),
+                        const SizedBox(width: 3),
+                        Text(
+                          '$rating',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: AppColors.lightPrimary,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+                  ],
+                ),
+                
+                
+              ),
             ),
-            onTap: onPressed,
           ),
-        ),
+        
       );
     } else {
-      // For Grid View layout (your existing code)
       return GestureDetector(
         onTap: onPressed,
         child: Container(
@@ -406,11 +423,10 @@ class SimilarAdsModel extends StatelessWidget {
             ),
             child: Column(
               children: [
-                // Image
                 Stack(
                   children: [
                     Container(
-                      height: 120, // Half of the container height
+                      height: 120, 
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(20),
@@ -452,7 +468,6 @@ class SimilarAdsModel extends StatelessWidget {
                     ),
                   ],
                 ),
-                // Title and Like Icon Row
                 const SizedBox(
                   height: 10,
                 ),
@@ -530,7 +545,6 @@ class SimilarAdsModel extends StatelessWidget {
   }
 }
 
-//navigation helper
 class NavigationHelper {
   static void navigateToPage(BuildContext context, Widget page) {
     Navigator.push(
@@ -780,52 +794,51 @@ class _ExpandableContainerState extends State<ExpandableContainer> {
 }
 
 Widget buildMasonryGridView() {
-  return SizedBox(
-    height: 500 * 2.5,
-    child: MasonryGridView.builder(
-      itemCount: 10,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2),
-      itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SimilarAdsModel(
-            onPressed: () {
-              // NavigationHelper.navigateToPage(
-              //     context, const UserServiceInfo());
-            },
-            imageUrl: 'assets/images/ford.jpg',
-            title: 'Car repair',
-            price: '20.99',
-            rating: 4,
-            isListView: false,
-          )),
-    ),
+  return MasonryGridView.builder(
+    itemCount: 10,
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
+    gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2),
+    itemBuilder: (context, index) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SimilarAdsModel(
+          onPressed: () {
+            NavigationHelper.navigateToPage(
+                context, const UserServiceInfo());
+          },
+          imageUrl: 'assets/images/ford.jpg',
+          title: 'Car repair',
+          price: '20.99',
+          rating: 4,
+          isListView: false,
+        )),
   );
 }
 
 Widget buildListView() {
-  return SizedBox(
-    height: 500 * 2,
-    child: ListView.builder(
-      itemCount: 10,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SimilarAdsModel(
-            onPressed: () {
-              // Handle item tap
-            },
-            imageUrl: 'assets/images/ford.jpg',
-            title: 'Car repair',
-            price: '20.99',
-            rating: 4,
-            isListView: true,
-          ),
-        );
-      },
-    ),
+  return ListView.builder(
+    physics: NeverScrollableScrollPhysics(),
+
+    itemCount: 14,
+    shrinkWrap: true,
+    itemBuilder: (context, index) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SimilarAdsModel(
+          onPressed: () {
+             NavigationHelper.navigateToPage(
+                context, const UserServiceInfo());
+           
+          },
+          imageUrl: 'assets/images/ford.jpg',
+          title: 'Car repair',
+          price: '20.99',
+          rating: 4,
+          isListView: true,
+        ),
+      );
+    },
   );
 }
 

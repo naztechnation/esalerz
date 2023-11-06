@@ -1,14 +1,18 @@
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../res/app_colors.dart';
 import 'widgets/horizontal_selection.dart';
 import 'widgets/text_edit_view.dart';
 
-class Ads extends StatelessWidget {
+class Ads extends StatefulWidget {
   Ads({super.key});
 
+  @override
+  State<Ads> createState() => _AdsState();
+}
+
+class _AdsState extends State<Ads> {
   final searchController = TextEditingController();
 
   final List<String> items = [
@@ -18,6 +22,8 @@ class Ads extends StatelessWidget {
     'Phones',
     'Cars',
   ];
+
+  bool isGridView = true;
 
   @override
   Widget build(BuildContext context) {
@@ -85,33 +91,53 @@ class Ads extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          Expanded(
-            child: GridView.custom(
-              gridDelegate: SliverWovenGridDelegate.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 0,
-                crossAxisSpacing: 0,
-                pattern: [
-                  const WovenGridTile(0.8),
-                  const WovenGridTile(
-                    5 / 7,
-                    crossAxisRatio: 0.9,
-                    alignment: AlignmentDirectional.centerEnd,
-                  ),
-                ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    isGridView = !isGridView;
+                  });
+                },
+                icon: Image.asset(
+                  'assets/images/grid.png',
+                  height: 40,
+                  color: isGridView ? AppColors.lightPrimary : Colors.black,
+                ),
               ),
-              childrenDelegate: SliverChildBuilderDelegate(
-                (context, index) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SimilarAdsModel(
-                        onPressed: () {},
-                        imageUrl: 'assets/images/laugage.png',
-                        title: 'Travel bag',
-                        price: '20.99',
-                        rating: 4, isListView: false,)),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    isGridView = !isGridView;
+                  });
+                },
+                icon: Image.asset(
+                  'assets/images/list.png',
+                  height: 40,
+                  color: isGridView ? Colors.black : AppColors.lightPrimary,
+                ),
+              ),
+            ],
+          ),
+
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Visibility(
+                    visible: isGridView,
+                    child: buildMasonryGridView(),
+                  ),
+                   Visibility(
+                visible: !isGridView,
+                child: buildListView(),
+              ),
+                ],
               ),
             ),
           ),
+         
           // Expanded(
           //   child: MasonryGridView.builder(
           //     itemCount: 6,

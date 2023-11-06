@@ -52,6 +52,7 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
           listener: (context, state) {
             if (state is AccountKycLoaded) {
               if (state.userData.status! == 1) {
+                serviceProvider.setUserKycState('true');
                   AppNavigator.pushAndStackPage(context,
                             page: KycServiceScreenNine(
 

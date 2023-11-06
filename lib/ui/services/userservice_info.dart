@@ -10,7 +10,8 @@ import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 
-import 'widgets/button_view.dart';
+import '../widgets/button_view.dart';
+
 
 class UserServiceInfo extends StatefulWidget {
   const UserServiceInfo({super.key});
@@ -701,7 +702,7 @@ color: AppColors.lightPrimary,
                             onPressed: () {
                               setState(() {
                                 isGridView =
-                                    !isGridView; // Toggle the view mode
+                                    !isGridView;
                               });
                             },
                             icon: Image.asset(
@@ -716,7 +717,7 @@ color: AppColors.lightPrimary,
                             onPressed: () {
                               setState(() {
                                 isGridView =
-                                    !isGridView; // Toggle the view mode
+                                    !isGridView;
                               });
                             },
                             icon: Image.asset(

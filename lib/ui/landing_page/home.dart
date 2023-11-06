@@ -1,21 +1,19 @@
 import 'package:esalerz/extentions/custom_string_extension.dart';
 import 'package:esalerz/model/service_contents.dart';
 import 'package:esalerz/res/app_colors.dart';
-import 'package:esalerz/ui/userservice_info.dart';
 import 'package:esalerz/ui/widgets/dotindicator.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
-import '../model/view_models/account_view_model.dart';
-import '../provider/items.dart';
-import '../res/app_images.dart';
-import '../utils/navigator/page_navigator.dart';
-import 'search_page.dart';
-import 'widgets/location_container.dart';
-import 'widgets/modals.dart';
+import '../../model/view_models/account_view_model.dart';
+import '../../provider/items.dart';
+import '../../res/app_images.dart';
+import '../../utils/navigator/page_navigator.dart';
+import '../search_page.dart';
+import '../widgets/location_container.dart';
+import '../widgets/modals.dart';
 
 class Home extends StatefulWidget {
   const Home({
@@ -31,6 +29,8 @@ class _HomeState extends State<Home> {
 
   late PageController _pageController;
   int _currentPage = 0;
+
+  bool isGridView = true;
 
   @override
   void initState() {
@@ -272,27 +272,50 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                     const SizedBox(height: 15),
-                    SizedBox(
-                      height: 460,
-                      child: MasonryGridView.builder(
-                        itemCount: 4,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2),
-                        itemBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TrendingServiceModel(
-                                onPressed: () {
-                                  NavigationHelper.navigateToPage(
-                                      context, const UserServiceInfo());
-                                },
-                                imageUrl: 'assets/images/laugage.png',
-                                title: 'House cleaning',
-                                price: '20.99',
-                                rating: 4)),
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                isGridView =
+                                    !isGridView;
+                              });
+                            },
+                            icon: Image.asset(
+                              'assets/images/grid.png',
+                              height: 40,
+                              color: isGridView
+                                  ? AppColors.lightPrimary
+                                  : Colors.black,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                isGridView =
+                                    !isGridView;
+                              });
+                            },
+                            icon: Image.asset(
+                              'assets/images/list.png',
+                              height: 40,
+                              color: isGridView
+                                  ? Colors.black
+                                  : AppColors.lightPrimary,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
+                     
+                    Visibility(
+                    visible: isGridView,
+                    child: buildMasonryGridView(),
+                  ),
+                  Visibility(
+                    visible: !isGridView,
+                    child: buildListView(),
+                  ),
                   ],
                 ),
               ),

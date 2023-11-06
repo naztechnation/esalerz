@@ -1,15 +1,15 @@
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart';
-import 'package:esalerz/ui/widgets/bigtext.dart';
+import 'package:esalerz/ui/auth/auth.dart'; 
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../handlers/secure_handler.dart';
-import '../utils/navigator/page_navigator.dart';
-import 'auth/auth.dart';
-import 'widgets/text_edit_view.dart';
+import '../../handlers/secure_handler.dart';
+import '../../utils/navigator/page_navigator.dart';
+import '../widgets/text_edit_view.dart';
+ 
 
 class Profile extends StatelessWidget {
   Profile({super.key});

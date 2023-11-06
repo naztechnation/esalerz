@@ -1,16 +1,21 @@
+import 'package:esalerz/handlers/secure_handler.dart';
 import 'package:esalerz/kyc/service_kyc_one.dart';
 import 'package:esalerz/ui/widgets/custom_button_nav.dart/custom_button_nav.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:esalerz/res/app_colors.dart';
-import 'package:esalerz/ui/home.dart';
-import 'package:esalerz/ui/profile.dart';
+import 'package:esalerz/ui/landing_page/home.dart';
 import 'package:esalerz/ui/ads.dart';
-import 'package:esalerz/ui/services.dart';
+import 'package:esalerz/ui/services/services.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/items.dart';
+import '../../model/view_models/account_view_model.dart';
+import '../../provider/items.dart';
+import '../../res/app_routes.dart';
+import '../../utils/navigator/page_navigator.dart';
+import 'profile.dart';
+ 
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -27,11 +32,19 @@ class _LandingPageState extends State<LandingPage> {
     Profile(),
   ];
 
+   
+
+
   @override
   Widget build(BuildContext context) {
     bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
 
     final pageIndexProvider = Provider.of<PageIndexProvider>(context);
+
+    final serviceProvider =
+        Provider.of<AccountViewModel>(context, listen: true);
+
+serviceProvider.getUserKyc();
     return Scaffold(
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -47,7 +60,14 @@ class _LandingPageState extends State<LandingPage> {
           splashColor: AppColors.lightPrimary,
           child: const Text('Sell'),
           onPressed: () {
-            NavigationHelper.navigateToPage(context, KycServiceScreenOne());
+            
+            if(serviceProvider.completedKyc == 'true'){
+                AppNavigator.pushNamedAndRemoveUntil(context,
+                          name: AppRoutes.postAd);
+            }else{
+               NavigationHelper.navigateToPage(context, KycServiceScreenOne());
+            }
+           
           },
         ),
       ),

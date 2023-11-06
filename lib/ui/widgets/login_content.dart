@@ -13,7 +13,7 @@ import '../../res/enum.dart';
 import '../../utils/navigator/page_navigator.dart';
 import '../../utils/validator.dart';
 import '../auth/forgot_password.dart';
-import '../landingpage.dart';
+import '../services/landingpage.dart';
 import 'button_view.dart';
 import 'image_view.dart';
 import 'modals.dart';

@@ -19,7 +19,7 @@ class AccountViewModel extends BaseViewModel {
   }
 
   String _token = "";
-  String _address = '';
+  String _address = 'Loading...';
   String _userLocation = '';
   String _userName = '';
   String _userGender = '';
@@ -101,6 +101,18 @@ class AccountViewModel extends BaseViewModel {
     _token = token;
 
     StorageHandler.saveUserToken(_token);
+    setViewState(ViewState.success);
+  }
+
+   setUserKycState(String kyc) async {
+   
+
+    StorageHandler.saveUserKycState(kyc);
+    setViewState(ViewState.success);
+  }
+
+  getUserKyc() async {
+    _completedKyc = await StorageHandler.getUserKyc() ?? '';
     setViewState(ViewState.success);
   }
 
@@ -204,4 +216,5 @@ class AccountViewModel extends BaseViewModel {
   String get userAbout => _userAbout;
   String get userIdentityType => _userIdentityType;
   String get token => _token;
+  String get completedKyc => _completedKyc;
 }

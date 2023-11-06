@@ -1,15 +1,21 @@
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../res/app_colors.dart';
-import 'widgets/horizontal_selection.dart';
-import 'widgets/text_edit_view.dart';
+import '../../res/app_colors.dart';
+import '../widgets/horizontal_selection.dart';
+import '../widgets/text_edit_view.dart';
 
-class Services extends StatelessWidget {
+class Services extends StatefulWidget {
   Services({super.key});
 
+  @override
+  State<Services> createState() => _ServicesState();
+}
+
+class _ServicesState extends State<Services> {
   final searchController = TextEditingController();
+
+  bool isGridView = true;
 
   final List<String> items = [
     'All',
@@ -84,21 +90,51 @@ class Services extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    isGridView = !isGridView;
+                  });
+                },
+                icon: Image.asset(
+                  'assets/images/grid.png',
+                  height: 40,
+                  color: isGridView ? AppColors.lightPrimary : Colors.black,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    isGridView = !isGridView;
+                  });
+                },
+                icon: Image.asset(
+                  'assets/images/list.png',
+                  height: 40,
+                  color: isGridView ? Colors.black : AppColors.lightPrimary,
+                ),
+              ),
+            ],
+          ),
+
           Expanded(
-            child: MasonryGridView.builder(
-              itemCount: 6,
-              gridDelegate:
-                  const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-              itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TrendingServiceModel(
-                    imageUrl: 'assets/images/cleaner.jpg',
-                    title: 'House cleaning',
-                    price: '20.99',
-                    rating: 4,
-                    onPressed: () {},
-                  )),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Visibility(
+                    visible: isGridView,
+                    child: buildMasonryGridView(),
+                  ),
+                   Visibility(
+                visible: !isGridView,
+                child: buildListView(),
+              ),
+              
+                ],
+              ),
             ),
           ),
         ],

@@ -1,6 +1,4 @@
-import 'package:esalerz/res/app_colors.dart';
-import 'package:esalerz/ui/landingpage.dart';
-import 'package:esalerz/utils/navigator/page_navigator.dart';
+import 'package:esalerz/res/app_colors.dart'; 
 import 'package:flutter/material.dart';
 
 import 'text_edit_view.dart';
@@ -33,7 +31,7 @@ class CategorySelection extends StatelessWidget {
               borderColor: AppColors.lightPrimary,
               prefixIcon: GestureDetector(
                 onTap: () {
-                  AppNavigator.pushAndReplacePage(context, page: LandingPage());
+                 Navigator.pop(context);
                 },
                 child: const Icon(
                   Icons.arrow_back,

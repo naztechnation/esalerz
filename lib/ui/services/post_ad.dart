@@ -1,15 +1,15 @@
 import 'package:esalerz/res/app_colors.dart';
-import 'package:esalerz/res/app_images.dart';
-import 'package:esalerz/ui/landingpage.dart';
+import 'package:esalerz/res/app_images.dart'; 
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/category_selection.dart';
 import 'package:esalerz/ui/widgets/modals.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:flutter/material.dart';
 
-import '../res/app_strings.dart';
-import '../utils/navigator/page_navigator.dart';
-import 'widgets/custom_text.dart';
+import '../../res/app_strings.dart';
+import '../../utils/navigator/page_navigator.dart'; 
+import '../widgets/custom_text.dart';
+import 'landingpage.dart'; 
 
 class PostAd extends StatefulWidget {
   const PostAd({super.key});
@@ -35,7 +35,7 @@ class _PostAdState extends State<PostAd> {
         ),
         leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+             AppNavigator.pushAndReplacePage(context, page: LandingPage());
           },
           child: Container(
             decoration: BoxDecoration(
