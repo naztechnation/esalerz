@@ -27,6 +27,7 @@ class AccountViewModel extends BaseViewModel {
   String _userAddress = '';
   String _userAbout = '';
   String _userIdentityType = '';
+  String _completedKyc = '';
   File? _imageURl;
   File? _imageURl2;
 
@@ -53,7 +54,7 @@ class AccountViewModel extends BaseViewModel {
   }
 
    setAddress(String address) async {
-    _address = address;
+    _userAddress = address;
 
     setViewState(ViewState.success);
   }

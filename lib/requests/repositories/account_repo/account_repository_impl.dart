@@ -38,11 +38,11 @@ class AccountRepositoryImpl implements AccountRepository {
       required String location,
       required String gender,
       required String docType,
-      required File documentType,
+      required File document,
       required String bio,
       required String bKey}) async {
-    final map = await Requests().post(AppStrings.loginUrl, files: {
-      'document': documentType,
+    final map = await Requests().post(AppStrings.createKycUrl, files: {
+      'document': document,
     }, body: {
       "name": name,
       "dob": dob,

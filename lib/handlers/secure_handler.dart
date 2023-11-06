@@ -38,9 +38,9 @@ class StorageHandler {
     }
   }
 
-   static Future<void> saveUserGender([String? email]) async {
-    if (email != null) {
-      await storage.write(key: 'GENDER', value: email);
+   static Future<void> saveUserKycState([String? kyc]) async {
+    if (kyc != null) {
+      await storage.write(key: 'KYC', value: kyc);
     }
   }
 
@@ -98,10 +98,10 @@ class StorageHandler {
     return user;
   }
 
-   static Future<String?> getUserGender() async {
+   static Future<String?> getUserKyc() async {
     Map<String, String> value = await storage.readAll();
     String? user;
-    String? data = value['GENDER'];
+    String? data = value['KYC'];
     if (data != null) {
       user = data;
     }

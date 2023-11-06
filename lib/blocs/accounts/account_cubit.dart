@@ -29,7 +29,7 @@ class AccountCubit extends Cubit<AccountStates> {
         phone: phoneNumber,
       );
 
-    //  await viewModel.setToken(user.token ?? '');
+      //  await viewModel.setToken(user.token ?? '');
       emit(AccountLoaded(user));
     } on ApiException catch (e) {
       emit(AccountApiErr(e.message));
@@ -56,6 +56,46 @@ class AccountCubit extends Cubit<AccountStates> {
 
       // await viewModel.setToken(userData.token ?? '');
       emit(AccountUpdated(userData));
+    } on ApiException catch (e) {
+      emit(AccountApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(AccountNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+  Future<void> registerKycUser({
+    required String name,
+    required String dob,
+    required String location,
+    required String gender,
+    required String docType,
+    required String bio,
+    required File document ,
+    required String bKey,
+  }) async {
+    try {
+      emit(AccountKycLoading());
+
+      final user = await accountRepository.registerUserKyc(
+          name: name,
+          dob: dob,
+          location: location,
+          gender: gender,
+          docType: docType,
+          bio: bio,
+          document: document,
+          bKey: bKey);
+
+      //  await viewModel.setToken(user.token ?? '');
+      emit(AccountKycLoaded(user));
     } on ApiException catch (e) {
       emit(AccountApiErr(e.message));
     } catch (e) {
@@ -148,4 +188,4 @@ class AccountCubit extends Cubit<AccountStates> {
 //       }
 //     }
 //   }
- }
+}

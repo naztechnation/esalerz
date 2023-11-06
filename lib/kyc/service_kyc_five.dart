@@ -122,7 +122,7 @@ class KycServiceScreenFive extends StatelessWidget {
                         vertical: 0.0, horizontal: 20),
                     child: ButtonView(
                       onPressed: () {
-                       userProfile.setAddress('${country },${state}, ${city}',);
+                       
 
                         if (country == '') {
                           Modals.showToast('please select a country');
@@ -131,6 +131,7 @@ class KycServiceScreenFive extends StatelessWidget {
                         } else if (city == '') {
                           Modals.showToast('please select a city');
                         } else {
+                          userProfile.setAddress('${country },${state}, ${city}');
                           AppNavigator.pushAndStackPage(context,
                               page: KycServiceScreenSix());
                         }

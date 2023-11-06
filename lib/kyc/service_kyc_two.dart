@@ -105,7 +105,7 @@ class _KycServiceScreenTwoState extends State<KycServiceScreenTwo> {
                     },
                     controller: _serviceProviderNameController,
                     isDense: true,
-                    labelText: 'input name',
+                    labelText: 'Input name',
                   ),
                 ),
                 const Spacer(),

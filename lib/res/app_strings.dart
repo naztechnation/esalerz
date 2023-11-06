@@ -16,4 +16,5 @@ class AppStrings {
   /// User Endpoints
   static const String registerUrl = '$mainBaseUrl/register';
   static const String loginUrl = '$mainBaseUrl/login';
+  static const String createKycUrl = '$mainBaseUrl/create_kyc';
 }

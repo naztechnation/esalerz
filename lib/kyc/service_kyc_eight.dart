@@ -50,10 +50,12 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
             viewModel: Provider.of<AccountViewModel>(context, listen: false)),
         child: BlocConsumer<AccountCubit, AccountStates>(
           listener: (context, state) {
-            if (state is AccountLoaded) {
+            if (state is AccountKycLoaded) {
               if (state.userData.status! == 1) {
-                AppNavigator.pushAndStackPage(context,
-                    page: KycServiceScreenNine());
+                  AppNavigator.pushAndStackPage(context,
+                            page: KycServiceScreenNine(
+
+                            ));
                 Modals.showToast(state.userData.message ?? '',
                     messageType: MessageType.success);
               } else {
@@ -126,7 +128,7 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
                       height: 294,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: AppColors.lightPrimary.withOpacity(0.2),
+                        color: AppColors.lightPrimary.withOpacity(0.1),
                       ),
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       width: MediaQuery.sizeOf(context).width,
@@ -154,9 +156,9 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
                   SizedBox(
                     height: 40,
                   ),
-                  // (state is PetProfileLoading)
-                  //     ? SizedBox.shrink()
-                  //     :
+                  (state is AccountKycLoading)
+                      ? SizedBox.shrink()
+                      :
                        TextButton(
                           onPressed: () async {
                             serviceProvider.loadImage(
@@ -164,7 +166,7 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: Text('Choose from gallery', style: TextStyle(
+                            child: Text('Select Photo', style: TextStyle(
                               color: AppColors.lightPrimary
                             ),),
                           ),
@@ -185,18 +187,15 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
                       child: ButtonView(
                         onPressed: () async {
                           if (serviceProvider.imageURl2 != null) {
-                                 AppNavigator.pushAndStackPage(context,
-                            page: KycServiceScreenNine(
-
-                            ));
+                               
                            
-                            // _submit(
-                            //     ctx: context,
-                            //     photoId: serviceProvider.photoId,
-                            //     picture: imgUrl);
+                            _submit(
+                                ctx: context,
+                                serviceProvider: serviceProvider,
+                                 );
                           }
                         },
-                        processing: (state is AccountLoading || isLoading),
+                        processing: (state is AccountKycLoading ),
                         color: AppColors.lightPrimary,
                         borderRadius: 32,
                         borderColor: Colors.white,
@@ -225,10 +224,27 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
 
   _submit(
       {required BuildContext ctx,
-      required String photoId,
-      required String picture}) {
-    // ctx
-    //     .read<AccountCubit>()
-    //     .uploadPhotoUrl(photoId: photoId, photoUrl: picture);
+      required final serviceProvider,
+       }) {
+
+        // print(serviceProvider.userName);
+        // print(serviceProvider.userDateOfBirth);
+        // print(serviceProvider.userAddress);
+        // print(serviceProvider.userGender);
+        // print(serviceProvider.userIdentityType);
+        // print(serviceProvider.userAbout);
+        // print(serviceProvider.imageURl2);
+        // print(serviceProvider.token);
+
+    ctx
+        .read<AccountCubit>()
+        .registerKycUser(name: serviceProvider.userName,
+         dob: serviceProvider.userDateOfBirth,
+         location: serviceProvider.userAddress,
+          gender: serviceProvider.userGender, 
+          docType: serviceProvider.userIdentityType, 
+          bio: serviceProvider.userAbout, 
+          document: serviceProvider.imageURl2,
+           bKey: serviceProvider.token);
   }
 }

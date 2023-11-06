@@ -21,7 +21,7 @@ abstract class AccountRepository {
     required String location,
     required String gender,
     required String docType,
-    required File documentType,
+    required File document,
     required String bio,
     required String bKey,
 
