@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/custom_text.dart';
+import 'package:esalerz/ui/widgets/modals.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart';
-import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +27,7 @@ class KycServiceScreenFour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        final userProfile = Provider.of<AccountViewModel>(context, listen: false);
+    final userProfile = Provider.of<AccountViewModel>(context, listen: false);
 
     return Scaffold(
       backgroundColor: AppColors.lightPrimary,
@@ -62,13 +62,16 @@ class KycServiceScreenFour extends StatelessWidget {
                   Row(
                     children: [
                       const SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,)),
+                        width: 15,
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: AppColors.lightPrimary,
+                          )),
                       const SizedBox(
                         width: 40,
                       ),
@@ -100,7 +103,6 @@ class KycServiceScreenFour extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 22.0),
                     child: TextEditView(
-                      
                       controller: _serviceProviderAgeController,
                       isDense: true,
                       readOnly: true,
@@ -116,32 +118,38 @@ class KycServiceScreenFour extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  //if (serviceProvider.serviceProviderAge != '')
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 0.0, horizontal: 20),
-                    child: ButtonView(
-                      onPressed: () {
-                        // serviceProvider.setServiceProviderAge(
-                        //     _serviceProviderAgeController.text);
+                  
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 0.0, horizontal: 20),
+                      child: ButtonView(
+                        onPressed: () {
 
-                        AppNavigator.pushAndStackPage(context,
-                            page: KycServiceScreenFive());
-                      },
-                      color: AppColors.lightPrimary,
-                      borderRadius: 22,
-                      borderColor: Colors.white,
-                      child: const CustomText(
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        text: 'Next',
-                        weight: FontWeight.w400,
-                        size: 16,
-                        fontFamily: AppStrings.interSans,
-                        color: Colors.white,
+                          if (_serviceProviderAgeController.text != ''){
+                             userProfile.setDateOfBirth(
+                              _serviceProviderAgeController.text);
+
+                          AppNavigator.pushAndStackPage(context,
+                              page: KycServiceScreenFive());
+                          }else{
+                            Modals.showToast('Please select Date of Birth');
+                          }
+                         
+                        },
+                        color: AppColors.lightPrimary,
+                        borderRadius: 22,
+                        borderColor: Colors.white,
+                        child: const CustomText(
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          text: 'Next',
+                          weight: FontWeight.w400,
+                          size: 16,
+                          fontFamily: AppStrings.interSans,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
                   const SizedBox(
                     height: 50,
                   ),
@@ -187,6 +195,7 @@ class DatePickerHelper {
       final DateFormat dateFormat = DateFormat('y/M/d');
       final String formattedDate = dateFormat.format(selectedDate);
       controller.text = formattedDate;
+
     }
   }
 }

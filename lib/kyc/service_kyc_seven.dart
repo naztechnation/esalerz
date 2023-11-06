@@ -7,9 +7,11 @@ import 'package:esalerz/ui/widgets/custom_text.dart';
 import 'package:esalerz/ui/widgets/modals.dart'; 
 import 'package:esalerz/utils/navigator/page_navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../res/app_colors.dart';
 import '../../../res/app_strings.dart';
+import '../model/view_models/account_view_model.dart';
 import 'service_kyc_eight.dart';
 
 class KycServiceScreenSeven extends StatelessWidget {
@@ -29,7 +31,8 @@ class KycServiceScreenSeven extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final serviceProvider = Provider.of<ServiceProviderViewModel>(context, listen: true);
+        final serviceProvider = Provider.of<AccountViewModel>(context, listen: false);
+
 
     return Scaffold(
       body: Stack(
@@ -117,18 +120,18 @@ class KycServiceScreenSeven extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: AppColors.lightBackground,
                         borderRadius: BorderRadius.circular(
-                            30.0), // Adjust the border radius as needed.
+                            30.0), 
                       ),
                       child: DropdownButtonFormField<String>(
                         value: selectedOption,
                         onChanged: (value) {
                           selectedOption = value!;
                           
-                          // serviceProvider.setPhotoId(options.indexOf(value).toString());
+                            serviceProvider.setUserIdentityType(options.indexOf(value).toString());
                         },
                         items: options.map((String option) {
                           return DropdownMenuItem<String>(
-                            value: option, // Ensure each value is unique.
+                            value: option, 
                             child: Text(option),
                           );
                         }).toList(),

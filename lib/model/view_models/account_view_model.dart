@@ -26,6 +26,7 @@ class AccountViewModel extends BaseViewModel {
   String _userDateOfBirth = '';
   String _userAddress = '';
   String _userAbout = '';
+  String _userIdentityType = '';
   File? _imageURl;
   File? _imageURl2;
 
@@ -51,7 +52,7 @@ class AccountViewModel extends BaseViewModel {
     setViewState(ViewState.success);
   }
 
-   seAddress(String address) async {
+   setAddress(String address) async {
     _address = address;
 
     setViewState(ViewState.success);
@@ -59,6 +60,12 @@ class AccountViewModel extends BaseViewModel {
 
    setAbout(String about) async {
     _userAbout = about;
+
+    setViewState(ViewState.success);
+  }
+
+   setUserIdentityType(String idType) async {
+    _userIdentityType = idType;
 
     setViewState(ViewState.success);
   }
@@ -126,7 +133,7 @@ class AccountViewModel extends BaseViewModel {
                     style: TextStyle(
                         fontSize: 20,
                         color: AppColors.lightPrimary,
-                        fontWeight: FontWeight.w600)),
+                        fontWeight: FontWeight.w500)),
               ),
               ListTile(
                 leading: Icon(
@@ -194,5 +201,6 @@ class AccountViewModel extends BaseViewModel {
   String get userDateOfBirth => _userDateOfBirth;
   String get userAddress => _userAddress;
   String get userAbout => _userAbout;
+  String get userIdentityType => _userIdentityType;
   String get token => _token;
 }

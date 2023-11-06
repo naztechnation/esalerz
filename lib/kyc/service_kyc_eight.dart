@@ -83,7 +83,14 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
                       child: SizedBox(height: (Platform.isAndroid) ? 30 : 0)),
                   Row(
                     children: [
-                     // backButton(context),
+                        const SizedBox(
+                      width: 15,
+                    ),
+                     GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,)),
                       const SizedBox(
                         width: 40,
                       ),
@@ -119,10 +126,11 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
                       height: 294,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Color(0xFF424242),
+                        color: AppColors.lightPrimary.withOpacity(0.2),
                       ),
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       width: MediaQuery.sizeOf(context).width,
+                      child: Center(child: Text('No images selected')),
                     ),
                   ],
                   if (serviceProvider.imageURl2 != null) ...[
@@ -177,10 +185,10 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
                       child: ButtonView(
                         onPressed: () async {
                           if (serviceProvider.imageURl2 != null) {
-                            //      AppNavigator.pushAndStackPage(context,
-                            // page: KycServiceScreenTwelve(
+                                 AppNavigator.pushAndStackPage(context,
+                            page: KycServiceScreenNine(
 
-                            // ));
+                            ));
                            
                             // _submit(
                             //     ctx: context,
@@ -189,7 +197,7 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
                           }
                         },
                         processing: (state is AccountLoading || isLoading),
-                        color: AppColors.lightSecondary,
+                        color: AppColors.lightPrimary,
                         borderRadius: 32,
                         borderColor: Colors.white,
                         child: CustomText(

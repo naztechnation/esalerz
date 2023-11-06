@@ -5,11 +5,13 @@ import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/custom_text.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart'; 
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; 
 
 import '../../../res/app_colors.dart';
 import '../../../res/app_strings.dart';
 import '../../../utils/navigator/page_navigator.dart';
+import '../model/view_models/account_view_model.dart';
  
 
 class KycServiceScreenSix extends StatefulWidget {
@@ -26,8 +28,8 @@ class _KycServiceScreenSixState extends State<KycServiceScreenSix> {
 
   @override
   Widget build(BuildContext context) {
-    // final serviceProfile =
-    //     Provider.of<ServiceProviderViewModel>(context, listen: false);
+        final serviceProvider = Provider.of<AccountViewModel>(context, listen: false);
+
 
     return Scaffold(
       body: Stack(
@@ -119,8 +121,8 @@ class _KycServiceScreenSixState extends State<KycServiceScreenSix> {
                           vertical: 0.0, horizontal: 20),
                       child: ButtonView(
                         onPressed: () {
-                          // serviceProfile
-                          //     .setAboutServiceProvider(commentController.text);
+                          serviceProvider
+                              .setAbout(commentController.text);
                           AppNavigator.pushAndStackPage(context,
                               page: KycServiceScreenSeven());
                         },

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../../../model/auth_model/auth_user.dart';
 import '../../../res/app_strings.dart';
 import '../../setup/requests.dart';
@@ -19,12 +21,36 @@ class AccountRepositoryImpl implements AccountRepository {
     return AuthUser.fromJson(map);
   }
 
-   @override
-  Future<AuthUser> loginUser({required String email, required String password}) async {
+  @override
+  Future<AuthUser> loginUser(
+      {required String email, required String password}) async {
     final map = await Requests().post(AppStrings.loginUrl, body: {
       "email": email,
       "password": password,
+    });
+    return AuthUser.fromJson(map);
+  }
 
+  @override
+  Future<AuthUser> registerUserKyc(
+      {required String name,
+      required String dob,
+      required String location,
+      required String gender,
+      required String docType,
+      required File documentType,
+      required String bio,
+      required String bKey}) async {
+    final map = await Requests().post(AppStrings.loginUrl, files: {
+      'document': documentType,
+    }, body: {
+      "name": name,
+      "dob": dob,
+      "location": location,
+      "gender": gender,
+      "d_type": docType,
+      "bio": bio,
+      "bkey": bKey,
     });
     return AuthUser.fromJson(map);
   }

@@ -5,13 +5,15 @@ import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/custom_text.dart';
 import 'package:esalerz/ui/widgets/modals.dart'; 
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; 
 
 import '../../../res/app_colors.dart';
 
 import '../../../res/app_strings.dart';
 import '../../../utils/navigator/page_navigator.dart';
 
+import '../model/view_models/account_view_model.dart';
 import 'service_kyc_six.dart';
 
 class KycServiceScreenFive extends StatelessWidget {
@@ -25,8 +27,8 @@ class KycServiceScreenFive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final serviceProvider =
-    //     Provider.of<ServiceProviderViewModel>(context, listen: false);
+        final userProfile = Provider.of<AccountViewModel>(context, listen: false);
+
 
     return Scaffold(
       body: Stack(
@@ -100,32 +102,27 @@ class KycServiceScreenFive extends StatelessWidget {
                     child: CSCPicker(
                       layout: Layout.vertical,
                       onCountryChanged: (value) {
-                        // serviceProvider.setCountryServiceProvider(value);
+                        
                         country = value;
                       },
                       onStateChanged: (value) {
-                        // serviceProvider.setStateServiceProvider(value ?? '');
+                        
                         state = value ?? '';
                       },
                       onCityChanged: (value) {
-                        // serviceProvider.setCityServiceProvider(value ?? '');
+                        
                         city = value ?? '';
                       },
                     ),
                   ),
                   const Spacer(),
-                  // if (serviceProvider.serviceProviderAge != '')
+                  
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 0.0, horizontal: 20),
                     child: ButtonView(
                       onPressed: () {
-                        // serviceProvider.setCountryServiceProvider('Nigeria');
-                        // serviceProvider.setStateServiceProvider('Enugu');
-                        // serviceProvider.setCityServiceProvider( 'Nkanu');
-
-                        //  AppNavigator.pushAndStackPage(context,
-                        //         page: KycServiceScreenSix());
+                       userProfile.setAddress('${country },${state}, ${city}',);
 
                         if (country == '') {
                           Modals.showToast('please select a country');
