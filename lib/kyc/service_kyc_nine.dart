@@ -2,19 +2,17 @@ import 'dart:io';
 
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
-import 'package:esalerz/ui/widgets/custom_text.dart';
-import 'package:esalerz/ui/widgets/image_view.dart';
+import 'package:esalerz/ui/widgets/custom_text.dart'; 
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
 
 import '../../../res/app_colors.dart';
 import '../../../res/app_routes.dart';
 import '../../../res/app_strings.dart';
 import '../../../utils/navigator/page_navigator.dart';
 
-class KycServiceScreenTwelve extends StatelessWidget {
-  const KycServiceScreenTwelve({super.key});
+class KycServiceScreenNine extends StatelessWidget {
+  const KycServiceScreenNine({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -7,12 +7,14 @@ import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../../res/app_colors.dart';
 
 import '../../../res/app_strings.dart';
 import '../../../utils/navigator/page_navigator.dart';
 
+import '../model/view_models/account_view_model.dart';
 import 'service_kyc_five.dart';
 
 class KycServiceScreenFour extends StatelessWidget {
@@ -25,8 +27,7 @@ class KycServiceScreenFour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final serviceProvider =
-    //     Provider.of<ServiceProviderViewModel>(context, listen: true);
+        final userProfile = Provider.of<AccountViewModel>(context, listen: false);
 
     return Scaffold(
       backgroundColor: AppColors.lightPrimary,
@@ -60,7 +61,14 @@ class KycServiceScreenFour extends StatelessWidget {
                       child: SizedBox(height: (Platform.isAndroid) ? 30 : 0)),
                   Row(
                     children: [
-                      Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,),
+                      const SizedBox(
+                      width: 15,
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,)),
                       const SizedBox(
                         width: 40,
                       ),

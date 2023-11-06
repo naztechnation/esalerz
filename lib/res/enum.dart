@@ -5,20 +5,14 @@ enum ImageType { svg, network, asset, file }
 enum MessageType { success, error, progress }
 
 enum DropdownType { form, button, menu }
-
-enum OrderButtonType { normal, outline }
-
-enum VerificationStatus { none, pending, verified }
-
-enum DeliveryStatus { requested, pending, delivered, none }
-
-enum CustomStepState { idle, current, completed, disabled }
+ 
+ 
 
 enum PaymentMethod { wallet, card, bank, none }
 
 enum ViewState { idle, loading, processing, success, failed }
 
-enum OrderContentType { food, profile }
+enum UploadType { photoId, userPhoto }
 
 enum CreateComboOverlayType { vendors, chow }
 
@@ -26,6 +20,7 @@ enum ProductsType { food, drinks, groceries, pharmacy }
 
 enum BookingsType { myBookings, bookingRequest }
 enum GenderType{ none, male, female }
+
 
 enum MenuOptions {
   showUserAgent,

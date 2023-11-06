@@ -2,12 +2,11 @@ import 'dart:io';
 
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/material.dart'; 
 
 import '../../../res/app_colors.dart';
 import '../../../res/app_strings.dart';
-import '../../../utils/navigator/page_navigator.dart';
+import '../../../utils/navigator/page_navigator.dart'; 
 import '../ui/widgets/custom_text.dart';
 import 'service_kyc_two.dart';
 
@@ -20,7 +19,6 @@ class KycServiceScreenOne extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //  final petProfile = Provider.of<AccountViewModel>(context, listen: false);
 
     return Scaffold(
       body: Stack(
@@ -73,7 +71,7 @@ class KycServiceScreenOne extends StatelessWidget {
                               vertical: 0.0, horizontal: 20),
                           child: ButtonView(
                             onPressed: () {
-                              //   petProfile.setPetName(_petNameController.text);
+                                 
 
                               AppNavigator.pushAndStackPage(context,
                                   page: KycServiceScreenTwo());

@@ -1,11 +1,13 @@
 import 'dart:io';
 
-import 'package:esalerz/res/app_images.dart'; 
-import 'package:flutter/material.dart'; 
+import 'package:esalerz/res/app_images.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../res/app_colors.dart';
 import '../../../res/app_strings.dart';
 import '../../../utils/navigator/page_navigator.dart';
+import '../model/view_models/account_view_model.dart';
 import '../res/enum.dart';
 import '../ui/widgets/button_view.dart';
 import '../ui/widgets/choice_card.dart';
@@ -22,12 +24,13 @@ class KycServiceScreenThree extends StatefulWidget {
 }
 
 class _KycServiceScreenThreeState extends State<KycServiceScreenThree> {
-    GenderType _petGenderType =  GenderType.none;
+  GenderType _petGenderType = GenderType.none;
+
+  String gender = "";
 
   @override
   Widget build(BuildContext context) {
-    // final serviceProvider =
-    //     Provider.of<ServiceProviderViewModel>(context, listen: false);
+    final userProfile = Provider.of<AccountViewModel>(context, listen: false);
 
     return Scaffold(
       backgroundColor: AppColors.lightPrimary,
@@ -61,7 +64,14 @@ class _KycServiceScreenThreeState extends State<KycServiceScreenThree> {
                       child: SizedBox(height: (Platform.isAndroid) ? 30 : 0)),
                   Row(
                     children: [
-                      Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,),
+                      const SizedBox(
+                      width: 15,
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,)),
                       const SizedBox(
                         width: 40,
                       ),
@@ -106,48 +116,53 @@ class _KycServiceScreenThreeState extends State<KycServiceScreenThree> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                    Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ChoiceCard(_petGenderType ==  GenderType.male, 'Male', () {
-                  setState(() {
-                    _petGenderType =  GenderType.male;
-                  });
-                }),
-                ChoiceCard(_petGenderType ==  GenderType.female, 'Female',
-                    () {
-                  setState(() {
-                    _petGenderType = GenderType.female;
-                  });
-                })
-              ],
-            ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ChoiceCard(_petGenderType == GenderType.male, 'Male', () {
+                        setState(() {
+                          _petGenderType = GenderType.male;
+                          gender = 'Male';
+                        });
+                      }),
+                      ChoiceCard(_petGenderType == GenderType.female, 'Female',
+                          () {
+                        setState(() {
+                          _petGenderType = GenderType.female;
+                          gender = 'Female';
+                        });
+                      })
+                    ],
+                  ),
                   const Spacer(),
-                  // if (_petGenderType != PetGenderType.none)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 20),
-                    child: ButtonView(
-                      onPressed: () {
-                        // serviceProvider
-                        //     .setServiceProviderGender(_petGenderType.name);
-                        AppNavigator.pushAndStackPage(context,
-                            page: KycServiceScreenFour());
-                      },
-                      color: AppColors.lightPrimary,
-                      borderRadius: 32,
-                      borderColor: Colors.white,
-                      child: const CustomText(
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        text: 'Next',
-                        weight: FontWeight.w400,
-                        size: 16,
-                        fontFamily: AppStrings.interSans,
-                        color: Colors.white,
+                  if (_petGenderType != GenderType.none)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 20),
+                      child: ButtonView(
+                        onPressed: () {
+                          
+                          if (gender != '') {
+                            userProfile.setGender(gender);
+                          }
+
+                          AppNavigator.pushAndStackPage(context,
+                              page: KycServiceScreenFour());
+                        },
+                        color: AppColors.lightPrimary,
+                        borderRadius: 32,
+                        borderColor: Colors.white,
+                        child: const CustomText(
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          text: 'Next',
+                          weight: FontWeight.w400,
+                          size: 16,
+                          fontFamily: AppStrings.interSans,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
                   const SizedBox(
                     height: 50,
                   ),

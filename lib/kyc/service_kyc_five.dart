@@ -59,7 +59,14 @@ class KycServiceScreenFive extends StatelessWidget {
                       child: SizedBox(height: (Platform.isAndroid) ? 30 : 0)),
                   Row(
                     children: [
-                      Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,),
+                      const SizedBox(
+                      width: 15,
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,)),
                       const SizedBox(
                         width: 40,
                       ),
@@ -91,6 +98,7 @@ class KycServiceScreenFive extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 22.0),
                     child: CSCPicker(
+                      layout: Layout.vertical,
                       onCountryChanged: (value) {
                         // serviceProvider.setCountryServiceProvider(value);
                         country = value;

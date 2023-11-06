@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:esalerz/res/app_images.dart'; 
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; 
 
 import '../../../res/app_colors.dart';
 import '../../../res/app_strings.dart';
 import '../../../utils/navigator/page_navigator.dart';
+import '../model/view_models/account_view_model.dart';
 import '../ui/widgets/button_view.dart';
 import '../ui/widgets/custom_text.dart';
 import '../ui/widgets/text_edit_view.dart';
@@ -26,8 +28,8 @@ class _KycServiceScreenTwoState extends State<KycServiceScreenTwo> {
 
   @override
   Widget build(BuildContext context) {
-    // final serviceProvider =
-    //     Provider.of<ServiceProviderViewModel>(context, listen: false);
+          final userProfile = Provider.of<AccountViewModel>(context, listen: false);
+
 
     return Scaffold(
       body: Stack(
@@ -59,7 +61,14 @@ class _KycServiceScreenTwoState extends State<KycServiceScreenTwo> {
                     child: SizedBox(height: (Platform.isAndroid) ? 30 : 0)),
                 Row(
                   children: [
-                    Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,)),
                     const SizedBox(
                       width: 40,
                     ),
@@ -106,8 +115,7 @@ class _KycServiceScreenTwoState extends State<KycServiceScreenTwo> {
                         vertical: 0.0, horizontal: 20),
                     child: ButtonView(
                       onPressed: () {
-                        // serviceProvider.setServiceProviderName(
-                        //     _serviceProviderNameController.text);
+                        userProfile.setName(_serviceProviderNameController.text);
 
                         AppNavigator.pushAndStackPage(context,
                             page: KycServiceScreenThree());

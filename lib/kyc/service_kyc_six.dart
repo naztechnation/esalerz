@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:esalerz/kyc/service_kyc_ten.dart';
+import 'package:esalerz/kyc/service_kyc_seven.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/custom_text.dart';
@@ -59,7 +59,14 @@ class _KycServiceScreenSixState extends State<KycServiceScreenSix> {
                   ),
                   Row(
                     children: [
-                      Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,),
+                     const SizedBox(
+                      width: 15,
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,)),
                       const SizedBox(
                         width: 40,
                       ),
@@ -115,7 +122,7 @@ class _KycServiceScreenSixState extends State<KycServiceScreenSix> {
                           // serviceProfile
                           //     .setAboutServiceProvider(commentController.text);
                           AppNavigator.pushAndStackPage(context,
-                              page: KycServiceScreenTen());
+                              page: KycServiceScreenSeven());
                         },
                         color: AppColors.lightPrimary,
                         borderRadius: 32,
