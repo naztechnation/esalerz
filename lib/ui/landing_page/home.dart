@@ -201,25 +201,25 @@ class _HomeState extends State<Home> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const SingleChildScrollView(
+                      SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       physics: ClampingScrollPhysics(),
                       child: Row(
                         children: [
                           ServiceBoard(
                               title: 'Cleaning',
-                              asset: 'assets/images/cleaning.png'),
+                              asset: 'assets/images/cleaning.png', onPressed: (){},),
                           SizedBox(width: 20),
                           ServiceBoard(
                               title: 'Beauty',
-                              asset: 'assets/images/beauty.png'),
+                              asset: 'assets/images/beauty.png', onPressed: (){},),
                           SizedBox(width: 20),
                           ServiceBoard(
                               title: 'AC Repair',
-                              asset: 'assets/images/repair.png'),
+                              asset: 'assets/images/repair.png', onPressed: (){},),
                           SizedBox(width: 20),
                           ServiceBoard(
-                              title: 'Salon', asset: 'assets/images/salon.png'),
+                              title: 'Salon', asset: 'assets/images/salon.png', onPressed: (){},),
                         ],
                       ),
                     ),

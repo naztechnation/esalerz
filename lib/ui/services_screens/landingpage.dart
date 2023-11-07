@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/ui/landing_page/home.dart';
-import 'package:esalerz/ui/ads.dart';
-import 'package:esalerz/ui/services/services.dart';
+import 'package:esalerz/ui/ads_screens/ads.dart';
+import 'package:esalerz/ui/services_screens/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/view_models/account_view_model.dart';

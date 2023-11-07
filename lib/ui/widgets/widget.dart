@@ -8,14 +8,15 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../services/userservice_info.dart';
+import '../services_screens/userservice_info.dart';
 
 
-//service board
+
 class ServiceBoard extends StatelessWidget {
-  const ServiceBoard({super.key, required this.title, required this.asset});
+  const ServiceBoard({super.key, required this.title, required this.asset, required this.onPressed});
   final String title;
   final String asset;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {

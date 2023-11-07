@@ -1,9 +1,9 @@
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 
-import '../res/app_colors.dart';
-import 'widgets/horizontal_selection.dart';
-import 'widgets/text_edit_view.dart';
+import '../../res/app_colors.dart';
+import '../widgets/horizontal_selection.dart';
+import '../widgets/text_edit_view.dart';
 
 class Ads extends StatefulWidget {
   Ads({super.key});
@@ -138,20 +138,7 @@ class _AdsState extends State<Ads> {
             ),
           ),
          
-          // Expanded(
-          //   child: MasonryGridView.builder(
-          //     itemCount: 6,
-          //     gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-          //         crossAxisCount: 2),
-          //     itemBuilder: (context, index) => const Padding(
-          //         padding: EdgeInsets.all(8.0),
-          //         child: TrendingServiceModel(
-          //             imageUrl: 'assets/images/laugage.png',
-          //             title: 'House cleaning',
-          //             price: '20.99',
-          //             rating: 4)),
-          //   ),
-          // ),
+           
         ],
       ),
     );

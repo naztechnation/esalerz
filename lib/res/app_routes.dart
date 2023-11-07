@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../splash_screen.dart';
-import '../ui/services/landingpage.dart';
-import '../ui/services/post_ad.dart';
+import '../ui/services_screens/landingpage.dart';
+import '../ui/services_screens/post_ad.dart';
 
 class AppRoutes {
   static const String splashScreen = 'splashScreen';
