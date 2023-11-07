@@ -123,7 +123,7 @@ class TextEditView extends StatelessWidget {
                 hintStyle: TextStyle(color: textColor, fontSize: 14),
                 labelText: labelText,
                 labelStyle: TextStyle(
-                  color: AppColors.lightPrimary,
+                  color: Colors.grey,
                 ),
                 filled: filled,
                 isDense: isDense,

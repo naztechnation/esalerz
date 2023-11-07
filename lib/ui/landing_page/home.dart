@@ -11,9 +11,11 @@ import '../../model/view_models/account_view_model.dart';
 import '../../provider/items.dart';
 import '../../res/app_images.dart';
 import '../../utils/navigator/page_navigator.dart';
+import '../ads_screens/ads_category.dart';
 import '../search_page.dart';
 import '../widgets/location_container.dart';
 import '../widgets/modals.dart';
+import '../widgets/notification_widget.dart';
 
 class Home extends StatefulWidget {
   const Home({
@@ -51,8 +53,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final pageIndexProvider = Provider.of<PageIndexProvider>(context);
     final user = Provider.of<AccountViewModel>(context, listen: true);
-    
-
 
     return GestureDetector(
       onTap: () {
@@ -82,6 +82,12 @@ class _HomeState extends State<Home> {
               //     child: Icon(Icons.menu, color: AppColors.lightPrimary),
               //   ),
               // ),
+              actions: [
+                NotificationWidget(
+                  icon: Icons.notifications,
+                  notificationCount: 3,
+                ),
+              ],
             ),
           ),
         ),
@@ -116,7 +122,7 @@ class _HomeState extends State<Home> {
                             heightFactor: 1,
                             isScrollControlled: true);
                       },
-                      child:   Row(
+                      child: Row(
                         children: [
                           Icon(
                             Icons.location_on_sharp,
@@ -155,8 +161,17 @@ class _HomeState extends State<Home> {
                             autofocus: false,
                             borderWidth: 1,
                             isDense: true,
-                            onTap: (){
-                              AppNavigator.pushAndStackPage(context, page: SearchPage(postsLists: ['Clothes', 'Television', 'Washing Machine', 'Laptops', 'Watches'],));
+                            onTap: () {
+                              AppNavigator.pushAndStackPage(context,
+                                  page: SearchPage(
+                                    postsLists: [
+                                      'Clothes',
+                                      'Television',
+                                      'Washing Machine',
+                                      'Laptops',
+                                      'Watches'
+                                    ],
+                                  ));
                             },
                             borderColor: AppColors.lightPrimary,
                             suffixIcon: const Icon(
@@ -169,7 +184,6 @@ class _HomeState extends State<Home> {
                         const SizedBox(
                           width: 10,
                         ),
-                        
                       ],
                     ),
                     const SizedBox(
@@ -201,25 +215,54 @@ class _HomeState extends State<Home> {
                     const SizedBox(
                       height: 20,
                     ),
-                      SingleChildScrollView(
+                    SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       physics: ClampingScrollPhysics(),
                       child: Row(
                         children: [
                           ServiceBoard(
-                              title: 'Cleaning',
-                              asset: 'assets/images/cleaning.png', onPressed: (){},),
+                            title: 'Cleaning',
+                            asset: 'assets/images/cleaning.png',
+                            onPressed: () {
+                              AppNavigator.pushAndStackPage(context,
+                                  page: AdsCategory(
+                                    category: 'Cleaning',
+                                  ));
+                            },
+                          ),
                           SizedBox(width: 20),
                           ServiceBoard(
-                              title: 'Beauty',
-                              asset: 'assets/images/beauty.png', onPressed: (){},),
+                            title: 'Beauty',
+                            asset: 'assets/images/beauty.png',
+                            onPressed: () {
+                              AppNavigator.pushAndStackPage(context,
+                                  page: AdsCategory(
+                                    category: 'Beauty',
+                                  ));
+                            },
+                          ),
                           SizedBox(width: 20),
                           ServiceBoard(
-                              title: 'AC Repair',
-                              asset: 'assets/images/repair.png', onPressed: (){},),
+                            title: 'AC Repair',
+                            asset: 'assets/images/repair.png',
+                            onPressed: () {
+                              AppNavigator.pushAndStackPage(context,
+                                  page: AdsCategory(
+                                    category: 'AC Repair',
+                                  ));
+                            },
+                          ),
                           SizedBox(width: 20),
                           ServiceBoard(
-                              title: 'Salon', asset: 'assets/images/salon.png', onPressed: (){},),
+                            title: 'Salon',
+                            asset: 'assets/images/salon.png',
+                            onPressed: () {
+                              AppNavigator.pushAndStackPage(context,
+                                  page: AdsCategory(
+                                    category: 'Salon',
+                                  ));
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -272,50 +315,48 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                     const SizedBox(height: 15),
-                     Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isGridView =
-                                    !isGridView;
-                              });
-                            },
-                            icon: Image.asset(
-                              'assets/images/grid.png',
-                              height: 40,
-                              color: isGridView
-                                  ? AppColors.lightPrimary
-                                  : Colors.black,
-                            ),
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isGridView = !isGridView;
+                            });
+                          },
+                          icon: Image.asset(
+                            'assets/images/grid.png',
+                            height: 40,
+                            color: isGridView
+                                ? AppColors.lightPrimary
+                                : Colors.black,
                           ),
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isGridView =
-                                    !isGridView;
-                              });
-                            },
-                            icon: Image.asset(
-                              'assets/images/list.png',
-                              height: 40,
-                              color: isGridView
-                                  ? Colors.black
-                                  : AppColors.lightPrimary,
-                            ),
-                          ),
-                        ],
-                      ),
-                     
+                        ),
+                        IconButton(
+                onPressed: () {
+                  setState(() {
+                    isGridView = !isGridView;
+                  });
+                },
+                icon: Image.asset(
+                  'assets/images/list.png',
+                  height: 30,
+                  color: isGridView ? Colors.black : AppColors.lightPrimary,
+                ),
+              ),
+               const SizedBox(
+            width: 5,
+          ),
+                      ],
+                    ),
                     Visibility(
-                    visible: isGridView,
-                    child: buildMasonryGridView(),
-                  ),
-                  Visibility(
-                    visible: !isGridView,
-                    child: buildListView(),
-                  ),
+                      visible: isGridView,
+                      child: buildMasonryGridView(),
+                    ),
+                    Visibility(
+                      visible: !isGridView,
+                      child: buildListView(),
+                    ),
                   ],
                 ),
               ),

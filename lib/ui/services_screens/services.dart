@@ -113,10 +113,13 @@ class _ServicesState extends State<Services> {
                 },
                 icon: Image.asset(
                   'assets/images/list.png',
-                  height: 40,
+                  height: 30,
                   color: isGridView ? Colors.black : AppColors.lightPrimary,
                 ),
               ),
+               const SizedBox(
+            width: 15,
+          ),
             ],
           ),
 

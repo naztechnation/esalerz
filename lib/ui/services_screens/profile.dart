@@ -1,6 +1,6 @@
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart';
-import 'package:esalerz/ui/auth/auth.dart'; 
+import 'package:esalerz/ui/auth/auth.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +8,8 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../handlers/secure_handler.dart';
 import '../../utils/navigator/page_navigator.dart';
+import '../widgets/notification_widget.dart';
 import '../widgets/text_edit_view.dart';
- 
 
 class Profile extends StatelessWidget {
   Profile({super.key});
@@ -25,38 +25,41 @@ class Profile extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.cardColor,
         elevation: 0,
-        title: const Text(
-          'Hello, John',
-          style: TextStyle(fontSize: 15, color: Colors.black),
-        ),
+         
         actions: [
-          SafeArea(
-            child: GestureDetector(
-              onTap: () {
-                StorageHandler.clearCache();
-                AppNavigator.pushAndReplacePage(context, page: LoginScreen());
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 20.0, top: 15),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Container(
-                    height: 30,
-                    width: 40,
-                    decoration: BoxDecoration(
-                        // borderRadius: BorderRadius.circular(80),
-                        color: AppColors.lightPrimary),
-                    child: Center(
-                        child: Icon(
-                      Icons.logout_outlined,
-                      color: Colors.white,
-                      size: 30,
-                    )),
+         GestureDetector(
+          onTap: () {
+            StorageHandler.clearCache();
+            AppNavigator.pushAndReplacePage(context, page: LoginScreen());
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 20.0, top: 15),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.logout_outlined,
+                    color: AppColors.lightSecondary,
+                    size: 30,
                   ),
-                ),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Text(
+                    'Log Out',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.lightSecondary,
+                    ),
+                  )
+                ],
               ),
             ),
           ),
+        ),
         ],
       ),
       body: Stack(
@@ -80,12 +83,10 @@ class Profile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //profile image
                   Align(
                     child: ProfileImagePicker(),
                   ),
                   const SizedBox(height: 30),
-
                   Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
@@ -140,6 +141,7 @@ class Profile extends StatelessWidget {
                               hintText: 'Enter last name',
                               borderColor: Colors.white,
                               textColor: Colors.black,
+                              
                               borderRadius: 4,
                               borderWidth: 1,
                               isDense: true,
@@ -228,11 +230,10 @@ class Profile extends StatelessWidget {
                             borderRadius: 4,
                             onPressed: () {},
                             child: Text(
-                                'Save',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              
+                              'Save',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             )),
                         const SizedBox(height: 70),
                       ],

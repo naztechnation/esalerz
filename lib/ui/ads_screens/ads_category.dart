@@ -1,10 +1,8 @@
-
-
+import 'package:esalerz/extentions/custom_string_extension.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../res/app_colors.dart';
-import '../widgets/horizontal_selection.dart';
 import '../widgets/text_edit_view.dart';
 
 class AdsCategory extends StatefulWidget {
@@ -19,8 +17,7 @@ class AdsCategory extends StatefulWidget {
 class _AdsState extends State<AdsCategory> {
   final String category;
 
-  _AdsState({  required this.category});
-
+  _AdsState({required this.category});
 
   final searchController = TextEditingController();
 
@@ -41,8 +38,8 @@ class _AdsState extends State<AdsCategory> {
           backgroundColor: AppColors.cardColor,
           elevation: 1,
           centerTitle: true,
-          title:   Text(
-            '$category Services',
+          title: Text(
+            '${category.capitalizeFirstOfEach} Services',
             style: TextStyle(fontSize: 18, color: Colors.black),
           )),
       body: Column(
@@ -51,7 +48,7 @@ class _AdsState extends State<AdsCategory> {
             height: 10,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -70,63 +67,50 @@ class _AdsState extends State<AdsCategory> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    height: 50,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.lightPrimary,
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.filter_list,
-                        color: Colors.white,
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Services', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isGridView = !isGridView;
+                        });
+                      },
+                      icon: Image.asset(
+                        'assets/images/grid.png',
+                        height: 40,
+                        color: isGridView ? AppColors.lightPrimary : Colors.black,
                       ),
                     ),
-                  ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isGridView = !isGridView;
+                        });
+                      },
+                      icon: Image.asset(
+                        'assets/images/list.png',
+                        height: 40,
+                        color: isGridView ? Colors.black : AppColors.lightPrimary,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-          
-          const SizedBox(
-            height: 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    isGridView = !isGridView;
-                  });
-                },
-                icon: Image.asset(
-                  'assets/images/grid.png',
-                  height: 40,
-                  color: isGridView ? AppColors.lightPrimary : Colors.black,
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    isGridView = !isGridView;
-                  });
-                },
-                icon: Image.asset(
-                  'assets/images/list.png',
-                  height: 40,
-                  color: isGridView ? Colors.black : AppColors.lightPrimary,
-                ),
-              ),
-            ],
-          ),
-
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -135,16 +119,14 @@ class _AdsState extends State<AdsCategory> {
                     visible: isGridView,
                     child: buildMasonryGridView(),
                   ),
-                   Visibility(
-                visible: !isGridView,
-                child: buildListView(),
-              ),
+                  Visibility(
+                    visible: !isGridView,
+                    child: buildListView(),
+                  ),
                 ],
               ),
             ),
           ),
-         
-           
         ],
       ),
     );

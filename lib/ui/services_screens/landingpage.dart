@@ -53,11 +53,11 @@ serviceProvider.getUserKyc();
         child: FloatingActionButton(
           heroTag: "Sell",
           elevation: 10,
-          backgroundColor: AppColors.lightPrimary,
+          backgroundColor: AppColors.lightSecondary,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(100.0),
-              side: const BorderSide(color: AppColors.lightPrimary)),
-          splashColor: AppColors.lightPrimary,
+              side: const BorderSide(color: AppColors.lightSecondary)),
+          splashColor: AppColors.lightSecondary,
           child: const Text('Sell'),
           onPressed: () {
             
@@ -76,7 +76,8 @@ serviceProvider.getUserKyc();
         decoration: const BoxDecoration(
           boxShadow: <BoxShadow>[
             BoxShadow(
-                color: AppColors.cardColor, blurRadius: 14, spreadRadius: 3),
+                color: AppColors.cardColor, 
+                blurRadius: 14, spreadRadius: 3),
           ],
         ),
         child: FABBottomAppBar(

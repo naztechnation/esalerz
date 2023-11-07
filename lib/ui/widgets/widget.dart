@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:esalerz/model/service_contents.dart';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/ui/widgets/bigtext.dart';
+import 'package:esalerz/ui/widgets/image_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../res/app_strings.dart';
 import '../services_screens/userservice_info.dart';
 
 
@@ -20,43 +22,48 @@ class ServiceBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
-                spreadRadius: 4,
-                blurRadius: 5,
-                offset: const Offset(0, 8),
+    return GestureDetector(
+      onTap: (){
+        onPressed();
+      },
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.1),
+                  spreadRadius: 4,
+                  blurRadius: 5,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: Center(
+              child: Image.asset(
+                asset,
+                height: 50,
+                fit: BoxFit.contain,
+                color: AppColors.lightPrimary,
+                width: 50,
               ),
-            ],
-          ),
-          child: Center(
-            child: Image.asset(
-              asset,
-              height: 50,
-              fit: BoxFit.contain,
-              color: AppColors.lightPrimary,
-              width: 50,
             ),
           ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-         Text(
-            title,
-            style: TextStyle(
-          fontSize: 13,
-
-            ),
-        ),
-      ],
+          const SizedBox(
+            height: 10,
+          ),
+           Text(
+              title,
+              style: TextStyle(
+            fontSize: 13,
+    
+              ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -849,7 +856,7 @@ class ProfileImagePicker extends StatefulWidget {
 }
 
 class _ProfileImagePickerState extends State<ProfileImagePicker> {
-  XFile? _imageFile; // Stores the selected image file
+  XFile? _imageFile;  
 
   Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
@@ -921,40 +928,49 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           },
         );
       },
-      child: Container(
-        height: 200,
-        width: 200,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100),
-          border: _imageFile == null
-              ? Border.all(
-                  width: 1,
-                  color: Colors.grey,
-                )
-              : null, // No border when an image is selected
-        ),
-        child: _imageFile != null
-            ? ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.file(
-                  File(_imageFile!.path),
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: double.infinity,
-                ),
-              )
-            : Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.add),
-                     Text(
-                        "Upload a profile image",
-                      textAlign: TextAlign.center,
+      child: Stack(
+        children: [
+          Container(
+            height: 150,
+            width: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              border: _imageFile == null
+                  ? Border.all(
+                      width: 10,
+                      color: AppColors.lightPrimary,
+                    )
+                  : null,  
+            ),
+            child: _imageFile != null
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(150),
+                    child: Image.file(
+                      File(_imageFile!.path),
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
                     ),
-                  ],
-                ),
-              ),
+                  )
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/profile.png',
+                          fit: BoxFit.cover,
+                          color: AppColors.lightPrimary.withOpacity(0.7),
+                        ),
+                          
+                      ],
+                    ),
+                  ),
+          ),
+          Positioned(
+            bottom: 5,
+            right: 20,
+            child: ImageView.asset('assets/images/gallery-add1.png', height: 35,color: Colors.grey))
+        ],
       ),
     );
   }
