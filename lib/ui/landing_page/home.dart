@@ -140,7 +140,7 @@ class _HomeState extends State<Home> {
                       fit: BoxFit.cover)),
             ),
             Container(
-              color: Colors.white70,
+              color: Colors.white54,
               height: MediaQuery.sizeOf(context).height,
               width: MediaQuery.sizeOf(context).width,
             ),
@@ -342,7 +342,6 @@ class _HomeState extends State<Home> {
                             style: TextStyle(
                               fontSize: 12,
                               color: AppColors.lightSecondary,
-                              // decoration: TextDecoration.underline,
                             ),
                           ),
                         ),
