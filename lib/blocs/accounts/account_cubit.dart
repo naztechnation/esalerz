@@ -13,23 +13,23 @@ class AccountCubit extends Cubit<AccountStates> {
   final AccountRepository accountRepository;
   final AccountViewModel viewModel;
 
-  Future<void> registerUser({
-    required String fullName,
-    required String email,
-    required String password,
-    required String phoneNumber,
-  }) async {
+  Future<void> registerUser(
+      {required String firstName,
+      required String lastName,
+      required String email,
+      required String password,
+      required String phone}) async {
     try {
       emit(AccountProcessing());
 
       final user = await accountRepository.registerUser(
-        fullName: fullName,
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         password: password,
-        phone: phoneNumber,
+        phone: phone,
       );
 
-      //  await viewModel.setToken(user.token ?? '');
       emit(AccountLoaded(user));
     } on ApiException catch (e) {
       emit(AccountApiErr(e.message));
@@ -78,7 +78,7 @@ class AccountCubit extends Cubit<AccountStates> {
     required String gender,
     required String docType,
     required String bio,
-    required File document ,
+    required File document,
     required String bKey,
   }) async {
     try {

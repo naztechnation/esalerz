@@ -5,8 +5,11 @@ import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 
 import '../../handlers/secure_handler.dart';
+import '../../model/view_models/account_view_model.dart';
+import '../../provider/items.dart';
 import '../../utils/navigator/page_navigator.dart';
 import '../widgets/notification_widget.dart';
 import '../widgets/text_edit_view.dart';
@@ -21,6 +24,9 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final page = Provider.of<PageIndexProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.cardColor,
@@ -30,6 +36,7 @@ class Profile extends StatelessWidget {
          GestureDetector(
           onTap: () {
             StorageHandler.clearCache();
+            page.changePageIndex(0)  ;
             AppNavigator.pushAndReplacePage(context, page: LoginScreen());
           },
           child: Padding(

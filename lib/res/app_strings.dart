@@ -17,4 +17,6 @@ class AppStrings {
   static const String registerUrl = '$mainBaseUrl/register';
   static const String loginUrl = '$mainBaseUrl/login';
   static const String createKycUrl = '$mainBaseUrl/create_kyc';
+  static   String getNotifyUrl(String token) => '$mainBaseUrl/get_notifications?bkey=$token';
+  static   String getNotifyDetailsUrl(String token, String id) => '$mainBaseUrl/notification?id=$id&bkey=$token';
 }

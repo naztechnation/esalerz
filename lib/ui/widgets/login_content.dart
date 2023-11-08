@@ -31,7 +31,8 @@ class _LoginContentState extends State<LoginContent> {
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _fullNameController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
   final _phoneController = TextEditingController();
 
   bool isShowPassword = true;
@@ -42,11 +43,7 @@ class _LoginContentState extends State<LoginContent> {
     });
   }
 
-  
-
   bool isLogin = true;
-
- 
 
   Widget logos() {
     return Padding(
@@ -95,7 +92,6 @@ class _LoginContentState extends State<LoginContent> {
           listener: (context, state) {
             if (state is AccountLoaded) {
               if (state.userData.status == 1) {
-                
                 Modals.showToast(state.userData.message ?? '',
                     messageType: MessageType.success);
                 //     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -105,8 +101,8 @@ class _LoginContentState extends State<LoginContent> {
                 //       email: _emailController.text.trim(),
                 //       isForgotPassword: false,
                 //     ));
-                 AppNavigator.pushAndReplacePage(context,
-                      page: const LandingPage());
+                AppNavigator.pushAndReplacePage(context,
+                    page: const LandingPage());
 
                 clearTextViews();
               } else {
@@ -116,16 +112,24 @@ class _LoginContentState extends State<LoginContent> {
             }
             if (state is AccountUpdated) {
               if (state.user.status == 1) {
-                 Modals.showToast(
+                if (state.user.data?.bkey == '' ||
+                    state.user.data?.bkey == null) {
+                  Modals.showToast(
+                    'Unknown user',
+                  );
+                }
+                {
+                  Modals.showToast(
                     state.user.message ?? '',
                   );
-                   setToken.setToken(state.user.data!.bkey!);
-                 StorageHandler.saveUserEmail(_emailController.text);
-                 StorageHandler.saveUserDetails(state.user.data!.fullName);
+                  setToken.setToken(state.user.data?.bkey ?? '');
+                  StorageHandler.saveUserEmail(_emailController.text);
+                  StorageHandler.saveUserDetails(state.user.data?.fullName);
+                  StorageHandler.saveUserPhone(state.user.data?.phone);
                   StorageHandler.login();
-                  AppNavigator.pushAndReplacePage(context,
-                      page: const LandingPage());
-               
+                }
+                AppNavigator.pushAndReplacePage(context,
+                    page: const LandingPage());
               } else {
                 Modals.showToast(state.user.message ?? '',
                     messageType: MessageType.success);
@@ -210,7 +214,7 @@ class _LoginContentState extends State<LoginContent> {
                                   ),
                                 ),
                               ),
-                                Padding(
+                              Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 12),
                                 child: Material(
@@ -219,8 +223,8 @@ class _LoginContentState extends State<LoginContent> {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30),
                                   child: TextEditView(
-                                    controller: _fullNameController,
-                                    labelText: 'Full Name (Surname First)',
+                                    controller: _firstNameController,
+                                    labelText: 'First Name',
                                     prefixIcon: const Icon(
                                       Ionicons.mail_outline,
                                       color: AppColors.lightPrimary,
@@ -237,7 +241,31 @@ class _LoginContentState extends State<LoginContent> {
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 12),
-                                child:  Material(
+                                child: Material(
+                                  elevation: 2,
+                                  shadowColor: Colors.black87,
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: TextEditView(
+                                    controller: _lastNameController,
+                                    labelText: 'Last Name',
+                                    prefixIcon: const Icon(
+                                      Ionicons.mail_outline,
+                                      color: AppColors.lightPrimary,
+                                    ),
+                                    filled: false,
+                                    borderColor: Colors.white,
+                                    textColor: Colors.black,
+                                    borderRadius: 30,
+                                    borderWidth: 1,
+                                    isDense: true,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 12),
+                                child: Material(
                                   elevation: 2,
                                   shadowColor: Colors.black87,
                                   color: Colors.white,
@@ -262,7 +290,7 @@ class _LoginContentState extends State<LoginContent> {
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 12),
-                                child:  Material(
+                                child: Material(
                                   elevation: 2,
                                   shadowColor: Colors.black87,
                                   color: Colors.white,
@@ -271,7 +299,6 @@ class _LoginContentState extends State<LoginContent> {
                                     controller: _passwordController,
                                     validator: Validator.validate,
                                     labelText: 'Password',
-                                    
                                     obscureText: isShowPassword,
                                     suffixIcon: isShowPassword
                                         ? GestureDetector(
@@ -321,8 +348,7 @@ class _LoginContentState extends State<LoginContent> {
                                   },
                                   child: const Text(
                                     'Sign Up',
-                                    style: TextStyle(
-                                        color: Colors.white),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                 ),
                               ),
@@ -436,12 +462,11 @@ class _LoginContentState extends State<LoginContent> {
                                   borderColor: Colors.white,
                                   borderRadius: 30,
                                   onPressed: () {
-                                     _loginUser(context);
+                                    _loginUser(context);
                                   },
                                   child: const Text(
                                     'Log In',
-                                    style: TextStyle(
-                                        color: Colors.white),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                 ),
                               ),
@@ -476,19 +501,16 @@ class _LoginContentState extends State<LoginContent> {
                                       ? 'Don\'t have an account?  '
                                       : 'Already have an account?  ',
                                   style: const TextStyle(
-                                    color: AppColors.lightSecondary,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 18
-
-                                  ),
+                                      color: AppColors.lightSecondary,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 18),
                                 ),
                                 TextSpan(
                                   text: isLogin ? 'Sign Up' : 'Log In',
                                   style: const TextStyle(
-                                    color: AppColors.lightSecondary,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18
-                                  ),
+                                      color: AppColors.lightSecondary,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18),
                                 ),
                               ],
                             ),
@@ -505,28 +527,31 @@ class _LoginContentState extends State<LoginContent> {
   }
 
   _registerUser(BuildContext ctx) {
-    if (_emailController.text.isNotEmpty && 
-    _fullNameController.text.isNotEmpty&&
-     _passwordController.text.isNotEmpty) {
+    if (_emailController.text.isNotEmpty &&
+        _firstNameController.text.isNotEmpty &&
+        _lastNameController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty &&
+        _phoneController.text.isNotEmpty) {
       ctx.read<AccountCubit>().registerUser(
-           fullName: _fullNameController.text.trim(),
-          phoneNumber: _phoneController.text.trim(),
+          firstName: _firstNameController.text.trim(),
+          lastName: _lastNameController.text.trim(),
+          phone: _phoneController.text.trim(),
           email: _emailController.text.trim(),
           password: _passwordController.text.trim());
       FocusScope.of(ctx).unfocus();
-    }else{
+    } else {
       Modals.showToast('Please fill in all the fields required');
     }
   }
 
   _loginUser(BuildContext ctx) {
-    if (_emailController.text.isNotEmpty && 
-     _passwordController.text.isNotEmpty) {
+    if (_emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty) {
       ctx.read<AccountCubit>().loginUser(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim());
       FocusScope.of(ctx).unfocus();
-    }else{
+    } else {
       Modals.showToast('Please fill in all the fields required');
     }
   }
@@ -535,7 +560,9 @@ class _LoginContentState extends State<LoginContent> {
     setState(() {
       _emailController.clear();
       _phoneController.clear();
-      _fullNameController.clear();
+      _firstNameController.clear();
+      _lastNameController.clear();
+      _phoneController.clear();
       _passwordController.clear();
     });
   }

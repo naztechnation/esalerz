@@ -8,15 +8,20 @@ import 'account_repository.dart';
 class AccountRepositoryImpl implements AccountRepository {
   @override
   Future<AuthUser> registerUser(
-      {required String email,
+
+      {
+      required String firstName,
+    required String lastName,  
+      required String email,
       required String password,
-      required String fullName,
+      
       required String phone}) async {
     final map = await Requests().post(AppStrings.registerUrl, body: {
       "email": email,
       "password": password,
-      "name": fullName,
-      // "phone": phone,
+      "first_name": firstName,
+      "last_name": lastName,
+       "phone": phone,
     });
     return AuthUser.fromJson(map);
   }

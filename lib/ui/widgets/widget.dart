@@ -959,7 +959,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                         Image.asset(
                           'assets/images/profile.png',
                           fit: BoxFit.cover,
-                          color: AppColors.lightPrimary.withOpacity(0.7),
+                          color: Colors.grey,
                         ),
                           
                       ],

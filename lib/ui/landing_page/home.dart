@@ -1,6 +1,7 @@
 import 'package:esalerz/extentions/custom_string_extension.dart';
 import 'package:esalerz/model/service_contents.dart';
 import 'package:esalerz/res/app_colors.dart';
+import 'package:esalerz/ui/notification/notifications.dart';
 import 'package:esalerz/ui/widgets/dotindicator.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
@@ -83,9 +84,15 @@ class _HomeState extends State<Home> {
               //   ),
               // ),
               actions: [
-                NotificationWidget(
-                  icon: Icons.notifications,
-                  notificationCount: 3,
+                GestureDetector(
+                  onTap: (){
+                    NavigationHelper.navigateToPage(
+                context, const NotificationsScreen());
+                  },
+                  child: NotificationWidget(
+                    icon: Icons.notifications,
+                    notificationCount: 3,
+                  ),
                 ),
               ],
             ),
@@ -333,20 +340,22 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         IconButton(
-                onPressed: () {
-                  setState(() {
-                    isGridView = !isGridView;
-                  });
-                },
-                icon: Image.asset(
-                  'assets/images/list.png',
-                  height: 30,
-                  color: isGridView ? Colors.black : AppColors.lightPrimary,
-                ),
-              ),
-               const SizedBox(
-            width: 5,
-          ),
+                          onPressed: () {
+                            setState(() {
+                              isGridView = !isGridView;
+                            });
+                          },
+                          icon: Image.asset(
+                            'assets/images/list.png',
+                            height: 30,
+                            color: isGridView
+                                ? Colors.black
+                                : AppColors.lightPrimary,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
                       ],
                     ),
                     Visibility(
