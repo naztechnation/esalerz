@@ -174,7 +174,7 @@ class _NotificationsState extends State<Notifications> {
                               //     Padding(
                               //       padding: EdgeInsets.only(right: 12.0),
                               //       child: Text(
-                              //               timeFormat.getCurrentTime(int.parse(date))  ,
+                              //               timeFormat.getCurrentTime(int.parse(date)),
                                       
                               //       ),
                               //     ),

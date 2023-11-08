@@ -15,19 +15,19 @@ class UserCubit extends Cubit<UserStates> {
   final UserViewModel viewModel;
 
   Future<void> createNotifications({
-     
-     required String token,
-     
+    required String token,
   }) async {
     try {
       emit(CreateNotifyLoading());
 
-      final notificatoins = await userRepository.getAllNotifications(
+      final notifications = await userRepository.getAllNotifications(
         token: token,
-         
       );
 
-      emit(CreateNotifyLoaded(notificatoins));
+      viewModel.setNotificationLength(notification: notifications.data ?? []);
+
+
+      emit(CreateNotifyLoaded(notifications));
     } on ApiException catch (e) {
       emit(UserNetworkErrApiErr(e.message));
     } catch (e) {
@@ -43,11 +43,9 @@ class UserCubit extends Cubit<UserStates> {
     }
   }
 
-  Future<void>  getNotificationsDetails({
-     
-     required String token,
-     required String id,
-     
+  Future<void> getNotificationsDetails({
+    required String token,
+    required String id,
   }) async {
     try {
       emit(NotifyDetailsLoading());
@@ -55,9 +53,7 @@ class UserCubit extends Cubit<UserStates> {
       final notifications = await userRepository.getDetailsNotifications(
         token: token,
         id: id,
-         
       );
-
       emit(NotifyDetailsLoaded(notifications));
     } on ApiException catch (e) {
       emit(UserNetworkErrApiErr(e.message));

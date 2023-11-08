@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/view_models/account_view_model.dart';
+import '../../model/view_models/user_view_model.dart';
 import '../../provider/items.dart';
 import '../../res/app_images.dart';
 import '../../utils/navigator/page_navigator.dart';
@@ -54,6 +55,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final pageIndexProvider = Provider.of<PageIndexProvider>(context);
     final user = Provider.of<AccountViewModel>(context, listen: true);
+    final notification = Provider.of<UserViewModel>(context, listen: true);
 
     return GestureDetector(
       onTap: () {
@@ -91,7 +93,7 @@ class _HomeState extends State<Home> {
                   },
                   child: NotificationWidget(
                     icon: Icons.notifications,
-                    notificationCount: 3,
+                    notificationCount: notification.notify.length,
                   ),
                 ),
               ],

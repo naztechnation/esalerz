@@ -1,13 +1,12 @@
 import 'dart:io';
- 
-import 'package:flutter/material.dart';
+  
+import 'package:esalerz/model/user_model/notifications.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-
-import '../../res/app_colors.dart';
-import '../../res/enum.dart';
+ 
+import '../../res/enum.dart'; 
 import 'base_viewmodel.dart';
 
 class UserViewModel extends BaseViewModel {
@@ -19,9 +18,17 @@ class UserViewModel extends BaseViewModel {
   int _activeTab  = 0;
 
   
+  List<NotificationsData> _notification = [];
+
+
 
   Future<void> setPublishedLength({required String publishedLength}) async {
     _publishedLength = publishedLength;
+    setViewState(ViewState.success);
+  }
+
+   Future<void> setNotificationLength({required List<NotificationsData> notification}) async {
+    _notification = notification;
     setViewState(ViewState.success);
   }
 
@@ -115,5 +122,9 @@ class UserViewModel extends BaseViewModel {
  
   String get publishedLength => _publishedLength;
 
+  List<NotificationsData>  get notification => _notification;
+
+  List<NotificationsData> get notify =>
+      notification.where((p) => p.isRead == '0').toList();
   
 }
