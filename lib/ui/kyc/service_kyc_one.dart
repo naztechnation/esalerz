@@ -4,10 +4,10 @@ import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:flutter/material.dart'; 
 
-import '../../../res/app_colors.dart';
-import '../../../res/app_strings.dart';
-import '../../../utils/navigator/page_navigator.dart'; 
-import '../ui/widgets/custom_text.dart';
+import '../../../../res/app_colors.dart';
+import '../../../../res/app_strings.dart';
+import '../../../../utils/navigator/page_navigator.dart'; 
+import '../widgets/custom_text.dart';
 import 'service_kyc_two.dart';
 
 class KycServiceScreenOne extends StatelessWidget {

@@ -938,7 +938,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
               border: _imageFile == null
                   ? Border.all(
                       width: 10,
-                      color: AppColors.lightPrimary,
+                      color: AppColors.lightPrimary.withOpacity(0.6),
                     )
                   : null,  
             ),
@@ -969,7 +969,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           Positioned(
             bottom: 5,
             right: 20,
-            child: ImageView.asset('assets/images/gallery-add1.png', height: 35,color: Colors.grey))
+            child: ImageView.asset('assets/images/gallery-add1.png', height: 35,color: AppColors.lightPrimary))
         ],
       ),
     );

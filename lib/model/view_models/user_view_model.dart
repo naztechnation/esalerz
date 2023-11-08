@@ -1,12 +1,12 @@
 import 'dart:io';
-  
+
 import 'package:esalerz/model/user_model/notifications.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
- 
-import '../../res/enum.dart'; 
+
+import '../../res/enum.dart';
 import 'base_viewmodel.dart';
 
 class UserViewModel extends BaseViewModel {
@@ -15,19 +15,17 @@ class UserViewModel extends BaseViewModel {
   File? imageURl;
   String _draftLength = "0";
   String _publishedLength = "0";
-  int _activeTab  = 0;
+  int _activeTab = 0;
 
-  
   List<NotificationsData> _notification = [];
-
-
 
   Future<void> setPublishedLength({required String publishedLength}) async {
     _publishedLength = publishedLength;
     setViewState(ViewState.success);
   }
 
-   Future<void> setNotificationLength({required List<NotificationsData> notification}) async {
+  Future<void> setNotificationLength(
+      {required List<NotificationsData> notification}) async {
     _notification = notification;
     setViewState(ViewState.success);
   }
@@ -37,7 +35,7 @@ class UserViewModel extends BaseViewModel {
     setViewState(ViewState.success);
   }
 
-   Future<void> setTabIndex({required int tabIndex}) async {
+  Future<void> setTabIndex({required int tabIndex}) async {
     _activeTab = tabIndex;
     setViewState(ViewState.success);
   }
@@ -47,84 +45,70 @@ class UserViewModel extends BaseViewModel {
     setViewState(ViewState.success);
   }
 
-  Future<File> fileFromImageUrl(String imageUrl, ) async {
+  Future<File> fileFromImageUrl(
+    String imageUrl,
+  ) async {
     String img = imageUrl;
     final response = await http.get(Uri.parse(img));
 
     final documentDirectory = await getApplicationDocumentsDirectory();
 
     final String imageName = imageUrl.split('/').last;
-        final file = File('${documentDirectory.path}/$imageName');
+    final file = File('${documentDirectory.path}/$imageName');
 
-        await file.writeAsBytes(response.bodyBytes);
+    await file.writeAsBytes(response.bodyBytes);
 
     imageURl = file;
     setViewState(ViewState.success);
     return file;
   }
 
- 
-
-
-  String getCurrentTime(int timestampInSeconds)   {
-     
+  String getCurrentTime(int timestampInSeconds) {
     DateTime date =
         DateTime.fromMillisecondsSinceEpoch(timestampInSeconds * 1000);
 
-      String time = formatTimeAgo(date);
-    
+    String time = formatTimeAgo(date);
 
-        setViewState(ViewState.success);
-
+    setViewState(ViewState.success);
 
     return time;
   }
 
- String formatTimeAgo(DateTime inputDate) {
-   
+  String formatTimeAgo(DateTime inputDate) {
     DateTime now = DateTime.now();
-  Duration difference = now.difference(inputDate);
+    Duration difference = now.difference(inputDate);
 
-  if (difference.inDays >= 3) {
-    return DateFormat.yMMMd().format(inputDate);
-  } else if (difference.inDays >= 1) {
-    if (difference.inDays == 1) {
-      return 'Yesterday';
+    if (difference.inDays >= 3) {
+      return DateFormat.yMMMd().format(inputDate);
+    } else if (difference.inDays >= 1) {
+      if (difference.inDays == 1) {
+        return 'Yesterday';
+      } else {
+        return '${difference.inDays} days ago';
+      }
+    } else if (difference.inHours >= 1) {
+      if (difference.inHours == 1) {
+        return '1 hour ago';
+      } else {
+        return '${difference.inHours} hours ago';
+      }
+    } else if (difference.inMinutes >= 1) {
+      if (difference.inMinutes == 1) {
+        return '1 minute ago';
+      } else {
+        return '${difference.inMinutes} minutes ago';
+      }
     } else {
-      return '${difference.inDays} days ago';
+      return 'Just now';
     }
-  } else if (difference.inHours >= 1) {
-    if (difference.inHours == 1) {
-      return '1 hour ago';
-    } else {
-      return '${difference.inHours} hours ago';
-    }
-  } else if (difference.inMinutes >= 1) {
-    if (difference.inMinutes == 1) {
-      return '1 minute ago';
-    } else {
-      return '${difference.inMinutes} minutes ago';
-    }
-  } else {
-    return 'Just now'; 
   }
-}
-
-
-
-
-
-
-
 
   File? get imgURl => imageURl;
 
- 
   String get publishedLength => _publishedLength;
 
-  List<NotificationsData>  get notification => _notification;
+  List<NotificationsData> get notification => _notification;
 
   List<NotificationsData> get notify =>
       notification.where((p) => p.isRead == '0').toList();
-  
 }

@@ -78,10 +78,25 @@ class StorageHandler {
       await storage.write(key: 'LOGGEDIN', value: isLoggedIn);
   }
 
+  static Future<void> saveAddress([String? isLoggedIn]) async {
+    if (isLoggedIn != null)
+      await storage.write(key: 'ADDRESS', value: isLoggedIn);
+  }
+
   static Future<String?> getUserEmail() async {
     Map<String, String> value = await storage.readAll();
     String? user;
     String? data = value['EMAIL'];
+    if (data != null) {
+      user = data;
+    }
+    return user;
+  }
+
+  static Future<String?> getAddress() async {
+    Map<String, String> value = await storage.readAll();
+    String? user;
+    String? data = value['ADDRESS'];
     if (data != null) {
       user = data;
     }

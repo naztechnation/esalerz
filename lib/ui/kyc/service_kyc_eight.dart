@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import '../../../res/app_colors.dart';
-import '../../../res/app_strings.dart';
-import '../../../res/enum.dart';
-import '../../../utils/navigator/page_navigator.dart';
-import '../blocs/accounts/account.dart';
-import '../model/view_models/account_view_model.dart';
-import '../requests/repositories/account_repo/account_repository_impl.dart';
-import '../ui/widgets/button_view.dart';
+import '../../../../res/app_colors.dart';
+import '../../../../res/app_strings.dart';
+import '../../../../res/enum.dart';
+import '../../../../utils/navigator/page_navigator.dart';
+import '../../blocs/accounts/account.dart';
+import '../../model/view_models/account_view_model.dart';
+import '../../requests/repositories/account_repo/account_repository_impl.dart';
+import '../widgets/button_view.dart';
 import 'service_kyc_nine.dart';
 
 class KycServiceScreenEight extends StatefulWidget {

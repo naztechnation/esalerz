@@ -8,12 +8,12 @@ import 'package:esalerz/ui/widgets/modals.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; 
 
-import '../../../res/app_colors.dart';
+import '../../../../res/app_colors.dart';
 
-import '../../../res/app_strings.dart';
-import '../../../utils/navigator/page_navigator.dart';
+import '../../../../res/app_strings.dart';
+import '../../../../utils/navigator/page_navigator.dart';
 
-import '../model/view_models/account_view_model.dart';
+import '../../model/view_models/account_view_model.dart';
 import 'service_kyc_six.dart';
 
 class KycServiceScreenFive extends StatelessWidget {

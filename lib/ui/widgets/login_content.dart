@@ -117,8 +117,7 @@ class _LoginContentState extends State<LoginContent> {
                   Modals.showToast(
                     'Unknown user',
                   );
-                }
-                {
+                }else{
                   Modals.showToast(
                     state.user.message ?? '',
                   );
@@ -126,13 +125,14 @@ class _LoginContentState extends State<LoginContent> {
                   StorageHandler.saveUserEmail(_emailController.text);
                   StorageHandler.saveUserDetails(state.user.data?.fullName);
                   StorageHandler.saveUserPhone(state.user.data?.phone);
+                  StorageHandler.saveAddress('');
                   StorageHandler.login();
                 }
                 AppNavigator.pushAndReplacePage(context,
                     page: const LandingPage());
               } else {
                 Modals.showToast(state.user.message ?? '',
-                    messageType: MessageType.success);
+                     );
               }
             } else if (state is AccountApiErr) {
               if (state.message != null) {

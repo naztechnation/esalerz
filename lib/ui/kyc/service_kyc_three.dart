@@ -1,29 +1,32 @@
 import 'dart:io';
 
 import 'package:esalerz/res/app_images.dart';
-import 'package:esalerz/ui/widgets/button_view.dart';
-import 'package:esalerz/ui/widgets/custom_text.dart';
-import 'package:esalerz/ui/widgets/modals.dart';
-import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../../res/app_colors.dart';
+import '../../../../res/app_colors.dart';
+import '../../../../res/app_strings.dart';
+import '../../../../utils/navigator/page_navigator.dart';
+import '../../model/view_models/account_view_model.dart';
+import '../../res/enum.dart';
+import '../widgets/button_view.dart';
+import '../widgets/choice_card.dart';
+import '../widgets/custom_text.dart';
+import 'service_kyc_four.dart';
 
-import '../../../res/app_strings.dart';
-import '../../../utils/navigator/page_navigator.dart';
-
-import '../model/view_models/account_view_model.dart';
-import 'service_kyc_five.dart';
-
-class KycServiceScreenFour extends StatelessWidget {
-  KycServiceScreenFour({
+class KycServiceScreenThree extends StatefulWidget {
+  KycServiceScreenThree({
     super.key,
   });
 
-  final TextEditingController _serviceProviderAgeController =
-      TextEditingController();
+  @override
+  State<KycServiceScreenThree> createState() => _KycServiceScreenThreeState();
+}
+
+class _KycServiceScreenThreeState extends State<KycServiceScreenThree> {
+  GenderType _petGenderType = GenderType.none;
+
+  String gender = "";
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +65,13 @@ class KycServiceScreenFour extends StatelessWidget {
                   Row(
                     children: [
                       const SizedBox(
-                        width: 15,
-                      ),
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: AppColors.lightPrimary,
-                          )),
+                      width: 15,
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,)),
                       const SizedBox(
                         width: 40,
                       ),
@@ -91,53 +91,66 @@ class KycServiceScreenFour extends StatelessWidget {
                   ),
                   const SizedBox(height: 55),
                   const CustomText(
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                     maxLines: 1,
-                    text: 'Date of Birth',
+                    text: 'Your gender',
                     weight: FontWeight.w700,
                     size: 32,
                     fontFamily: AppStrings.interSans,
                     color: Colors.black,
                   ),
                   const SizedBox(height: 30),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                    child: TextEditView(
-                      controller: _serviceProviderAgeController,
-                      isDense: true,
-                      readOnly: true,
-                      labelText: 'Year/Month/Day',
-                      suffixIcon: const Icon(
-                        Icons.arrow_drop_down,
-                        size: 32,
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 22.0),
+                      child: CustomText(
+                        textAlign: TextAlign.left,
+                        maxLines: 1,
+                        text: 'Select gender',
+                        weight: FontWeight.w500,
+                        size: 16,
+                        fontFamily: AppStrings.interSans,
+                        color: Colors.black,
                       ),
-                      onTap: () async {
-                        await DatePickerHelper.showDatePickerDialog(
-                            context, _serviceProviderAgeController);
-                      },
                     ),
                   ),
+                  const SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ChoiceCard(_petGenderType == GenderType.male, 'Male', () {
+                        setState(() {
+                          _petGenderType = GenderType.male;
+                          gender = 'Male';
+                        });
+                      }),
+                      ChoiceCard(_petGenderType == GenderType.female, 'Female',
+                          () {
+                        setState(() {
+                          _petGenderType = GenderType.female;
+                          gender = 'Female';
+                        });
+                      })
+                    ],
+                  ),
                   const Spacer(),
-                  
+                  if (_petGenderType != GenderType.none)
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 0.0, horizontal: 20),
+                          vertical: 20.0, horizontal: 20),
                       child: ButtonView(
                         onPressed: () {
-
-                          if (_serviceProviderAgeController.text != ''){
-                             userProfile.setDateOfBirth(
-                              _serviceProviderAgeController.text);
+                          
+                          if (gender != '') {
+                            userProfile.setGender(gender);
+                          }
 
                           AppNavigator.pushAndStackPage(context,
-                              page: KycServiceScreenFive());
-                          }else{
-                            Modals.showToast('Please select Date of Birth');
-                          }
-                         
+                              page: KycServiceScreenFour());
                         },
                         color: AppColors.lightPrimary,
-                        borderRadius: 22,
+                        borderRadius: 32,
                         borderColor: Colors.white,
                         child: const CustomText(
                           textAlign: TextAlign.center,
@@ -163,39 +176,30 @@ class KycServiceScreenFour extends StatelessWidget {
   }
 }
 
-//age date picker
-class DatePickerHelper {
-  static Future<void> showDatePickerDialog(
-      BuildContext context, TextEditingController controller) async {
-    final DateTime? selectedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1970),
-      lastDate: DateTime.now(),
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: AppColors.lightPrimary, // header background color
-              onPrimary: AppColors.cardColor, // header text color
-              onSurface: Colors.black, // body text color
+Widget inputField(String hint, IconData iconData) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 8),
+    child: SizedBox(
+      height: 50,
+      child: Material(
+        elevation: 8,
+        shadowColor: Colors.black87,
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(30),
+        child: TextField(
+          textAlignVertical: TextAlignVertical.bottom,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+              borderSide: BorderSide.none,
             ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: AppColors.lightPrimary, // button text color
-              ),
-            ),
+            filled: true,
+            fillColor: Colors.white,
+            hintText: hint,
+            prefixIcon: Icon(iconData),
           ),
-          child: child!,
-        );
-      },
-    );
-
-    if (selectedDate != null) {
-      final DateFormat dateFormat = DateFormat('y/M/d');
-      final String formattedDate = dateFormat.format(selectedDate);
-      controller.text = formattedDate;
-
-    }
-  }
+        ),
+      ),
+    ),
+  );
 }

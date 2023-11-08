@@ -6,10 +6,11 @@ import 'package:esalerz/ui/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
 
-import '../../../res/app_colors.dart';
-import '../../../res/app_routes.dart';
-import '../../../res/app_strings.dart';
-import '../../../utils/navigator/page_navigator.dart';
+import '../../../../res/app_colors.dart';
+import '../../../../res/app_routes.dart';
+import '../../../../res/app_strings.dart';
+import '../../../../utils/navigator/page_navigator.dart';
+import '../post_ads/select_post_type.dart';
 
 class KycServiceScreenNine extends StatelessWidget {
   const KycServiceScreenNine({super.key});
@@ -97,8 +98,8 @@ class KycServiceScreenNine extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20),
                   child: ButtonView(
                     onPressed: () {
-                      AppNavigator.pushNamedAndRemoveUntil(context,
-                          name: AppRoutes.postAd);
+                      AppNavigator.pushAndReplacePage(context,
+                          page: SelectPostType());
                     },
                     color: AppColors.lightPrimary,
                     child: const CustomText(

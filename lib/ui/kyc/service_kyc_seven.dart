@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:esalerz/kyc/service_kyc_nine.dart';
+import 'package:esalerz/ui/kyc/service_kyc_nine.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/button_view.dart';
 import 'package:esalerz/ui/widgets/custom_text.dart';
@@ -9,9 +9,9 @@ import 'package:esalerz/utils/navigator/page_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../res/app_colors.dart';
-import '../../../res/app_strings.dart';
-import '../model/view_models/account_view_model.dart';
+import '../../../../res/app_colors.dart';
+import '../../../../res/app_strings.dart';
+import '../../model/view_models/account_view_model.dart';
 import 'service_kyc_eight.dart';
 
 class KycServiceScreenSeven extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:esalerz/handlers/secure_handler.dart';
-import 'package:esalerz/kyc/service_kyc_one.dart';
+import 'package:esalerz/ui/kyc/service_kyc_one.dart';
 import 'package:esalerz/ui/widgets/custom_button_nav.dart/custom_button_nav.dart';
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ import '../../model/view_models/account_view_model.dart';
 import '../../provider/items.dart';
 import '../../res/app_routes.dart';
 import '../../utils/navigator/page_navigator.dart';
+import '../post_ads/select_post_type.dart';
 import 'profile.dart';
  
 
@@ -62,8 +63,8 @@ serviceProvider.getUserKyc();
           onPressed: () {
             
             if(serviceProvider.completedKyc == 'true'){
-                AppNavigator.pushNamedAndRemoveUntil(context,
-                          name: AppRoutes.postAd);
+                AppNavigator.pushAndStackPage(context,
+                          page: SelectPostType());
             }else{
                NavigationHelper.navigateToPage(context, KycServiceScreenOne());
             }

@@ -4,13 +4,13 @@ import 'package:esalerz/res/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; 
 
-import '../../../res/app_colors.dart';
-import '../../../res/app_strings.dart';
-import '../../../utils/navigator/page_navigator.dart';
-import '../model/view_models/account_view_model.dart';
-import '../ui/widgets/button_view.dart';
-import '../ui/widgets/custom_text.dart';
-import '../ui/widgets/text_edit_view.dart';
+import '../../../../res/app_colors.dart';
+import '../../../../res/app_strings.dart';
+import '../../../../utils/navigator/page_navigator.dart';
+import '../../model/view_models/account_view_model.dart';
+import '../widgets/button_view.dart';
+import '../widgets/custom_text.dart';
+import '../widgets/text_edit_view.dart';
 import 'service_kyc_three.dart';
 
 class KycServiceScreenTwo extends StatefulWidget {

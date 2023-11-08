@@ -1,3 +1,4 @@
+import 'package:esalerz/extentions/custom_string_extension.dart';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/auth/auth.dart';
@@ -11,21 +12,68 @@ import '../../handlers/secure_handler.dart';
 import '../../model/view_models/account_view_model.dart';
 import '../../provider/items.dart';
 import '../../utils/navigator/page_navigator.dart';
-import '../widgets/notification_widget.dart';
 import '../widgets/text_edit_view.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   Profile({super.key});
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
   final firstNameController = TextEditingController();
+
   final lastNameController = TextEditingController();
+
   final emailController = TextEditingController();
+
   final phoneController = TextEditingController();
+
   final addressController = TextEditingController();
+
+  String firstName = '';
+  String lastName = '';
+  String email = '';
+  String phone = '';
+  String address = '';
+
+  getUserDetails() async{
+
+    firstName = await StorageHandler.getUserDetails() ?? '';
+    lastName = await StorageHandler.getUserDetails() ?? '';
+    email = await StorageHandler.getUserEmail() ?? '';
+    phone = await StorageHandler.getUserPhone() ?? '';
+    address = await StorageHandler.getAddress() ?? '';
+
+
+    setState(() {
+      firstNameController.text = firstName;
+      lastNameController.text = lastName;
+      emailController.text = email;
+      phoneController.text = phone;
+      
+    });
+  }
+
+  @override
+  void initState() {
+    getUserDetails();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<AccountViewModel>(context, listen: true);
 
     final page = Provider.of<PageIndexProvider>(context, listen: false);
+
+    if(address == "") {
+      addressController.text = '${user.address.capitalizeFirstOfEach}';
+        
+      }else{
+        addressController.text = address;
+      }
 
     return Scaffold(
       appBar: AppBar(
@@ -234,10 +282,10 @@ class Profile extends StatelessWidget {
                         ButtonView(
                             color: AppColors.lightPrimary,
                             expanded: true,
-                            borderRadius: 4,
+                            borderRadius: 20,
                             onPressed: () {},
                             child: Text(
-                              'Save',
+                              'Update',
                               style: TextStyle(
                                 color: Colors.white,
                               ),
