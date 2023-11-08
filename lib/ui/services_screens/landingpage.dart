@@ -54,11 +54,11 @@ serviceProvider.getUserKyc();
         child: FloatingActionButton(
           heroTag: "Sell",
           elevation: 10,
-          backgroundColor: AppColors.lightSecondary,
+          backgroundColor: AppColors.lightPrimary,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(100.0),
-              side: const BorderSide(color: AppColors.lightSecondary)),
-          splashColor: AppColors.lightSecondary,
+              side: const BorderSide(color: AppColors.lightPrimary)),
+          splashColor: AppColors.lightPrimary,
           child: const Text('Sell'),
           onPressed: () {
             

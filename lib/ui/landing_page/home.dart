@@ -1,6 +1,7 @@
 import 'package:esalerz/extentions/custom_string_extension.dart';
 import 'package:esalerz/model/service_contents.dart';
 import 'package:esalerz/res/app_colors.dart';
+import 'package:esalerz/ui/bookmark_pages.dart';
 import 'package:esalerz/ui/notification/notifications.dart';
 import 'package:esalerz/ui/widgets/dotindicator.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart';
@@ -15,9 +16,11 @@ import '../../res/app_images.dart';
 import '../../utils/navigator/page_navigator.dart';
 import '../ads_screens/ads_category.dart';
 import '../search_page.dart';
+import '../widgets/image_view.dart';
 import '../widgets/location_container.dart';
 import '../widgets/modals.dart';
 import '../widgets/notification_widget.dart';
+import 'package:animated_item/animated_item.dart';
 
 class Home extends StatefulWidget {
   const Home({
@@ -64,19 +67,29 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         backgroundColor: AppColors.cardColor,
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80.0),
+          preferredSize: const Size.fromHeight(60.0),
           child: Container(
-            margin: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(0.0),
             child: AppBar(
               backgroundColor: AppColors.cardColor,
-              elevation: 0,
-              title: const Text(
-                'What are You Searching For Today?',
-                style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600),
+              elevation: 1,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ImageView.asset(
+                    AppImages.icon,
+                    height: 30,
+                  ),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  const Text(
+                    'Esalerz',
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                  ),
+                ],
               ),
+              automaticallyImplyLeading: false,
               // leading: Container(
               //   decoration: BoxDecoration(
               //     borderRadius: BorderRadius.circular(10),
@@ -87,9 +100,25 @@ class _HomeState extends State<Home> {
               // ),
               actions: [
                 GestureDetector(
-                  onTap: (){
+                    onTap: () {
+                      AppNavigator.pushAndStackPage(context,
+                          page: BookmarksPage());
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 11.0),
+                      child: Icon(
+                        Icons.favorite,
+                        color: AppColors.lightPrimary,
+                        size: 30,
+                      ),
+                    )),
+                const SizedBox(
+                  width: 12,
+                ),
+                GestureDetector(
+                  onTap: () {
                     NavigationHelper.navigateToPage(
-                context, const NotificationsScreen());
+                        context, const NotificationsScreen());
                   },
                   child: NotificationWidget(
                     icon: Icons.notifications,
@@ -118,7 +147,7 @@ class _HomeState extends State<Home> {
             SingleChildScrollView(
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -158,42 +187,34 @@ class _HomeState extends State<Home> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 6,
-                          child: TextEditView(
-                            controller: searchController,
-                            hintText: 'Search your service here...',
-                            filled: false,
-                            autofocus: false,
-                            borderWidth: 1,
-                            isDense: true,
-                            onTap: () {
-                              AppNavigator.pushAndStackPage(context,
-                                  page: SearchPage(
-                                    postsLists: [
-                                      'Clothes',
-                                      'Television',
-                                      'Washing Machine',
-                                      'Laptops',
-                                      'Watches'
-                                    ],
-                                  ));
-                            },
-                            borderColor: AppColors.lightPrimary,
-                            suffixIcon: const Icon(
-                              Icons.search,
-                              color: Colors.black,
-                              size: 25,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                      ],
+                    TextEditView(
+                      controller: searchController,
+                      hintText: 'Search your service here...',
+                      filled: false,
+                      autofocus: false,
+                      borderWidth: 2,
+                      isDense: true,
+                      onTap: () {
+                        AppNavigator.pushAndStackPage(context,
+                            page: SearchPage(
+                              postsLists: [
+                                'Clothes',
+                                'Television',
+                                'Washing Machine',
+                                'Laptops',
+                                'Watches'
+                              ],
+                            ));
+                      },
+                      borderColor: AppColors.lightPrimary,
+                      suffixIcon: const Icon(
+                        Icons.search,
+                        color: Colors.black,
+                        size: 25,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
                     ),
                     const SizedBox(
                       height: 20,
@@ -288,7 +309,11 @@ class _HomeState extends State<Home> {
                           });
                         },
                         itemBuilder: (context, index) {
-                          return promoView(index, context);
+                          return AnimatedItem(
+                              controller: _pageController,
+                              index: index,
+                              effect: const ScaleEffect(),
+                              child: promoView(index, context));
                         },
                       ),
                     ),

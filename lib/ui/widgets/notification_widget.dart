@@ -14,7 +14,7 @@ class NotificationWidget extends StatelessWidget {
 
       child: Stack(
         children: [
-          Icon(icon, size: 35.0, color: AppColors.lightPrimary,),  
+          Icon(icon, size: 34.0, color: AppColors.lightPrimary,),  
           if (notificationCount > 0)
             Positioned(
               right: 0,

@@ -1,26 +1,24 @@
-import 'package:esalerz/extentions/custom_string_extension.dart';
+
+
 import 'package:esalerz/ui/widgets/widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../res/app_colors.dart';
-import '../../res/app_images.dart';
-import '../widgets/image_view.dart';
-import '../widgets/text_edit_view.dart';
+import '../res/app_images.dart';
+import 'widgets/image_view.dart';
+import 'widgets/text_edit_view.dart';
 
-class AdsCategory extends StatefulWidget {
-  final String category;
+class BookmarksPage extends StatefulWidget {
+  
 
-  AdsCategory({super.key, required this.category});
+  BookmarksPage({super.key, });
 
   @override
-  State<AdsCategory> createState() => _AdsState(category: category);
+  State<BookmarksPage> createState() => _BookmarksState( );
 }
 
-class _AdsState extends State<AdsCategory> {
-  final String category;
-
-  _AdsState({required this.category});
-
+class _BookmarksState extends State<BookmarksPage> {
+  
   final searchController = TextEditingController();
 
   final List<String> items = [
@@ -56,22 +54,21 @@ class _AdsState extends State<AdsCategory> {
                       )),
                 ),
           title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-               ImageView.asset(
+              ImageView.asset(
                 AppImages.icon,
                 height: 30,
               ),
               const SizedBox(
                 width: 12,
               ),
-              Text(
-                '${category.capitalizeFirstOfEach} Services',
+              const Text(
+                'Bookmarks',
                 style: TextStyle(fontSize: 18, color: Colors.black),
               ),
             ],
-          )),
+          ),),
       body: Column(
         children: [
           const SizedBox(
@@ -86,7 +83,7 @@ class _AdsState extends State<AdsCategory> {
                   flex: 6,
                   child: TextEditView(
                     controller: searchController,
-                    hintText: 'What are you looking for...',
+                    hintText: 'Search Bookmarks...',
                     filled: false,
                     autofocus: false,
                     isDense: true,

@@ -195,11 +195,11 @@ class TrendingServiceModel extends StatelessWidget {
           ),
           child: Column(
             children: [
-              // Image
+               
               Stack(
                 children: [
                   Container(
-                    height: 120, // Half of the container height
+                    height: 120,  
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(20),
@@ -241,7 +241,6 @@ class TrendingServiceModel extends StatelessWidget {
                   ),
                 ],
               ),
-              // Title and Like Icon Row
               const SizedBox(
                 height: 10,
               ),
@@ -353,16 +352,41 @@ class SimilarAdsModel extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal:5.0, vertical: 10),
               child: Row(
                   children: [
-                    Container(
-                      width: 150,  
-                      height: 450, 
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: AssetImage(imageUrl),
-                          fit: BoxFit.cover,
+                    Stack(
+                      children: [
+                        Container(
+                          width: 150,  
+                          height: 450, 
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: AssetImage(imageUrl),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                    top: 5,
+                    right: 5,
+                    child: SizedBox(
+                      height: 42,
+                      width: 42,
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35.0),
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.favorite,
+                            color: AppColors.lightSecondary,
+                            size: 25,
+                          ),
                         ),
                       ),
+                    ),
+                  ),
+                      ],
                     ),
                     const SizedBox(width: 20,),
                     Column(
@@ -729,7 +753,7 @@ Widget buildContainerWithListTile({
   );
 }
 
-//expandable container
+ 
 class ExpandableContainer extends StatefulWidget {
   final String heading;
   final IconData icon;
