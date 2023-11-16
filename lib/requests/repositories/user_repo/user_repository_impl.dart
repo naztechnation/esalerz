@@ -33,6 +33,13 @@ class UserRepositoryImpl implements UserRepository {
 
     return AllProducts.fromJson(map);
   }
+  
+  @override
+  Future<AllProducts> getProductDetails({required String token, required String adId}) async {
+    final map = await Requests().get(AppStrings.getProductDetailsUrl(token, adId));
+
+    return AllProducts.fromJson(map);
+  }
 
   
 }

@@ -106,11 +106,11 @@ class _AdsState extends State<AdsScreen> {
           return EmptyWidget(
             title: 'Network error',
             description: state.message,
-            onRefresh: () => _userCubit.createNotifications(token: token),
+            onRefresh: () => _userCubit.getProducts(token: token),
           );
         }  
 
-        return (state is CreateNotifyLoading || state is  ProductsLoading)
+        return ( state is  ProductsLoading)
             ? const LoadingPage()
             : Column(
           children: [

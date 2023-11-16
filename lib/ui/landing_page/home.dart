@@ -138,7 +138,7 @@ class _HomeState extends State<HomePage> {
           return EmptyWidget(
             title: 'Network error',
             description: state.message,
-            onRefresh: () => _userCubit.createNotifications(token: token),
+            onRefresh: () => _userCubit.getProducts(token: token),
           );
         }  
 

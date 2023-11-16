@@ -53,6 +53,18 @@ class ProductsLoaded extends UserStates {
   List<Object> get props => [products];
 }
 
+class  ProductsDetailsLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class ProductsDetailsLoaded extends UserStates {
+  final AllProducts products;
+  const ProductsDetailsLoaded(this.products);
+  @override
+  List<Object> get props => [products];
+}
+
 
 class UserNetworkErr extends UserStates {
   final String? message;

@@ -8,6 +8,7 @@ class AppImages {
   static const icon = '${_baseUrl}icon.png';
   static const worker = '${_baseUrl}worker.png';
   static const sale = '${_baseUrl}sale.png';
+  static const star = '${_baseUrl}star_icon.svg';
   static const bg = '${_baseUrl}bg.jpeg';
   static const bg2 = '${_baseUrl}background.jpeg';
  

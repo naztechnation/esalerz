@@ -12,10 +12,12 @@ import 'package:image_picker/image_picker.dart';
 import '../../model/user_model/all_products.dart';
 import '../services_screens/userservice_info.dart';
 
-
-
 class ServiceBoard extends StatelessWidget {
-  const ServiceBoard({super.key, required this.title, required this.asset, required this.onPressed});
+  const ServiceBoard(
+      {super.key,
+      required this.title,
+      required this.asset,
+      required this.onPressed});
   final String title;
   final String asset;
   final Function onPressed;
@@ -23,7 +25,7 @@ class ServiceBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         onPressed();
       },
       child: Column(
@@ -55,12 +57,11 @@ class ServiceBoard extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-           Text(
-              title,
-              style: TextStyle(
-            fontSize: 13,
-    
-              ),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 13,
+            ),
           ),
         ],
       ),
@@ -195,11 +196,10 @@ class TrendingServiceModel extends StatelessWidget {
           ),
           child: Column(
             children: [
-               
               Stack(
                 children: [
                   Container(
-                    height: 120,  
+                    height: 120,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(20),
@@ -333,13 +333,12 @@ class SimilarAdsModel extends StatelessWidget {
     required this.price,
     required this.rating,
     required this.onPressed,
-    required this.isListView,  
+    required this.isListView,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (isListView) {
-      
       return GestureDetector(
         onTap: onPressed,
         child: Container(
@@ -349,98 +348,103 @@ class SimilarAdsModel extends StatelessWidget {
               borderRadius: BorderRadius.circular(15.0),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal:0.0, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0),
               child: Row(
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          width: 150,  
-                          height: 150, 
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                             
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
-                            
-                            child: ImageView.network(imageUrl, fit: BoxFit.cover,)),
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        width: 150,
+                        height: 150,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        Positioned(
-                    top: 5,
-                    right: 5,
-                    child: SizedBox(
-                      height: 42,
-                      width: 42,
-                      child: Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(35.0),
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.favorite,
-                            color: AppColors.lightSecondary,
-                            size: 25,
-                          ),
-                        ),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                bottomLeft: Radius.circular(10)),
+                            child: ImageView.network(
+                              imageUrl,
+                              fit: BoxFit.cover,
+                            )),
                       ),
-                    ),
-                  ),
-                      ],
-                    ),
-                    const SizedBox(width: 20,),
-                    Expanded(
-                      child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                      Text(
-                                      title,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                      const SizedBox(height: 10,),
-                    
-                      Text(
-                        '₦$price per service',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const SizedBox(height: 10,),
-                      Row(
-                        children: [
-                          const Icon(Icons.star,
-                              size: 16, color: AppColors.lightPrimary),
-                          const SizedBox(width: 3),
-                          Text(
-                            '$rating',
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: AppColors.lightPrimary,
+                      Positioned(
+                        top: 5,
+                        right: 5,
+                        child: SizedBox(
+                          height: 42,
+                          width: 42,
+                          child: Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35.0),
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.favorite,
+                                color: AppColors.lightSecondary,
+                                size: 25,
+                              ),
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                                      ],
-                                    ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '₦$price per service',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.star,
+                                size: 16, color: AppColors.lightPrimary),
+                            const SizedBox(width: 3),
+                            Text(
+                              '$rating',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: AppColors.lightPrimary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                
-                
+                  ),
+                ],
               ),
             ),
           ),
-        
+        ),
       );
     } else {
       return GestureDetector(
@@ -461,17 +465,20 @@ class SimilarAdsModel extends StatelessWidget {
                 Stack(
                   children: [
                     Container(
-                          // width: 150,  
-                          height: 150, 
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                             
-                          ),
-                          child: ClipRRect(
-                                                       borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-
-                            child: ImageView.network(imageUrl, fit: BoxFit.cover,)),
-                        ),
+                      // width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10)),
+                          child: ImageView.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                          )),
+                    ),
                     Container(
                       height: 120,
                       decoration: BoxDecoration(
@@ -709,22 +716,20 @@ Widget buildContainerWithListTile({
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Text(
-              subtitle,
-              style: TextStyle(
-                 color: Colors.grey,
-              ),
-           
+          Text(
+            subtitle,
+            style: TextStyle(
+              color: Colors.grey,
+            ),
           ),
           const SizedBox(
             height: 10,
           ),
-           Text(
-              thirdLineText,
-              style: TextStyle(
-                 color: Colors.black54,
-              ),
-             
+          Text(
+            thirdLineText,
+            style: TextStyle(
+              color: Colors.black54,
+            ),
           ),
         ],
       ),
@@ -756,7 +761,6 @@ Widget buildContainerWithListTile({
   );
 }
 
- 
 class ExpandableContainer extends StatefulWidget {
   final String heading;
   final IconData icon;
@@ -788,12 +792,11 @@ class _ExpandableContainerState extends State<ExpandableContainer> {
         title: Row(
           children: [
             Expanded(
-                child:  Text(
-                widget.heading,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              
+                child: Text(
+              widget.heading,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             )),
             Text(
               _expanded ? 'Hide' : 'Show',
@@ -816,8 +819,8 @@ class _ExpandableContainerState extends State<ExpandableContainer> {
                   const SizedBox(
                     height: 10,
                   ),
-                   Text(
-                     widget.address,
+                  Text(
+                    widget.address,
                     style: TextStyle(fontSize: 13),
                   ),
                 ],
@@ -839,8 +842,7 @@ Widget buildMasonryGridView() {
         padding: const EdgeInsets.all(8.0),
         child: SimilarAdsModel(
           onPressed: () {
-            NavigationHelper.navigateToPage(
-                context, const UserServiceInfo());
+            NavigationHelper.navigateToPage(context, const UserServiceInfo());
           },
           imageUrl: 'assets/images/ford.jpg',
           title: 'Car repair',
@@ -851,56 +853,52 @@ Widget buildMasonryGridView() {
   );
 }
 
-Widget buildMasonryGridView1({required List<ProductsData> products, bool isHome = false}) {
+Widget buildMasonryGridView1(
+    {required List<ProductsData> products, bool isHome = false}) {
   return MasonryGridView.builder(
-    itemCount: (isHome) ? (products.length >= 4) ? 4: products.length : products.length,
-    shrinkWrap: true,
-    physics: NeverScrollableScrollPhysics(),
-    gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2),
-    itemBuilder: (context, index) {
+      itemCount: (isHome)
+          ? (products.length >= 4)
+              ? 4
+              : products.length
+          : products.length,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2),
+      itemBuilder: (context, index) {
+        ProductsData productData = products[index];
 
-      ProductsData productData = products[index];
-
-      return Padding(
-
-        padding: const EdgeInsets.all(8.0),
-        child: SimilarAdsModel(
-          onPressed: () {
-            NavigationHelper.navigateToPage(
-                context, const UserServiceInfo());
-          },
-          imageUrl: productData.file?.first ?? '',
-          title: productData.title ?? '',
-          price: 'Free',
-          rating: 4,
-          isListView: false,
-        ));
-    } 
-  );
+        return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SimilarAdsModel(
+              onPressed: () {
+                NavigationHelper.navigateToPage(
+                    context,   UserServiceInfo(adsId: productData.id ?? '2',));
+              },
+              imageUrl: productData.file?.first ?? '',
+              title: productData.title ?? '',
+              price: 'Free',
+              rating: 4,
+              isListView: false,
+            ));
+      });
 }
 
-Widget buildListView( ) {
+Widget buildListView() {
   return ListView.builder(
     physics: NeverScrollableScrollPhysics(),
-
-        itemCount: 10,
-
+    itemCount: 10,
     shrinkWrap: true,
     itemBuilder: (context, index) {
-
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: SimilarAdsModel(
           onPressed: () {
-             NavigationHelper.navigateToPage(
-                context, const UserServiceInfo());
-           
+            NavigationHelper.navigateToPage(context, const UserServiceInfo());
           },
           imageUrl: 'images/ford.jpg',
           title: 'Car',
           price: 'Free',
-
           rating: 4,
           isListView: true,
         ),
@@ -909,13 +907,15 @@ Widget buildListView( ) {
   );
 }
 
-Widget buildListView1({required List<ProductsData> products, bool isHome = false}) {
+Widget buildListView1(
+    {required List<ProductsData> products, bool isHome = false}) {
   return ListView.builder(
     physics: NeverScrollableScrollPhysics(),
-
-            itemCount: (isHome) ? (products.length >= 4) ? 4: products.length : products.length,
-
-
+    itemCount: (isHome)
+        ? (products.length >= 4)
+            ? 4
+            : products.length
+        : products.length,
     shrinkWrap: true,
     itemBuilder: (context, index) {
       ProductsData productData = products[index];
@@ -924,14 +924,11 @@ Widget buildListView1({required List<ProductsData> products, bool isHome = false
         padding: const EdgeInsets.all(8.0),
         child: SimilarAdsModel(
           onPressed: () {
-             NavigationHelper.navigateToPage(
-                context, const UserServiceInfo());
-           
+            NavigationHelper.navigateToPage(context, const UserServiceInfo());
           },
           imageUrl: productData.file?.first ?? '',
           title: productData.title ?? '',
           price: 'Free',
-
           rating: 4,
           isListView: true,
         ),
@@ -946,7 +943,7 @@ class ProfileImagePicker extends StatefulWidget {
 }
 
 class _ProfileImagePickerState extends State<ProfileImagePicker> {
-  XFile? _imageFile;  
+  XFile? _imageFile;
 
   Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
@@ -1030,7 +1027,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                       width: 10,
                       color: AppColors.lightPrimary.withOpacity(0.6),
                     )
-                  : null,  
+                  : null,
             ),
             child: _imageFile != null
                 ? ClipRRect(
@@ -1051,19 +1048,17 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                           fit: BoxFit.cover,
                           color: Colors.grey,
                         ),
-                          
                       ],
                     ),
                   ),
           ),
           Positioned(
-            bottom: 5,
-            right: 20,
-            child: ImageView.asset('assets/images/gallery-add1.png', height: 35,color: AppColors.lightPrimary))
+              bottom: 5,
+              right: 20,
+              child: ImageView.asset('assets/images/gallery-add1.png',
+                  height: 35, color: AppColors.lightPrimary))
         ],
       ),
     );
   }
 }
-
- 
