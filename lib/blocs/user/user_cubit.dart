@@ -129,5 +129,68 @@ class UserCubit extends Cubit<UserStates> {
       }
     }
   }
+
+   Future<void> sendFeedback({
+    required String token,
+    required String adId,
+    required String message,
+    required String rating,
+  }) async {
+    try {
+      emit(AddFeedbackLoading());
+
+      final products = await userRepository.sendFeedback(
+        token: token,
+        adId: adId, rating: rating, message: message,
+      );
+
+      // viewModel.setNotificationLength(notification: notifications.data ?? []);
+
+
+      emit(AddFeedbackLoaded(products));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
+   Future<void> getFeedback({
+    required String token,
+    required String adId,
+    
+  }) async {
+    try {
+      emit(GetFeedbackLoading());
+
+      final feedbacks = await userRepository.getFeedbacks(
+        token: token,
+        adId: adId, 
+      );
+
+      
+
+      emit(GetFeedbackLoaded(feedbacks));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
 }
 

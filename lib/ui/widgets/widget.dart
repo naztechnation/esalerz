@@ -696,7 +696,7 @@ Widget buildContainerWithListTile({
   required String subtitle,
   required double rating,
   required String thirdLineText,
-  required Function(double) onRatingChanged,
+ // required Function(double) onRatingChanged,
 }) {
   return Container(
     decoration: BoxDecoration(
@@ -744,7 +744,7 @@ Widget buildContainerWithListTile({
           Icons.star,
           color: Colors.amber,
         ),
-        onRatingUpdate: onRatingChanged,
+        onRatingUpdate: (value){},
       ),
       isThreeLine: true,
       dense: true,

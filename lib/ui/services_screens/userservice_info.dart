@@ -1,4 +1,4 @@
-import 'package:esalerz/extentions/custom_string_extension.dart';
+ 
 import 'package:esalerz/model/chat/chatmodel.dart';
 import 'package:esalerz/model/service_term.dart';
 import 'package:esalerz/res/app_colors.dart';
@@ -124,6 +124,8 @@ class _UserInfoState extends State<UserInfo> {
         } else {
           products = [];
         }
+      }else if (state is AddFeedbackLoaded){
+        Modals.showToast(state.products.message ??'');
       }
     }, builder: (context, state) {
       if (state is UserNetworkErr) {
@@ -140,7 +142,7 @@ class _UserInfoState extends State<UserInfo> {
         );
       }
 
-      return (isLoading)
+      return (isLoading || state is AddFeedbackLoading)
           ? Scaffold(body: const LoadingPage())
           : Scaffold(
               appBar: AppBar(
@@ -694,7 +696,7 @@ class _UserInfoState extends State<UserInfo> {
                                             onPressed: () {
                                               NavigationHelper.navigateToPage(
                                                   context,
-                                                  const CustomerReviews());
+                                                    CustomerReviews(adsId: widget.adsId,));
                                             },
                                             color: Colors.white,
                                             padding: const EdgeInsets.symmetric(
@@ -723,13 +725,9 @@ class _UserInfoState extends State<UserInfo> {
                                         isDissmissible: true,
                                         heightFactor: 1,
                                         page: Ratings(
-                                            ctxt: context,
-                                            username: 'Buyer',
-                                            agentName:
-                                                'Seller',
-                                            agentId:
-                                                // widget.agents?.id.toString() ??
-                                                    ''));
+                                            context: context,
+                                            isProcessing: state is AddFeedbackLoading,
+                                            ));
                                   },
                                   color: Colors.white,
                                   padding: const EdgeInsets.symmetric(
@@ -750,8 +748,8 @@ class _UserInfoState extends State<UserInfo> {
                                 ),
                                 ButtonView(
                                   onPressed: () {
-                                    NavigationHelper.navigateToPage(
-                                        context, const CustomerReviews());
+                                    // NavigationHelper.navigateToPage(
+                                    //     context, const CustomerReviews());
                                   },
                                   color: Colors.white,
                                   padding: const EdgeInsets.symmetric(
@@ -771,8 +769,8 @@ class _UserInfoState extends State<UserInfo> {
                                 ),
                                 ButtonView(
                                   onPressed: () {
-                                    NavigationHelper.navigateToPage(
-                                        context, const CustomerReviews());
+                                    // NavigationHelper.navigateToPage(
+                                    //     context, const CustomerReviews());
                                   },
                                   color: Colors.white,
                                   padding: const EdgeInsets.symmetric(
@@ -854,10 +852,8 @@ class _UserInfoState extends State<UserInfo> {
   }
 
   Ratings({
-    required String username,
-    required BuildContext ctxt,
-    required String agentName,
-    required String agentId,
+    required bool isProcessing,
+    required BuildContext context
   }) {
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
@@ -868,7 +864,7 @@ class _UserInfoState extends State<UserInfo> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Rate this ${agentName.capitalizeFirstOfEach}\'s Services',
+                'Rate this Sellers Services',
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
               ),
               const SizedBox(
@@ -913,18 +909,12 @@ class _UserInfoState extends State<UserInfo> {
               const SizedBox(
                 height: 20,
               ),
-              // if (commentController.text.isNotEmpty)
+               if (commentController.text.isNotEmpty)
                 ButtonView(
-                  //  processing: isProcessing,
+                    processing: isProcessing,
                   onPressed: () {
                     setState(() {});
-                    // _postProductReviews(
-                    //   ctx: ctxt,
-                    //   username: username,
-                    //   agentId: widget.agents?.id.toString() ?? "",
-                    //   rating: ratingNumber.toString(),
-                    //   comment: commentController.text,
-                    // );
+                    _submit(context, products.first.id ?? '');
                   },
                   color: AppColors.lightSecondary,
                   borderRadius: 30,
@@ -944,6 +934,15 @@ class _UserInfoState extends State<UserInfo> {
         ),
       );
     });
+  }
+
+   _submit(
+    BuildContext ctx,
+    String adId
+  ) {
+    ctx
+        .read<UserCubit>()
+        .sendFeedback(token: token, adId: adId, message: commentController.text, rating: ratingNumber.toString() );
   }
 }
 

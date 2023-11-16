@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../model/auth_model/auth_user.dart';
 import '../../model/user_model/all_products.dart';
+import '../../model/user_model/feedback_lists.dart';
 import '../../model/user_model/notification_details.dart';
 import '../../model/user_model/notifications.dart';
 
@@ -65,7 +66,29 @@ class ProductsDetailsLoaded extends UserStates {
   List<Object> get props => [products];
 }
 
+class  AddFeedbackLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
 
+class AddFeedbackLoaded extends UserStates {
+  final AllProducts products;
+  const AddFeedbackLoaded(this.products);
+  @override
+  List<Object> get props => [products];
+}
+
+class  GetFeedbackLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class GetFeedbackLoaded extends UserStates {
+  final FeedbackList feedbacks;
+  const GetFeedbackLoaded(this.feedbacks);
+  @override
+  List<Object> get props => [feedbacks];
+}
 class UserNetworkErr extends UserStates {
   final String? message;
   const UserNetworkErr(this.message);
