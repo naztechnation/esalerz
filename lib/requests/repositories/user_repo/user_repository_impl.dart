@@ -1,6 +1,8 @@
  
   
 
+import 'package:esalerz/model/user_model/all_products.dart';
+
 import '../../../model/user_model/notification_details.dart';
 import '../../../model/user_model/notifications.dart';
 import '../../../res/app_strings.dart';
@@ -25,7 +27,12 @@ class UserRepositoryImpl implements UserRepository {
     return NotificationsDetail.fromJson(map);
   }
 
- 
+  @override
+  Future<AllProducts> getAllProducts({required String token})  async {
+    final map = await Requests().get(AppStrings.getAllProductsUrl(token));
+
+    return AllProducts.fromJson(map);
+  }
 
   
 }

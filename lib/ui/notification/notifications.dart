@@ -9,6 +9,7 @@ import '../../../utils/navigator/page_navigator.dart';
 import '../../model/user_model/notifications.dart';
 import '../../model/view_models/user_view_model.dart';
 import '../../requests/repositories/user_repo/user_repository_impl.dart';
+import '../../res/app_colors.dart';
 import '../widgets/empty_widget.dart';
 import '../widgets/image_view.dart';
 import '../widgets/loading_page.dart';
@@ -106,10 +107,28 @@ bool showother =  false;
                 children: [
                     Row(
                     children: [
+                       const SizedBox(
+                      width: 14,
+                    ),
+                       GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child:   Align(
+                        alignment: Alignment.topLeft,
+                        child:  GestureDetector(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: Icon(Icons.arrow_back_ios, color: AppColors.lightPrimary,)),
+                      ),),
+                       const SizedBox(
+                      width: 14,
+                    ),
                       ImageView.asset(
                         AppImages.icon,
-                        width: 40,
-                        height: 40,
+                        width: 35,
+                        height: 35,
                       ),
                       SizedBox(
                         width: 12,

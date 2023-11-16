@@ -69,4 +69,34 @@ class UserCubit extends Cubit<UserStates> {
       }
     }
   }
+
+  Future<void> getProducts({
+    required String token,
+  }) async {
+    try {
+      emit(ProductsLoading());
+
+      final products = await userRepository.getAllProducts(
+        token: token,
+      );
+
+      // viewModel.setNotificationLength(notification: notifications.data ?? []);
+
+
+      emit(ProductsLoaded(products));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
 }
+

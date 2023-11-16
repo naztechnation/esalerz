@@ -21,7 +21,7 @@ class AccountRepositoryImpl implements AccountRepository {
       "password": password,
       "first_name": firstName,
       "last_name": lastName,
-       "phone": phone,
+      "phone": phone,
     });
     return AuthUser.fromJson(map);
   }

@@ -9,7 +9,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../res/app_strings.dart';
+import '../../model/user_model/all_products.dart';
 import '../services_screens/userservice_info.dart';
 
 
@@ -349,21 +349,22 @@ class SimilarAdsModel extends StatelessWidget {
               borderRadius: BorderRadius.circular(15.0),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal:5.0, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal:0.0, vertical: 0),
               child: Row(
                   children: [
                     Stack(
                       children: [
                         Container(
                           width: 150,  
-                          height: 450, 
+                          height: 150, 
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: AssetImage(imageUrl),
-                              fit: BoxFit.cover,
-                            ),
+                             
                           ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+                            
+                            child: ImageView.network(imageUrl, fit: BoxFit.cover,)),
                         ),
                         Positioned(
                     top: 5,
@@ -389,47 +390,49 @@ class SimilarAdsModel extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(width: 20,),
-                    Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                  title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                    const SizedBox(height: 10,),
-
-                    Text(
-                      '₦$price per service',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 10,),
-                    Row(
-                      children: [
-                        const Icon(Icons.star,
-                            size: 16, color: AppColors.lightPrimary),
-                        const SizedBox(width: 3),
-                        Text(
-                          '$rating',
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: AppColors.lightPrimary,
-                          ),
+                    Expanded(
+                      child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                      Text(
+                                      title,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                      const SizedBox(height: 10,),
+                    
+                      Text(
+                        '₦$price per service',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
                         ),
-                      ],
+                      ),
+                      const SizedBox(height: 10,),
+                      Row(
+                        children: [
+                          const Icon(Icons.star,
+                              size: 16, color: AppColors.lightPrimary),
+                          const SizedBox(width: 3),
+                          Text(
+                            '$rating',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: AppColors.lightPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                                      ],
+                                    ),
                     ),
-                  ],
-                ),
                   ],
                 ),
                 
@@ -458,17 +461,17 @@ class SimilarAdsModel extends StatelessWidget {
                 Stack(
                   children: [
                     Container(
-                      height: 120, 
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20)),
-                        image: DecorationImage(
-                          image: AssetImage(imageUrl),
-                          fit: BoxFit.cover,
+                          // width: 150,  
+                          height: 150, 
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                             
+                          ),
+                          child: ClipRRect(
+                                                       borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+
+                            child: ImageView.network(imageUrl, fit: BoxFit.cover,)),
                         ),
-                      ),
-                    ),
                     Container(
                       height: 120,
                       decoration: BoxDecoration(
@@ -848,13 +851,44 @@ Widget buildMasonryGridView() {
   );
 }
 
-Widget buildListView() {
+Widget buildMasonryGridView1({required List<ProductsData> products, bool isHome = false}) {
+  return MasonryGridView.builder(
+    itemCount: (isHome) ? (products.length >= 4) ? 4: products.length : products.length,
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
+    gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2),
+    itemBuilder: (context, index) {
+
+      ProductsData productData = products[index];
+
+      return Padding(
+
+        padding: const EdgeInsets.all(8.0),
+        child: SimilarAdsModel(
+          onPressed: () {
+            NavigationHelper.navigateToPage(
+                context, const UserServiceInfo());
+          },
+          imageUrl: productData.file?.first ?? '',
+          title: productData.title ?? '',
+          price: 'Free',
+          rating: 4,
+          isListView: false,
+        ));
+    } 
+  );
+}
+
+Widget buildListView( ) {
   return ListView.builder(
     physics: NeverScrollableScrollPhysics(),
 
-    itemCount: 14,
+        itemCount: 10,
+
     shrinkWrap: true,
     itemBuilder: (context, index) {
+
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: SimilarAdsModel(
@@ -863,9 +897,41 @@ Widget buildListView() {
                 context, const UserServiceInfo());
            
           },
-          imageUrl: 'assets/images/ford.jpg',
-          title: 'Car repair',
-          price: '20.99',
+          imageUrl: 'images/ford.jpg',
+          title: 'Car',
+          price: 'Free',
+
+          rating: 4,
+          isListView: true,
+        ),
+      );
+    },
+  );
+}
+
+Widget buildListView1({required List<ProductsData> products, bool isHome = false}) {
+  return ListView.builder(
+    physics: NeverScrollableScrollPhysics(),
+
+            itemCount: (isHome) ? (products.length >= 4) ? 4: products.length : products.length,
+
+
+    shrinkWrap: true,
+    itemBuilder: (context, index) {
+      ProductsData productData = products[index];
+
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SimilarAdsModel(
+          onPressed: () {
+             NavigationHelper.navigateToPage(
+                context, const UserServiceInfo());
+           
+          },
+          imageUrl: productData.file?.first ?? '',
+          title: productData.title ?? '',
+          price: 'Free',
+
           rating: 4,
           isListView: true,
         ),
