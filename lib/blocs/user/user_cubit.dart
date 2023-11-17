@@ -242,4 +242,34 @@ class UserCubit extends Cubit<UserStates> {
       }
     }
   }
+
+  Future<void> sendReport({
+    required String token,
+    required String adId,
+    required String reason,
+  }) async {
+    try {
+      emit(ReportUserLoading());
+
+      final report = await userRepository.sendReport(
+        token: token,
+        adId: adId,
+        reason: reason,
+      );
+
+      emit(ReportUserLoaded(report));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
 }

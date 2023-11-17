@@ -73,8 +73,10 @@ class _UserInfoState extends State<UserInfo> {
   List<String> Images = [];
 
   bool isLoading = false;
+  bool isFeedbackLoading = false;
 
   final commentController = TextEditingController();
+  final reasonController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   getProducts() async {
@@ -126,6 +128,8 @@ class _UserInfoState extends State<UserInfo> {
         }
       }else if (state is AddFeedbackLoaded){
         Modals.showToast(state.products.message ??'');
+      }else if (state is ReportUserLoaded){
+        Modals.showToast(state.report.message ??'');
       }
     }, builder: (context, state) {
       if (state is UserNetworkErr) {
@@ -146,7 +150,7 @@ class _UserInfoState extends State<UserInfo> {
         );
       }
 
-      return (isLoading || state is AddFeedbackLoading)
+      return (isLoading || state is AddFeedbackLoading || state is ReportUserLoading)
           ? Scaffold(body: const LoadingPage())
           : Scaffold(
               appBar: AppBar(
@@ -752,8 +756,13 @@ class _UserInfoState extends State<UserInfo> {
                                 ),
                                 ButtonView(
                                   onPressed: () {
-                                    // NavigationHelper.navigateToPage(
-                                    //     context, const CustomerReviews());
+                                    Modals.showBottomSheetModal(context,
+                                        isDissmissible: true,
+                                        heightFactor: 1,
+                                        page: ReportAbuse(
+                                            context: context,
+                                            isProcessing: state is ReportUserLoading,
+                                            ));
                                   },
                                   color: Colors.white,
                                   padding: const EdgeInsets.symmetric(
@@ -895,13 +904,14 @@ class _UserInfoState extends State<UserInfo> {
                   },
                   isDense: true,
                   textViewTitle: 'Write a review',
-                  hintText: 'Enter comment',
+                  hintText: 'Start typing comment...',
                   borderWidth: 0.5,
                   fillColor: Colors.white,
                   borderColor: Color.fromARGB(255, 41, 12, 12),
                   borderRadius: 30,
                   onChanged: ((value) {
-                    setState(() {});
+                   setState(() {});
+                   
                   }),
                   maxLines: 6,
                 ),
@@ -915,10 +925,11 @@ class _UserInfoState extends State<UserInfo> {
               ),
                if (commentController.text.isNotEmpty)
                 ButtonView(
-                    processing: isProcessing,
+                    processing: isFeedbackLoading,
                   onPressed: () {
-                    setState(() {});
-                    _submit(context, products.first.id ?? '');
+                    Navigator.pop(context);
+                    setState((){});
+                    rateUser(context, products.first.id ?? '');
                   },
                   color: AppColors.lightSecondary,
                   borderRadius: 30,
@@ -940,13 +951,115 @@ class _UserInfoState extends State<UserInfo> {
     });
   }
 
-   _submit(
+  ReportAbuse({
+    required bool isProcessing,
+    required BuildContext context
+  }) {
+    return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+      return Container(
+        padding: const EdgeInsets.all(20),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Report this Seller',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+              ),
+              
+              const SizedBox(
+                height: 20,
+              ),
+              Form(
+                key: _formKey,
+                child: TextEditView(
+                  controller: reasonController,
+                  validator: (value) {
+                    return Validator.validate(value,);
+                  },
+                  isDense: true,
+                  textViewTitle: 'Write your complaint',
+                  hintText: 'Start typing...',
+                  borderWidth: 0.5,
+                  fillColor: Colors.white,
+                  borderColor: Color.fromARGB(255, 41, 12, 12),
+                  borderRadius: 30,
+                  onChanged: ((value) {
+                   setState(() {});
+                   
+                  }),
+                  maxLines: 6,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+             
+              const SizedBox(
+                height: 20,
+              ),
+               if (reasonController.text.isNotEmpty)
+                ButtonView(
+                    processing: isFeedbackLoading,
+                  onPressed: () {
+                    Navigator.pop(context);
+                    setState((){});
+                    reportUser(context, products.first.id ?? '');
+                  },
+                  color: AppColors.lightSecondary,
+                  borderRadius: 30,
+                  borderColor: AppColors.lightSecondary,
+                  child: CustomText(
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    text: 'Submit',
+                    weight: FontWeight.w400,
+                    size: 16,
+                    fontFamily: AppStrings.interSans,
+                    color: Colors.white,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+   rateUser(
     BuildContext ctx,
     String adId
-  ) {
-    ctx
-        .read<UserCubit>()
+  ) async{
+                   
+  setState(() {
+      isFeedbackLoading = true;
+    });
+  await  _userCubit
+         
         .sendFeedback(token: token, adId: adId, message: commentController.text, rating: ratingNumber.toString() );
+
+        setState(() {
+      isFeedbackLoading = false;
+    });
+  }
+
+
+   reportUser(
+    BuildContext ctx,
+    String adId
+  ) async{
+                   
+  setState(() {
+      isFeedbackLoading = true;
+    });
+  await  _userCubit
+         
+        .sendReport(token: token, adId: adId, reason: reasonController.text, );
+
+        setState(() {
+      isFeedbackLoading = false;
+    });
   }
 }
 

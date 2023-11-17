@@ -713,7 +713,7 @@ Widget buildContainerWithListTile({
     ),
     child: ListTile(
       leading: const CircleAvatar(
-        backgroundImage: AssetImage('assets/images/man.jpg'),
+        backgroundImage: AssetImage('assets/images/profile.png'),
         backgroundColor: Colors.transparent,
         radius: 25,
       ),

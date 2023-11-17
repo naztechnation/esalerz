@@ -72,6 +72,7 @@ class _CustomerReviewsState extends State<ReviewsPage> {
 
   @override
   void initState() {
+    getReviews();
     super.initState();
   }
 
@@ -169,6 +170,7 @@ class _CustomerReviewsState extends State<ReviewsPage> {
                           ListView.builder(
                               itemCount: reviews.length,
                               shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return buildContainerWithListTile(
                                   title: reviews[index].fullName ?? '',

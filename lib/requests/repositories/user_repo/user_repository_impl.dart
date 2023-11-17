@@ -73,9 +73,22 @@ class UserRepositoryImpl implements UserRepository {
 
     return AllProducts.fromJson(map);
   }
+
   @override
   Future<AllProducts> removeLike({required String token, required String adId}) async {
     final map = await Requests().get(AppStrings.unLikePost(token, adId));
+
+    return AllProducts.fromJson(map);
+  }
+  
+  @override
+  Future<AllProducts> sendReport({required String token, required String reason, required String adId}) async {
+    final map = await Requests().post(AppStrings.reportAd, body: {
+      'bkey' : token,
+      'ad_id' : adId,
+      'reason' : reason,
+
+    });
 
     return AllProducts.fromJson(map);
   }

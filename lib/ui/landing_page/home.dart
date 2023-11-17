@@ -31,6 +31,8 @@ import '../widgets/modals.dart';
 import '../widgets/notification_widget.dart';
 import 'package:animated_item/animated_item.dart';
 
+import '../widgets/services_item.dart';
+
 class Home extends StatelessWidget {
   const Home({
     Key? key,
@@ -120,6 +122,20 @@ class _HomeState extends State<HomePage> {
             setState(() {});
           } else {
             products = [];
+          }
+        } else if (state is CreateLikeLoaded) {
+          if (state.like.status == 1) {
+            Modals.showToast(state.like.message ?? '');
+          } else {
+                       Modals.showToast(state.like.message ?? '');
+
+          }
+        }else if (state is RemoveLikeLoaded) {
+          if (state.unlike.status == 1) {
+            Modals.showToast(state.unlike.message ?? '');
+          } else {
+                       Modals.showToast(state.unlike.message ?? '');
+
           }
         }
       }, builder: (context, state) {
@@ -463,16 +479,33 @@ class _HomeState extends State<HomePage> {
                             ),
                             Visibility(
                               visible: isGridView,
-                              child: buildMasonryGridView1(
+                              child: ServiceItem(
                                 products: products,
-                                onTapLike: () {
-                                  Modals.showToast('message');
-                                },
+                                onTapLike: (adId, isLiked) {
+                                  if(isLiked) {
+                                  unLikeAds(context, adId);
+
+                                  }else{
+                                  likeAds(context, adId);
+
+                                  }
+                                }, isHome: true, isListView: false, isLoading: (state is RemoveLikeLoading || state is CreateLikeLoading), 
                               ),
                             ),
                             Visibility(
                               visible: !isGridView,
-                              child: buildListView1(products: products),
+                              child: ServiceItem(
+                                products: products,
+                                onTapLike: (adId, isLiked) {
+                                  if(isLiked) {
+                                  unLikeAds(context, adId);
+
+                                  }else{
+                                  likeAds(context, adId);
+
+                                  }
+                                }, isHome: true, isListView: true, isLoading: (state is RemoveLikeLoading || state is CreateLikeLoading),
+                              ),
                             ),
                           ],
                         ),
@@ -485,13 +518,19 @@ class _HomeState extends State<HomePage> {
     );
   }
 
-  _submit(BuildContext ctx, String adId) {
+  likeAds(BuildContext ctx, String adId) {
     ctx.read<UserCubit>().createLike(
           token: token,
           adId: adId,
         );
   }
 
+ unLikeAds(BuildContext ctx, String adId) {
+    ctx.read<UserCubit>().removeLike(
+          token: token,
+          adId: adId,
+        );
+  }
   List<String> countries = [
     'Abia',
     'Adamawa',

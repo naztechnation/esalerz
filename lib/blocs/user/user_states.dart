@@ -113,6 +113,18 @@ class GetFeedbackLoaded extends UserStates {
   @override
   List<Object> get props => [feedbacks];
 }
+
+class  ReportUserLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class ReportUserLoaded extends UserStates {
+  final AllProducts report;
+  const ReportUserLoaded(this.report);
+  @override
+  List<Object> get props => [report];
+}
 class UserNetworkErr extends UserStates {
   final String? message;
   const UserNetworkErr(this.message);

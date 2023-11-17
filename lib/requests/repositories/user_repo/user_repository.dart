@@ -12,6 +12,7 @@ abstract class UserRepository {
      Future<NotificationsInfo> getAllNotifications({ required String token});
      Future<AllProducts> getAllProducts({ required String token});
      Future<AllProducts> sendFeedback({ required String token, required String message,  required String adId,  required String rating,  });
+     Future<AllProducts> sendReport({required String token, required String reason,  required String adId,    });
      Future<AllProducts> getProductDetails({ required String token, required String adId});
      Future<AllProducts> createLike({ required String token, required String adId});
      Future<AllProducts> removeLike({ required String token, required String adId});
