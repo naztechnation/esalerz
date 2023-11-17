@@ -26,7 +26,6 @@ class UserCubit extends Cubit<UserStates> {
 
       viewModel.setNotificationLength(notification: notifications.data ?? []);
 
-
       emit(CreateNotifyLoaded(notifications));
     } on ApiException catch (e) {
       emit(UserNetworkErrApiErr(e.message));
@@ -82,7 +81,6 @@ class UserCubit extends Cubit<UserStates> {
 
       // viewModel.setNotificationLength(notification: notifications.data ?? []);
 
-
       emit(ProductsLoaded(products));
     } on ApiException catch (e) {
       emit(UserNetworkErrApiErr(e.message));
@@ -99,10 +97,8 @@ class UserCubit extends Cubit<UserStates> {
     }
   }
 
-  Future<void> getProductDetails({
-    required String token,
-    required String adId
-  }) async {
+  Future<void> getProductDetails(
+      {required String token, required String adId}) async {
     try {
       emit(ProductsDetailsLoading());
 
@@ -112,7 +108,6 @@ class UserCubit extends Cubit<UserStates> {
       );
 
       // viewModel.setNotificationLength(notification: notifications.data ?? []);
-
 
       emit(ProductsDetailsLoaded(products));
     } on ApiException catch (e) {
@@ -130,7 +125,7 @@ class UserCubit extends Cubit<UserStates> {
     }
   }
 
-   Future<void> sendFeedback({
+  Future<void> sendFeedback({
     required String token,
     required String adId,
     required String message,
@@ -141,11 +136,12 @@ class UserCubit extends Cubit<UserStates> {
 
       final products = await userRepository.sendFeedback(
         token: token,
-        adId: adId, rating: rating, message: message,
+        adId: adId,
+        rating: rating,
+        message: message,
       );
 
       // viewModel.setNotificationLength(notification: notifications.data ?? []);
-
 
       emit(AddFeedbackLoaded(products));
     } on ApiException catch (e) {
@@ -162,20 +158,18 @@ class UserCubit extends Cubit<UserStates> {
       }
     }
   }
-   Future<void> getFeedback({
+
+  Future<void> getFeedback({
     required String token,
     required String adId,
-    
   }) async {
     try {
       emit(GetFeedbackLoading());
 
       final feedbacks = await userRepository.getFeedbacks(
         token: token,
-        adId: adId, 
+        adId: adId,
       );
-
-      
 
       emit(GetFeedbackLoaded(feedbacks));
     } on ApiException catch (e) {
@@ -192,5 +186,60 @@ class UserCubit extends Cubit<UserStates> {
       }
     }
   }
-}
 
+  Future<void> createLike({
+    required String token,
+    required String adId,
+  }) async {
+    try {
+      emit(CreateLikeLoading());
+
+      final like = await userRepository.createLike(
+        token: token,
+        adId: adId,
+      );
+
+      emit(CreateLikeLoaded(like));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+  Future<void> removeLike({
+    required String token,
+    required String adId,
+  }) async {
+    try {
+      emit(RemoveLikeLoading());
+
+      final like = await userRepository.removeLike(
+        token: token,
+        adId: adId,
+      );
+
+      emit(RemoveLikeLoaded(like));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
+}

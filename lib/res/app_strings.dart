@@ -18,6 +18,8 @@ class AppStrings {
   static const String loginUrl = '$mainBaseUrl/login';
   static const String createKycUrl = '$mainBaseUrl/create_kyc';
   static const String createFeedbackUrl = '$mainBaseUrl/create_feedback';
+  static const String likePost = '$mainBaseUrl/like_product';
+  static  String unLikePost(String token, String tokenId) => '$mainBaseUrl/remove_like?bkey=$token&ad_id=$tokenId';
   static   String getNotifyUrl(String token) => '$mainBaseUrl/get_notifications?bkey=$token';
   static   String getAllProductsUrl(String token) => '$mainBaseUrl/get_all_ads?bkey=$token'; 
   static   String getProductDetailsUrl(String token, String adId) => '$mainBaseUrl/get_ad?bkey=$token&ad_id=$adId'; 

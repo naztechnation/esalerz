@@ -4,6 +4,7 @@ import 'package:esalerz/model/service_contents.dart';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/ui/widgets/bigtext.dart';
 import 'package:esalerz/ui/widgets/image_view.dart';
+import 'package:esalerz/ui/widgets/modals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -325,6 +326,8 @@ class SimilarAdsModel extends StatelessWidget {
   final double rating;
   final VoidCallback onPressed;
   final bool isListView;
+  final bool isLoading;
+  final Function onTapLike;
 
   const SimilarAdsModel({
     Key? key,
@@ -334,26 +337,28 @@ class SimilarAdsModel extends StatelessWidget {
     required this.rating,
     required this.onPressed,
     required this.isListView,
+    required this.isLoading,
+    required this.onTapLike,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (isListView) {
-      return GestureDetector(
-        onTap: onPressed,
-        child: Container(
-          height: 150,
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0),
-              child: Row(
-                children: [
-                  Stack(
-                    children: [
-                      Container(
+      return Container(
+        height: 150,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0),
+            child: Row(
+              children: [
+                Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: onPressed,
+                      child: Container(
                         width: 150,
                         height: 150,
                         decoration: BoxDecoration(
@@ -368,7 +373,10 @@ class SimilarAdsModel extends StatelessWidget {
                               fit: BoxFit.cover,
                             )),
                       ),
-                      Positioned(
+                    ),
+                    GestureDetector(
+                      onTap: ()=> onTapLike,
+                      child: Positioned(
                         top: 5,
                         right: 5,
                         child: SizedBox(
@@ -389,82 +397,82 @@ class SimilarAdsModel extends StatelessWidget {
                           ),
                         ),
                       ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        '₦$price per service',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.star,
+                              size: 16, color: AppColors.lightPrimary),
+                          const SizedBox(width: 3),
+                          Text(
+                            '$rating',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: AppColors.lightPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          title,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '₦$price per service',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            const Icon(Icons.star,
-                                size: 16, color: AppColors.lightPrimary),
-                            const SizedBox(width: 3),
-                            Text(
-                              '$rating',
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: AppColors.lightPrimary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
       );
     } else {
-      return GestureDetector(
-        onTap: onPressed,
-        child: Container(
-          padding: const EdgeInsets.only(bottom: 0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+      return Container(
+        padding: const EdgeInsets.only(bottom: 0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        width: double.infinity,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
           ),
-          width: double.infinity,
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    Container(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  GestureDetector(
+                    // onTap: onPressed,
+                    child: Container(
                       // width: 150,
                       height: 150,
                       decoration: BoxDecoration(
@@ -479,107 +487,107 @@ class SimilarAdsModel extends StatelessWidget {
                             fit: BoxFit.cover,
                           )),
                     ),
-                    Container(
-                      height: 120,
-                      decoration: BoxDecoration(
-                          color: AppColors.lightPrimary.withOpacity(0.2),
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20))),
-                    ),
-                    Positioned(
-                      top: 5,
-                      right: 5,
-                      child: SizedBox(
-                        height: 42,
-                        width: 42,
-                        child: Card(
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(35.0),
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: AppColors.lightSecondary,
-                              size: 25,
-                            ),
+                  ),
+                  Container(
+                    height: 120,
+                    decoration: BoxDecoration(
+                        color: AppColors.lightPrimary.withOpacity(0.2),
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20))),
+                  ),
+                  Positioned(
+                    top: 5,
+                    right: 5,
+                    child: SizedBox(
+                      height: 42,
+                      width: 42,
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35.0),
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.favorite_border,
+                            color: AppColors.lightSecondary,
+                            size: 25,
                           ),
                         ),
                       ),
                     ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              '₦$price',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              const Icon(Icons.star,
+                                  size: 16, color: AppColors.lightPrimary),
+                              const SizedBox(
+                                width: 3,
+                              ),
+                              Text(
+                                '$rating',
+                                style: const TextStyle(
+                                    fontSize: 12,
+                                    color: AppColors.lightPrimary),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    )
                   ],
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                title,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                '₦$price',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                const Icon(Icons.star,
-                                    size: 16, color: AppColors.lightPrimary),
-                                const SizedBox(
-                                  width: 3,
-                                ),
-                                Text(
-                                  '$rating',
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      color: AppColors.lightPrimary),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
       );
@@ -696,7 +704,7 @@ Widget buildContainerWithListTile({
   required String subtitle,
   required double rating,
   required String thirdLineText,
- // required Function(double) onRatingChanged,
+  // required Function(double) onRatingChanged,
 }) {
   return Container(
     decoration: BoxDecoration(
@@ -744,7 +752,7 @@ Widget buildContainerWithListTile({
           Icons.star,
           color: Colors.amber,
         ),
-        onRatingUpdate: (value){},
+        onRatingUpdate: (value) {},
       ),
       isThreeLine: true,
       dense: true,
@@ -849,12 +857,16 @@ Widget buildMasonryGridView() {
           price: '20.99',
           rating: 4,
           isListView: false,
+          isLoading: false,
+          onTapLike: () {},
         )),
   );
 }
 
 Widget buildMasonryGridView1(
-    {required List<ProductsData> products, bool isHome = false}) {
+    {required List<ProductsData> products,
+    bool isHome = false,
+    required Function onTapLike}) {
   return MasonryGridView.builder(
       itemCount: (isHome)
           ? (products.length >= 4)
@@ -873,13 +885,20 @@ Widget buildMasonryGridView1(
             child: SimilarAdsModel(
               onPressed: () {
                 NavigationHelper.navigateToPage(
-                    context,   UserServiceInfo(adsId: productData.id ?? '2',));
+                    context,
+                    UserServiceInfo(
+                      adsId: productData.id ?? '2',
+                    ));
               },
               imageUrl: productData.file?.first ?? '',
               title: productData.title ?? '',
               price: 'Free',
               rating: 4,
               isListView: false,
+              isLoading: true,
+              onTapLike: (){
+                Modals.showToast('good product');
+              },
             ));
       });
 }
@@ -901,6 +920,8 @@ Widget buildListView() {
           price: 'Free',
           rating: 4,
           isListView: true,
+          isLoading: true,
+          onTapLike: () {},
         ),
       );
     },
@@ -931,6 +952,8 @@ Widget buildListView1(
           price: 'Free',
           rating: 4,
           isListView: true,
+          isLoading: true,
+          onTapLike: () {},
         ),
       );
     },

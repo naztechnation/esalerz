@@ -78,6 +78,30 @@ class AddFeedbackLoaded extends UserStates {
   List<Object> get props => [products];
 }
 
+class  CreateLikeLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class CreateLikeLoaded extends UserStates {
+  final AllProducts like;
+  const CreateLikeLoaded(this.like);
+  @override
+  List<Object> get props => [like];
+}
+
+class  RemoveLikeLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class RemoveLikeLoaded extends UserStates {
+  final AllProducts unlike;
+  const RemoveLikeLoaded(this.unlike);
+  @override
+  List<Object> get props => [unlike];
+}
+
 class  GetFeedbackLoading extends UserStates {
   @override
   List<Object> get props => [];

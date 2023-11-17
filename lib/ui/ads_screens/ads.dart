@@ -206,7 +206,7 @@ class _AdsState extends State<AdsScreen> {
                   children: [
                      Visibility(
                         visible: isGridView,
-                        child: buildMasonryGridView1(products: products, isHome: true),
+                        child: buildMasonryGridView1(products: products, isHome: true, onTapLike: (){}),
                       ),
                       Visibility(
                         visible: !isGridView,

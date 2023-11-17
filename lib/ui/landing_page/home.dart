@@ -31,7 +31,6 @@ import '../widgets/modals.dart';
 import '../widgets/notification_widget.dart';
 import 'package:animated_item/animated_item.dart';
 
-
 class Home extends StatelessWidget {
   const Home({
     Key? key,
@@ -65,13 +64,12 @@ class _HomeState extends State<HomePage> {
 
   bool isGridView = true;
 
-   late UserCubit _userCubit;
+  late UserCubit _userCubit;
 
   String token = '';
 
   List<ProductsData> products = [];
   List<NotificationsData> notifications = [];
-
 
   getProducts() async {
     _userCubit = context.read<UserCubit>();
@@ -80,9 +78,6 @@ class _HomeState extends State<HomePage> {
 
     _userCubit.getProducts(token: token);
     _userCubit.createNotifications(token: token);
-    
-    
-
   }
 
   @override
@@ -119,7 +114,7 @@ class _HomeState extends State<HomePage> {
           } else {
             notifications = [];
           }
-        }else  if (state is ProductsLoaded) {
+        } else if (state is ProductsLoaded) {
           if (state.products.status == 1) {
             products = state.products.data ?? [];
             setState(() {});
@@ -140,347 +135,361 @@ class _HomeState extends State<HomePage> {
             description: state.message,
             onRefresh: () => _userCubit.getProducts(token: token),
           );
-        }  
+        }
 
-        return (state is CreateNotifyLoading || state is  ProductsLoading)
+        return (state is CreateNotifyLoading || state is ProductsLoading)
             ? Scaffold(body: const LoadingPage())
             : Scaffold(
-          backgroundColor: AppColors.cardColor,
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(60.0),
-            child: Container(
-              margin: const EdgeInsets.all(0.0),
-              child: AppBar(
                 backgroundColor: AppColors.cardColor,
-                elevation: 1,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                appBar: PreferredSize(
+                  preferredSize: const Size.fromHeight(60.0),
+                  child: Container(
+                    margin: const EdgeInsets.all(0.0),
+                    child: AppBar(
+                      backgroundColor: AppColors.cardColor,
+                      elevation: 1,
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ImageView.asset(
+                            AppImages.icon,
+                            height: 30,
+                          ),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          const Text(
+                            'Esalerz',
+                            style: TextStyle(fontSize: 18, color: Colors.black),
+                          ),
+                        ],
+                      ),
+                      automaticallyImplyLeading: false,
+                      // leading: Container(
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(10),
+                      //   ),
+                      //   child: const Center(
+                      //     child: Icon(Icons.menu, color: AppColors.lightPrimary),
+                      //   ),
+                      // ),
+                      actions: [
+                        GestureDetector(
+                            onTap: () {
+                              AppNavigator.pushAndStackPage(context,
+                                  page: BookmarksPage());
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 11.0),
+                              child: Icon(
+                                Icons.favorite,
+                                color: AppColors.lightPrimary,
+                                size: 30,
+                              ),
+                            )),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            NavigationHelper.navigateToPage(
+                                context, const NotificationsScreen());
+                          },
+                          child: NotificationWidget(
+                            icon: Icons.notifications,
+                            notificationCount: notification.notify.length,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                body: Stack(
                   children: [
-                    ImageView.asset(
-                      AppImages.icon,
-                      height: 30,
+                    Container(
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(
+                                AppImages.bg,
+                              ),
+                              fit: BoxFit.cover)),
                     ),
-                    const SizedBox(
-                      width: 12,
+                    Container(
+                      color: Colors.white54,
+                      height: MediaQuery.sizeOf(context).height,
+                      width: MediaQuery.sizeOf(context).width,
                     ),
-                    const Text(
-                      'Esalerz',
-                      style: TextStyle(fontSize: 18, color: Colors.black),
+                    SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Modals.showBottomSheetModal(context,
+                                    page: CountryListWidget(
+                                      countries: countries,
+                                    ),
+                                    heightFactor: 1,
+                                    isScrollControlled: true);
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on_sharp,
+                                    color: AppColors.lightSecondary,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    '${user.address.capitalizeFirstOfEach}',
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 30,
+                                    color: Colors.black,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextEditView(
+                              controller: searchController,
+                              hintText: 'Search your service here...',
+                              filled: false,
+                              autofocus: false,
+                              borderWidth: 2,
+                              isDense: true,
+                              onTap: () {
+                                AppNavigator.pushAndStackPage(context,
+                                    page: SearchPage(
+                                      postsLists: [
+                                        'Clothes',
+                                        'Television',
+                                        'Washing Machine',
+                                        'Laptops',
+                                        'Watches'
+                                      ],
+                                    ));
+                              },
+                              borderColor: AppColors.lightPrimary,
+                              suffixIcon: const Icon(
+                                Icons.search,
+                                color: Colors.black,
+                                size: 25,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Services',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w800),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    pageIndexProvider.changePageIndex(1);
+                                  },
+                                  child: const Text(
+                                    'View all',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.lightSecondary,
+                                      // decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              physics: ClampingScrollPhysics(),
+                              child: Row(
+                                children: [
+                                  ServiceBoard(
+                                    title: 'Cleaning',
+                                    asset: 'assets/images/cleaning.png',
+                                    onPressed: () {
+                                      AppNavigator.pushAndStackPage(context,
+                                          page: AdsCategory(
+                                            category: 'Cleaning',
+                                          ));
+                                    },
+                                  ),
+                                  SizedBox(width: 20),
+                                  ServiceBoard(
+                                    title: 'Beauty',
+                                    asset: 'assets/images/beauty.png',
+                                    onPressed: () {
+                                      AppNavigator.pushAndStackPage(context,
+                                          page: AdsCategory(
+                                            category: 'Beauty',
+                                          ));
+                                    },
+                                  ),
+                                  SizedBox(width: 20),
+                                  ServiceBoard(
+                                    title: 'AC Repair',
+                                    asset: 'assets/images/repair.png',
+                                    onPressed: () {
+                                      AppNavigator.pushAndStackPage(context,
+                                          page: AdsCategory(
+                                            category: 'AC Repair',
+                                          ));
+                                    },
+                                  ),
+                                  SizedBox(width: 20),
+                                  ServiceBoard(
+                                    title: 'Salon',
+                                    asset: 'assets/images/salon.png',
+                                    onPressed: () {
+                                      AppNavigator.pushAndStackPage(context,
+                                          page: AdsCategory(
+                                            category: 'Salon',
+                                          ));
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            AspectRatio(
+                              aspectRatio: 2.2,
+                              child: PageView.builder(
+                                itemCount: datalist.length,
+                                physics: const BouncingScrollPhysics(),
+                                controller: _pageController,
+                                onPageChanged: (index) {
+                                  setState(() {
+                                    _currentPage = index;
+                                  });
+                                },
+                                itemBuilder: (context, index) {
+                                  return AnimatedItem(
+                                      controller: _pageController,
+                                      index: index,
+                                      effect: const ScaleEffect(),
+                                      child: promoView(index, context));
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            DotIndicator(
+                              itemCount: datalist.length,
+                              currentIndex: _currentPage,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Trending Ads',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w800),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    pageIndexProvider.changePageIndex(2);
+                                  },
+                                  child: const Text(
+                                    'View all',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.lightSecondary,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 15),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isGridView = !isGridView;
+                                    });
+                                  },
+                                  icon: Image.asset(
+                                    'assets/images/grid.png',
+                                    height: 40,
+                                    color: isGridView
+                                        ? AppColors.lightPrimary
+                                        : Colors.black,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isGridView = !isGridView;
+                                    });
+                                  },
+                                  icon: Image.asset(
+                                    'assets/images/list.png',
+                                    height: 30,
+                                    color: isGridView
+                                        ? Colors.black
+                                        : AppColors.lightPrimary,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                              ],
+                            ),
+                            Visibility(
+                              visible: isGridView,
+                              child: buildMasonryGridView1(
+                                products: products,
+                                onTapLike: () {
+                                  Modals.showToast('message');
+                                },
+                              ),
+                            ),
+                            Visibility(
+                              visible: !isGridView,
+                              child: buildListView1(products: products),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                automaticallyImplyLeading: false,
-                // leading: Container(
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(10),
-                //   ),
-                //   child: const Center(
-                //     child: Icon(Icons.menu, color: AppColors.lightPrimary),
-                //   ),
-                // ),
-                actions: [
-                  GestureDetector(
-                      onTap: () {
-                        AppNavigator.pushAndStackPage(context,
-                            page: BookmarksPage());
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 11.0),
-                        child: Icon(
-                          Icons.favorite,
-                          color: AppColors.lightPrimary,
-                          size: 30,
-                        ),
-                      )),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      NavigationHelper.navigateToPage(
-                          context, const NotificationsScreen());
-                    },
-                    child: NotificationWidget(
-                      icon: Icons.notifications,
-                      notificationCount: notification.notify.length,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          body: Stack(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(
-                          AppImages.bg,
-                        ),
-                        fit: BoxFit.cover)),
-              ),
-              Container(
-                color: Colors.white54,
-                height: MediaQuery.sizeOf(context).height,
-                width: MediaQuery.sizeOf(context).width,
-              ),
-              SingleChildScrollView(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Modals.showBottomSheetModal(context,
-                              page: CountryListWidget(
-                                countries: countries,
-                              ),
-                              heightFactor: 1,
-                              isScrollControlled: true);
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.location_on_sharp,
-                              color: AppColors.lightSecondary,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              '${user.address.capitalizeFirstOfEach}',
-                              maxLines: 1,
-                              style: TextStyle(
-                                fontSize: 14,
-                              ),
-                            ),
-                            Icon(
-                              Icons.keyboard_arrow_down,
-                              size: 30,
-                              color: Colors.black,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextEditView(
-                        controller: searchController,
-                        hintText: 'Search your service here...',
-                        filled: false,
-                        autofocus: false,
-                        borderWidth: 2,
-                        isDense: true,
-                        onTap: () {
-                          AppNavigator.pushAndStackPage(context,
-                              page: SearchPage(
-                                postsLists: [
-                                  'Clothes',
-                                  'Television',
-                                  'Washing Machine',
-                                  'Laptops',
-                                  'Watches'
-                                ],
-                              ));
-                        },
-                        borderColor: AppColors.lightPrimary,
-                        suffixIcon: const Icon(
-                          Icons.search,
-                          color: Colors.black,
-                          size: 25,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Services',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w800),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              pageIndexProvider.changePageIndex(1);
-                            },
-                            child: const Text(
-                              'View all',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: AppColors.lightSecondary,
-                                // decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        physics: ClampingScrollPhysics(),
-                        child: Row(
-                          children: [
-                            ServiceBoard(
-                              title: 'Cleaning',
-                              asset: 'assets/images/cleaning.png',
-                              onPressed: () {
-                                AppNavigator.pushAndStackPage(context,
-                                    page: AdsCategory(
-                                      category: 'Cleaning',
-                                    ));
-                              },
-                            ),
-                            SizedBox(width: 20),
-                            ServiceBoard(
-                              title: 'Beauty',
-                              asset: 'assets/images/beauty.png',
-                              onPressed: () {
-                                AppNavigator.pushAndStackPage(context,
-                                    page: AdsCategory(
-                                      category: 'Beauty',
-                                    ));
-                              },
-                            ),
-                            SizedBox(width: 20),
-                            ServiceBoard(
-                              title: 'AC Repair',
-                              asset: 'assets/images/repair.png',
-                              onPressed: () {
-                                AppNavigator.pushAndStackPage(context,
-                                    page: AdsCategory(
-                                      category: 'AC Repair',
-                                    ));
-                              },
-                            ),
-                            SizedBox(width: 20),
-                            ServiceBoard(
-                              title: 'Salon',
-                              asset: 'assets/images/salon.png',
-                              onPressed: () {
-                                AppNavigator.pushAndStackPage(context,
-                                    page: AdsCategory(
-                                      category: 'Salon',
-                                    ));
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      AspectRatio(
-                        aspectRatio: 2.2,
-                        child: PageView.builder(
-                          itemCount: datalist.length,
-                          physics: const BouncingScrollPhysics(),
-                          controller: _pageController,
-                          onPageChanged: (index) {
-                            setState(() {
-                              _currentPage = index;
-                            });
-                          },
-                          itemBuilder: (context, index) {
-                            return AnimatedItem(
-                                controller: _pageController,
-                                index: index,
-                                effect: const ScaleEffect(),
-                                child: promoView(index, context));
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      DotIndicator(
-                        itemCount: datalist.length,
-                        currentIndex: _currentPage,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Trending Ads',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w800),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              pageIndexProvider.changePageIndex(2);
-                            },
-                            child: const Text(
-                              'View all',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: AppColors.lightSecondary,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 15),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isGridView = !isGridView;
-                              });
-                            },
-                            icon: Image.asset(
-                              'assets/images/grid.png',
-                              height: 40,
-                              color: isGridView
-                                  ? AppColors.lightPrimary
-                                  : Colors.black,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isGridView = !isGridView;
-                              });
-                            },
-                            icon: Image.asset(
-                              'assets/images/list.png',
-                              height: 30,
-                              color: isGridView
-                                  ? Colors.black
-                                  : AppColors.lightPrimary,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                        ],
-                      ),
-                      Visibility(
-                        visible: isGridView,
-                        child: buildMasonryGridView1(products: products, isHome: true),
-                      ),
-                      Visibility(
-                        visible: !isGridView,
-                        child: buildListView1(products: products),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-  }),
+              );
+      }),
     );
+  }
+
+  _submit(BuildContext ctx, String adId) {
+    ctx.read<UserCubit>().createLike(
+          token: token,
+          adId: adId,
+        );
   }
 
   List<String> countries = [

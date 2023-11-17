@@ -5,6 +5,7 @@ class AppImages {
 
   static const logo = '${_baseUrl}logo.png';
   static const loading = '${_baseUrl}loading.gif';
+  static const loadingLike = '${_baseUrl}loading_like.gif';
   static const icon = '${_baseUrl}icon.png';
   static const worker = '${_baseUrl}worker.png';
   static const sale = '${_baseUrl}sale.png';

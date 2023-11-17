@@ -62,6 +62,23 @@ class UserRepositoryImpl implements UserRepository {
 
     return FeedbackList.fromJson(map);
   }
+  
+  @override
+  Future<AllProducts> createLike({required String token, required String adId})async {
+    final map = await Requests().post(AppStrings.likePost, body: {
+      'bkey' : token,
+      'ad_id' : adId,
+
+    });
+
+    return AllProducts.fromJson(map);
+  }
+  @override
+  Future<AllProducts> removeLike({required String token, required String adId}) async {
+    final map = await Requests().get(AppStrings.unLikePost(token, adId));
+
+    return AllProducts.fromJson(map);
+  }
 
   
 }

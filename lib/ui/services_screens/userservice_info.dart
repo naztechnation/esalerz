@@ -129,16 +129,20 @@ class _UserInfoState extends State<UserInfo> {
       }
     }, builder: (context, state) {
       if (state is UserNetworkErr) {
-        return EmptyWidget(
-          title: 'Network error',
-          description: state.message,
-          onRefresh: () => _userCubit.getProducts(token: token),
+        return Scaffold(
+          body: EmptyWidget(
+            title: 'Network error',
+            description: state.message,
+            onRefresh: () => _userCubit.getProducts(token: token),
+          ),
         );
       } else if (state is UserNetworkErrApiErr) {
-        return EmptyWidget(
-          title: 'Network error',
-          description: state.message,
-          onRefresh: () => _userCubit.getProducts(token: token),
+        return Scaffold(
+          body: EmptyWidget(
+            title: 'Network error',
+            description: state.message,
+            onRefresh: () => _userCubit.getProducts(token: token),
+          ),
         );
       }
 
