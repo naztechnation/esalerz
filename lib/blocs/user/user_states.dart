@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../model/auth_model/auth_user.dart';
 import '../../model/user_model/all_products.dart';
+import '../../model/user_model/categories_list.dart';
 import '../../model/user_model/feedback_lists.dart';
 import '../../model/user_model/notification_details.dart';
 import '../../model/user_model/notifications.dart';
@@ -124,6 +125,42 @@ class ReportUserLoaded extends UserStates {
   const ReportUserLoaded(this.report);
   @override
   List<Object> get props => [report];
+}
+
+class  BookmarkLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class BookmarkLoaded extends UserStates {
+  final AllProducts bookmark  ;
+  const BookmarkLoaded(this.bookmark);
+  @override
+  List<Object> get props => [bookmark];
+}
+
+class  CategoriesLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class CategoriesLoaded extends UserStates {
+  final CategoriesList categoriesList  ;
+  const CategoriesLoaded(this.categoriesList);
+  @override
+  List<Object> get props => [categoriesList];
+}
+
+class  SubCategoriesLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class SubCategoriesLoaded extends UserStates {
+  final CategoriesList categoriesList  ;
+  const SubCategoriesLoaded(this.categoriesList);
+  @override
+  List<Object> get props => [categoriesList];
 }
 class UserNetworkErr extends UserStates {
   final String? message;

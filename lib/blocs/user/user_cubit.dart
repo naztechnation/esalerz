@@ -272,4 +272,90 @@ class UserCubit extends Cubit<UserStates> {
       }
     }
   }
+
+    Future<void> saveProduct({
+    required String token,
+    required String adId,
+    required String url,
+  }) async {
+    try {
+      emit(BookmarkLoading());
+
+      final report = await userRepository.saveProducts(
+        token: token,
+        adId: adId,
+        url: url,
+      );
+
+      emit(BookmarkLoaded(report));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+   Future<void> getCategories({
+    required String token,
+     
+  }) async {
+    try {
+      emit(CategoriesLoading());
+
+      final categories = await userRepository.getCategories(
+        token: token,
+         
+      );
+
+      emit(CategoriesLoaded(categories));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+   Future<void> getSubCategories({
+    required String token,
+    required String catId,
+  }) async {
+    try {
+      emit(SubCategoriesLoading());
+
+      final report = await userRepository.getSubCategories(
+        token: token,
+        catId: catId,
+      );
+
+      emit(SubCategoriesLoaded(report));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
 }

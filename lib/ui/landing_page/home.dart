@@ -12,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../../blocs/user/user.dart';
-import '../../blocs/user/user_cubit.dart';
 import '../../handlers/secure_handler.dart';
 import '../../model/user_model/notifications.dart';
 import '../../model/view_models/account_view_model.dart';
@@ -198,7 +197,7 @@ class _HomeState extends State<HomePage> {
                             child: Padding(
                               padding: const EdgeInsets.only(top: 11.0),
                               child: Icon(
-                                Icons.favorite,
+                                Icons.bookmark,
                                 color: AppColors.lightPrimary,
                                 size: 30,
                               ),

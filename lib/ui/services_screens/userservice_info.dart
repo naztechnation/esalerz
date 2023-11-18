@@ -16,10 +16,14 @@ import 'package:provider/provider.dart';
 import '../../blocs/user/user.dart';
 import '../../handlers/secure_handler.dart';
 import '../../model/user_model/all_products.dart';
+import '../../model/view_models/account_view_model.dart';
 import '../../model/view_models/user_view_model.dart';
 import '../../requests/repositories/user_repo/user_repository_impl.dart';
 import '../../res/app_strings.dart';
+import '../../utils/navigator/page_navigator.dart';
 import '../../utils/validator.dart';
+import '../kyc/service_kyc_one.dart';
+import '../post_ads/select_post_type.dart';
 import '../widgets/button_view.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/empty_widget.dart';
@@ -112,6 +116,11 @@ class _UserInfoState extends State<UserInfo> {
 
   @override
   Widget build(BuildContext context) {
+     final serviceProvider =
+        Provider.of<AccountViewModel>(context, listen: true);
+serviceProvider.getUserKyc();
+
+
     return BlocConsumer<UserCubit, UserStates>(listener: (context, state) {
       if (state is ProductsDetailsLoaded) {
         if (state.products.status == 1) {
@@ -130,6 +139,8 @@ class _UserInfoState extends State<UserInfo> {
         Modals.showToast(state.products.message ??'');
       }else if (state is ReportUserLoaded){
         Modals.showToast(state.report.message ??'');
+      }else if (state is BookmarkLoaded){
+        Modals.showToast(state.bookmark.message ??'');
       }
     }, builder: (context, state) {
       if (state is UserNetworkErr) {
@@ -150,7 +161,7 @@ class _UserInfoState extends State<UserInfo> {
         );
       }
 
-      return (isLoading || state is AddFeedbackLoading || state is ReportUserLoading)
+      return (isLoading || state is AddFeedbackLoading || state is ReportUserLoading || state is BookmarkLoading)
           ? Scaffold(body: const LoadingPage())
           : Scaffold(
               appBar: AppBar(
@@ -175,28 +186,25 @@ class _UserInfoState extends State<UserInfo> {
                   ),
                 ),
                 actions: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Center(
-                      child: Icon(Icons.bookmark_border_outlined,
-                          color: AppColors.lightPrimary),
-                    ),
-                  ),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Center(
-                      child: Icon(Icons.more_vert_rounded,
-                          color: AppColors.lightPrimary),
+                  GestureDetector(
+                    onTap: (){
+                      saveProduct(context, products.first.id ?? '', AppStrings.saveProduct);
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      margin: const EdgeInsets.only(right: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Icon(Icons.bookmark_border_outlined,
+                            size: 35,
+                            color: AppColors.lightPrimary),
+                      ),
                     ),
                   ),
+                   
                 ],
               ),
               body: Stack(
@@ -782,8 +790,12 @@ class _UserInfoState extends State<UserInfo> {
                                 ),
                                 ButtonView(
                                   onPressed: () {
-                                    // NavigationHelper.navigateToPage(
-                                    //     context, const CustomerReviews());
+                                    if(serviceProvider.completedKyc == 'true'){
+                AppNavigator.pushAndStackPage(context,
+                          page: SelectPostType());
+            }else{
+               NavigationHelper.navigateToPage(context, KycServiceScreenOne());
+            }
                                   },
                                   color: Colors.white,
                                   padding: const EdgeInsets.symmetric(
@@ -1060,6 +1072,20 @@ class _UserInfoState extends State<UserInfo> {
         setState(() {
       isFeedbackLoading = false;
     });
+  }
+
+  saveProduct(
+    BuildContext ctx,
+    String adId,
+    String url
+  ) async{
+                   
+   
+  await  _userCubit
+         
+        .saveProduct(token: token, adId: adId, url: url, );
+
+       
   }
 }
 

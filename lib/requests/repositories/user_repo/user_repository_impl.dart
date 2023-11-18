@@ -2,6 +2,7 @@
   
 
 import 'package:esalerz/model/user_model/all_products.dart';
+import 'package:esalerz/model/user_model/categories_list.dart';
 import 'package:esalerz/model/user_model/feedback_lists.dart';
 
 import '../../../model/user_model/notification_details.dart';
@@ -91,6 +92,31 @@ class UserRepositoryImpl implements UserRepository {
     });
 
     return AllProducts.fromJson(map);
+  }
+  
+  @override
+  Future<AllProducts> saveProducts({required String token, required String adId, required String url}) async {
+    final map = await Requests().post(url, body: {
+      'bkey' : token,
+      'ad_id' : adId,
+
+    });
+
+    return AllProducts.fromJson(map);
+  }
+
+  @override
+  Future<CategoriesList> getCategories({required String token})  async {
+    final map = await Requests().get(AppStrings.getAllCategories(token, ));
+
+    return CategoriesList.fromJson(map);
+  }
+
+  @override
+  Future<CategoriesList> getSubCategories({required String token, required String catId})  async {
+    final map = await Requests().get(AppStrings.getSubCategories(token, catId));
+
+    return CategoriesList.fromJson(map);
   }
 
   

@@ -98,8 +98,8 @@ class _PostAdState extends State<PostAd> {
                           Text(
                             'Please Select the Category you want to publish to',
                             style: TextStyle(
-                              color: AppColors.lightPrimary,
-                              fontSize: 25,
+                              color: AppColors.lightSecondary,
+                              fontSize: 23,
                               fontWeight: FontWeight.w700
 
                             ),

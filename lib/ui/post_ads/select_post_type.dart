@@ -98,7 +98,7 @@ class _SelectPostTypeState extends State<SelectPostType> {
                           Text(
                             'Please select what you want to offer...',
                             style: TextStyle(
-                              color: AppColors.lightPrimary,
+                              color: AppColors.lightSecondary,
                               fontSize: 22,
                               fontWeight: FontWeight.w600
 
@@ -127,7 +127,7 @@ class _SelectPostTypeState extends State<SelectPostType> {
                             ],
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 25),
-                          color: AppColors.lightPrimary.withOpacity(0.5),
+                          color: AppColors.lightPrimary,
                           ),
                           const SizedBox(height: 30,),
                            ButtonView(onPressed: (){
@@ -151,7 +151,7 @@ class _SelectPostTypeState extends State<SelectPostType> {
                              ],
                            ),
                            padding: const EdgeInsets.symmetric(vertical: 25),
-                          color: AppColors.lightPrimary.withOpacity(0.5),
+                          color: AppColors.lightPrimary,
                           ),
                         ],
                       ),
