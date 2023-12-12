@@ -19,14 +19,15 @@ class RequestHandler{
       case 200:
         return response.body;
       case 400:
-        throw BadRequestException('handleApiError(map).first.msg');
+        return response.body;
       case 401:
       case 403:
-        throw UnauthorisedException('handleApiError(map).first.msg');
+        return response.body;
       case 404:
-        throw FileNotFoundException('handleApiError(map).first.msg');
+        throw FileNotFoundException('does not exist');
       case 422:
-        throw AlreadyRegisteredException('handleApiError(map).first.msg');
+                return response.body;
+
       case 500:
         throw NetworkException(response.reasonPhrase ?? 'Network error');
       default:

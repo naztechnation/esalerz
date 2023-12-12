@@ -22,6 +22,7 @@ import '../../requests/repositories/user_repo/user_repository_impl.dart';
 import '../../res/app_strings.dart';
 import '../../utils/navigator/page_navigator.dart';
 import '../../utils/validator.dart';
+import '../chat_screen.dart';
 import '../kyc/service_kyc_one.dart';
 import '../post_ads/select_post_type.dart';
 import '../widgets/button_view.dart';
@@ -437,10 +438,10 @@ serviceProvider.getUserKyc();
                                           isMe: true)
                                     ];
 
-                                    //   NavigationHelper.navigateToPage(
-                                    //     context,
-                                    //  //   ChatScreen(initialMessages: initialMessages),
-                                    //   );
+                                      NavigationHelper.navigateToPage(
+                                        context,
+                                        ChatScreen(initialMessages: initialMessages),
+                                      );
                                   },
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 13, horizontal: 14),

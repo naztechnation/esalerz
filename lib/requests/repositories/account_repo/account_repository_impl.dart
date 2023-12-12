@@ -62,7 +62,7 @@ class AccountRepositoryImpl implements AccountRepository {
   
   @override
   Future<AuthUser> forgetPassword({required String email, required String type})  async {
-    final map = await Requests().post(AppStrings.resetPassword, body: {
+    final map = await Requests().post(AppStrings.sendResetToken, body: {
       "email": email,
       "type": type,
 

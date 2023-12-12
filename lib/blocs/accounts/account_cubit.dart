@@ -111,7 +111,7 @@ class AccountCubit extends Cubit<AccountStates> {
     }
   }
 
-  Future<void> verifyCode({required String type, required String token, required String email}) async {
+  Future<void> verifyCode({required String type, required String token, required String email,}) async {
     try {
       emit(AccountLoading());
 
