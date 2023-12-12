@@ -82,12 +82,16 @@ class _NotificationsState extends State<Notifications> {
           return EmptyWidget(
             title: 'Network error',
             description: state.message,
+            context: context,
+
             onRefresh: () =>    _userCubit.getNotificationsDetails(token: bKey, id: notificationId),
 
           );
         } else if (state is UserNetworkErrApiErr) {
           return EmptyWidget(
             title: 'Network error',
+            context: context,
+
             description: state.message,
             onRefresh: () =>     _userCubit.getNotificationsDetails(token: bKey, id: notificationId),
 

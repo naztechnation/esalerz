@@ -40,17 +40,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           viewModel: Provider.of<AccountViewModel>(context, listen: false)),
       child: BlocConsumer<AccountCubit, AccountStates>(
         listener: (context, state) {
-          if (state is AccountLoaded) {
+          if (state is SendCodeLoaded) {
             if (state.userData.status == 1) {
               Modals.showToast(state.userData.message ?? '',
                   messageType: MessageType.success);
               // setToken.setToken(state.userData.token!);
 
-              AppNavigator.pushAndReplacePage(context,
-                  page: OtpScreen(
-                    email: _emailController.text.trim(),
-                    isForgotPassword: true,
-                  ));
+              
             } else {
               Modals.showToast(state.userData.message ?? '',
                   messageType: MessageType.success);
@@ -166,12 +162,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           borderColor: AppColors.lightPrimary,
                           borderRadius: 30,
                           onPressed: () {
-                            AppNavigator.pushAndReplacePage(context,
-                                page: OtpScreen(
-                                  email: _emailController.text.trim(),
-                                  isForgotPassword: true,
-                                ));
-                            // forgotPassword(context);
+                            // AppNavigator.pushAndReplacePage(context,
+                            //     page: OtpScreen(
+                            //       email: _emailController.text.trim(),
+                            //       isForgotPassword: true,
+                            //     ));
+                             forgotPassword(context);
                           },
                           child: const Text(
                             'Continue',
@@ -193,12 +189,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     ));
   }
 
-  // forgotPassword(BuildContext ctx) {
-  //   if (_formKey.currentState!.validate()) {
-  //     ctx.read<AccountCubit>().forgotPassword(
-  //           email: _emailController.text.trim(),
-  //         );
-  //     FocusScope.of(ctx).unfocus();
-  //   }
-  // }
+  forgotPassword(BuildContext ctx) {
+    if (_formKey.currentState!.validate()) {
+      ctx.read<AccountCubit>().forgotPassword(
+            email: _emailController.text.trim(), type: 'reset_password',
+          );
+      FocusScope.of(ctx).unfocus();
+    }
+  }
 }

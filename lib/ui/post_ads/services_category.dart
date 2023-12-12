@@ -100,12 +100,16 @@ class _ServicesCategoryState extends State<CategoriesScreen> {
         return EmptyWidget(
           title: 'Network error',
           description: state.message,
+            context: context,
+
           onRefresh: () => _userCubit.getProducts(token: token),
         );
       } else if (state is UserNetworkErrApiErr) {
         return EmptyWidget(
           title: 'Network error',
           description: state.message,
+            context: context,
+
           onRefresh: () => _userCubit.getProducts(token: token),
         );
       }

@@ -31,6 +31,9 @@ class AppStrings {
   static   String getFeedbackUrl(String token, String id) => '$mainBaseUrl/get_feedbacks?bkey=$token&ad_id=$id';
   static   String getAllCategories(String token,) => '$mainBaseUrl/get_categories?bkey=$token';
   static   String getSubCategories(String token, String catId) => '$mainBaseUrl/sub_categories?bkey=$token&parent_id=$catId';
+  static const  String sendResetToken = '$mainBaseUrl/send_verify_token';
+  static const  String confirmToken = '$mainBaseUrl/verify_email_token';
+  static const  String resetPassword = '$mainBaseUrl/reset_password';
  
 
   

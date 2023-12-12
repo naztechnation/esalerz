@@ -111,81 +111,81 @@ class AccountCubit extends Cubit<AccountStates> {
     }
   }
 
-//   Future<void> verifyCode({required String code, required String token}) async {
-//     try {
-//       emit(AccountLoading());
+  Future<void> verifyCode({required String type, required String token, required String email}) async {
+    try {
+      emit(AccountLoading());
 
-//       final userData =
-//           await accountRepository.verifyCode(code: code, token: token);
+      final userData =
+          await accountRepository.verifyCode( token: token, email: email, type: type);
+ 
+      emit(VerifyCodeLoaded(userData));
+    } on ApiException catch (e) {
+      emit(AccountApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(AccountNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
 
-//       await viewModel.setToken(userData.token ?? '');
-//       emit(AccountLoaded(userData));
-//     } on ApiException catch (e) {
-//       emit(AccountApiErr(e.message));
-//     } catch (e) {
-//       if (e is NetworkException ||
-//           e is BadRequestException ||
-//           e is UnauthorisedException ||
-//           e is FileNotFoundException ||
-//           e is AlreadyRegisteredException) {
-//         emit(AccountNetworkErr(e.toString()));
-//       } else {
-//         rethrow;
-//       }
-//     }
-//   }
+  Future<void> forgotPassword({
+    required String email,
+    required String type,
+  }) async {
+    try {
+      emit(AccountProcessing());
 
-//   Future<void> forgotPassword({
-//     required String email,
-//   }) async {
-//     try {
-//       emit(AccountProcessing());
+      final user = await accountRepository.forgetPassword(
+        email: email, type: type,
+      );
 
-//       final user = await accountRepository.forgetPassword(
-//         email: email,
-//       );
+      emit(SendCodeLoaded(user));
+    } on ApiException catch (e) {
+      emit(AccountApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(AccountNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
 
-//       emit(AccountLoaded(user));
-//     } on ApiException catch (e) {
-//       emit(AccountApiErr(e.message));
-//     } catch (e) {
-//       if (e is NetworkException ||
-//           e is BadRequestException ||
-//           e is UnauthorisedException ||
-//           e is FileNotFoundException ||
-//           e is AlreadyRegisteredException) {
-//         emit(AccountNetworkErr(e.toString()));
-//       } else {
-//         rethrow;
-//       }
-//     }
-//   }
+  Future<void> resetPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      emit(ResetPasswordLoading());
 
-//   Future<void> resetPassword({
-//     required String token,
-//     required String password,
-//   }) async {
-//     try {
-//       emit(ResetPasswordLoading());
+      final user = await accountRepository.resetPassword(
+         
+        password: password, email: email,
+      );
 
-//       final user = await accountRepository.resetPassword(
-//         token: token,
-//         password: password,
-//       );
-
-//       emit(ResetPasswordLoaded(user));
-//     } on ApiException catch (e) {
-//       emit(AccountApiErr(e.message));
-//     } catch (e) {
-//       if (e is NetworkException ||
-//           e is BadRequestException ||
-//           e is UnauthorisedException ||
-//           e is FileNotFoundException ||
-//           e is AlreadyRegisteredException) {
-//         emit(AccountNetworkErr(e.toString()));
-//       } else {
-//         rethrow;
-//       }
-//     }
-//   }
+      emit(ResetPasswordLoaded(user));
+    } on ApiException catch (e) {
+      emit(AccountApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(AccountNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
 }

@@ -148,6 +148,8 @@ serviceProvider.getUserKyc();
           body: EmptyWidget(
             title: 'Network error',
             description: state.message,
+            context: context,
+
             onRefresh: () => _userCubit.getProducts(token: token),
           ),
         );
@@ -156,6 +158,8 @@ serviceProvider.getUserKyc();
           body: EmptyWidget(
             title: 'Network error',
             description: state.message,
+            context: context,
+
             onRefresh: () => _userCubit.getProducts(token: token),
           ),
         );

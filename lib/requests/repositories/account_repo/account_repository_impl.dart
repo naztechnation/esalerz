@@ -59,37 +59,42 @@ class AccountRepositoryImpl implements AccountRepository {
     });
     return AuthUser.fromJson(map);
   }
+  
+  @override
+  Future<AuthUser> forgetPassword({required String email, required String type})  async {
+    final map = await Requests().post(AppStrings.resetPassword, body: {
+      "email": email,
+      "type": type,
 
-  // @override
-  // Future<AuthData> verifyCode(
-  //     {required String code, required String token,}) async {
-  //   final map =
-  //       await Requests().post(AppStrings.verifyCodeUrl, body: {
-  //     "code": code,
-  //     "token": token,
-  //   });
+    });
+    return AuthUser.fromJson(map);
+  }
+  
+  @override
+  Future<AuthUser> resetPassword({required String email, required String password}) async {
+    final map =
+        await Requests().post(AppStrings.resetPassword, body: {
+      "email": email,
+      "password": password,
+    });
 
-  //   return AuthData.fromJson(map);
-  // }
+    return AuthUser.fromJson(map);
+  }
+  
+  @override
+  Future<AuthUser> verifyCode({required String token, required String email, required String type}) async {
+    final map =
+        await Requests().post(AppStrings.confirmToken, body: {
+      "token": token,
+      "email": email,
+      "type": type,
+    });
 
-  // @override
-  // Future<AuthData> forgetPassword({required String email}) async {
-  //   final map = await Requests().post(AppStrings.forgotPasswordUrl, body: {
-  //     "email": email,
+    return AuthUser.fromJson(map);
+  }
 
-  //   });
-  //   return AuthData.fromJson(map);
-  // }
+ 
 
-  //  @override
-  // Future<AuthData> resetPassword(
-  //     {required String token, required String password,}) async {
-  //   final map =
-  //       await Requests().post(AppStrings.resetPasswordUrl, body: {
-  //     "token": token,
-  //     "password": password,
-  //   });
-
-  //   return AuthData.fromJson(map);
-  // }
+  
+ 
 }

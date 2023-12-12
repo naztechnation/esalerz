@@ -27,7 +27,7 @@ abstract class AccountRepository {
     required String bKey,
 
   });
-  //  Future<AuthData> verifyCode({required String code,required String token,});
-  //  Future<AuthData> forgetPassword({required String email,});
-  //  Future<AuthData> resetPassword({required String token, required String password,});
+     Future<AuthUser> verifyCode({required String token,required String email,required String type,});
+    Future<AuthUser> forgetPassword({required String email,required String type,});
+    Future<AuthUser> resetPassword({required String email, required String password,});
 }

@@ -81,11 +81,15 @@ bool showother =  false;
           return EmptyWidget(
             title: 'Network error',
             description: state.message,
+            context: context,
+
             onRefresh: () => _userCubit.createNotifications(token: token),
           );
         } else if (state is UserNetworkErrApiErr) {
           return EmptyWidget(
             title: 'Network error',
+            context: context,
+
             description: state.message,
             onRefresh: () => _userCubit.createNotifications(token: token),
           );

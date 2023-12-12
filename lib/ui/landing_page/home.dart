@@ -142,11 +142,15 @@ class _HomeState extends State<HomePage> {
           return EmptyWidget(
             title: 'Network error',
             description: state.message,
+            context: context,
+
             onRefresh: () => _userCubit.getProducts(token: token),
           );
         } else if (state is UserNetworkErrApiErr) {
           return EmptyWidget(
             title: 'Network error',
+            context: context,
+
             description: state.message,
             onRefresh: () => _userCubit.getProducts(token: token),
           );
@@ -439,7 +443,7 @@ class _HomeState extends State<HomePage> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 15),
+                            const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
