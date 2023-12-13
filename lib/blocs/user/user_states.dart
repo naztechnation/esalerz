@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:esalerz/model/user_model/message_list.dart';
 
 import '../../model/auth_model/auth_user.dart';
 import '../../model/user_model/all_products.dart';
@@ -161,6 +162,30 @@ class SubCategoriesLoaded extends UserStates {
   const SubCategoriesLoaded(this.categoriesList);
   @override
   List<Object> get props => [categoriesList];
+}
+
+class  SendMessageLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class SendMessageLoaded extends UserStates {
+  final AuthUser messageSent  ;
+  const SendMessageLoaded(this.messageSent);
+  @override
+  List<Object> get props => [messageSent];
+}
+
+class  GetMessageLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class GetMessageLoaded extends UserStates {
+  final MessageList messageList  ;
+  const GetMessageLoaded(this.messageList);
+  @override
+  List<Object> get props => [messageList];
 }
 class UserNetworkErr extends UserStates {
   final String? message;

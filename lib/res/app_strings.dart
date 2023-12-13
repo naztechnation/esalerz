@@ -34,6 +34,11 @@ class AppStrings {
   static const  String sendResetToken = '$mainBaseUrl/send_verify_token';
   static const  String confirmToken = '$mainBaseUrl/verify_email_token';
   static const  String resetPassword = '$mainBaseUrl/reset_password';
+  static const  String sendChatUrl = '$mainBaseUrl/send_message';
+  static    String getChatMessages(String bkey, String receiver) => '$mainBaseUrl/get_chat?bkey=$bkey&receiver=$receiver';
+
+  
+
  
 
   

@@ -1,34 +1,83 @@
 import 'package:esalerz/model/chat/chatmodel.dart';
+import 'package:esalerz/model/user_model/message_list.dart';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart';
 import 'package:esalerz/ui/widgets/bigtext.dart';
 import 'package:esalerz/ui/widgets/text_edit_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
-class ChatScreen extends StatefulWidget {
-  final List<ChatMessage> initialMessages; // Add this property
+import '../blocs/user/user.dart';
+import '../handlers/secure_handler.dart';
+import '../model/view_models/user_view_model.dart';
+import '../requests/repositories/user_repo/user_repository_impl.dart';
+import 'widgets/empty_widget.dart';
+import 'widgets/loading_page.dart';
+import 'widgets/modals.dart';
 
-  const ChatScreen({required this.initialMessages});
+class ChatScreen extends StatelessWidget {
+  final String receiverEmail;
+  const ChatScreen({
+    Key? key, required this.receiverEmail,
+  }) : super(key: key);
+
   @override
-  _ChatScreenState createState() => _ChatScreenState(messages: initialMessages);
+  Widget build(BuildContext context) {
+    return BlocProvider<UserCubit>(
+      create: (BuildContext context) => UserCubit(
+          userRepository: UserRepositoryImpl(),
+          viewModel: Provider.of<UserViewModel>(context, listen: false)),
+      child: Chat(receiverEmail:  receiverEmail,),
+    );
+  }
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class Chat extends StatefulWidget {
+  final String receiverEmail;
+
+  const Chat({super.key, required this.receiverEmail});
+
+  @override
+  _ChatState createState() => _ChatState(receiverEmail: receiverEmail);
+}
+
+class _ChatState extends State<Chat> {
   String formattedTime = '';
-  final List<ChatMessage> messages;
-  _ChatScreenState({required this.messages});
+
+  final String receiverEmail;
+
 
   final TextEditingController _textController = TextEditingController();
 
-  void _handleSubmittedMessage(String text) {
-    if (text.isNotEmpty) {
-      setState(() {
-        messages.add(
-          ChatMessage(text: text, timestamp: DateTime.now(), isMe: true),
-        );
-      });
-      _textController.clear();
-    }
+
+   late UserCubit _userCubit;
+
+  String token = '';
+
+  _ChatState({required this.receiverEmail});
+
+    List<ChatData> messages = [];
+   MessageList?  allMessageData;
+
+   String username = '';
+
+   String currentUser = '';
+
+  initMessageCall() async {
+    _userCubit = context.read<UserCubit>();
+
+    token = await StorageHandler.getUserToken() ?? '';
+    currentUser = await StorageHandler.getUserEmail() ?? '';
+
+     _userCubit.getMessage( bkey: token, receiver: receiverEmail);
+     
+  }
+
+  @override
+  void initState() {
+    initMessageCall();
+    super.initState();
   }
 
   @override
@@ -48,7 +97,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             const SizedBox(width: 8),
             BigText(
-              text: 'Dr. Marshal',
+              text: username,
               size: 18,
             ),
           ],
@@ -67,102 +116,119 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
         actions: [
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Image.asset(
-                'assets/images/call.png',
-                height: 25,
-                color: AppColors.lightPrimary,
-              ),
-            ),
-          ),
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Image.asset(
-                'assets/images/video.png',
-                height: 25,
-                color: AppColors.lightPrimary,
-              ),
-            ),
-          ),
+          
         ],
       ),
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(
-                      AppImages.bg,
-                    ),
-                    fit: BoxFit.cover)),
-          ),
-          Container(
-            color: Colors.white70,
-            height: MediaQuery.sizeOf(context).height,
-            width: MediaQuery.sizeOf(context).width,
-          ),
-          Column(
-            children: [
-              Flexible(
-                child: ListView.builder(
-                  itemCount: messages.length,
-                  itemBuilder: (context, index) {
-                    final message = messages[index];
-                    return ListTile(
-                      title: Align(
-                        alignment: Alignment.topRight,
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: const BoxDecoration(
-                              color: AppColors.lightPrimary,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                                bottomLeft: Radius.circular(15),
-                                bottomRight: Radius.circular(3),
-                              )),
-                          child: Text(
-                              message.text,
-                              style: TextStyle(
-                            color: Colors.white,
+      body: BlocConsumer<UserCubit, UserStates>(listener: (context, state) {
+        if (state is SendMessageLoaded) {
+          if (state.messageSent.status == 1) {
+          
 
+          } else {
+          }
+        } else if (state is GetMessageLoaded) {
+          if (state.messageList.status == 1) {
+
+            username = state.messageList.receiver ?? '';
+            messages = state.messageList.data ?? [];
+              _textController.clear();
+        FocusScope.of(context).unfocus();
+          } else {
+          }
+        }  
+      }, builder: (context, state) {
+        if (state is UserNetworkErr) {
+          return EmptyWidget(
+            title: 'Network error',
+            description: state.message,
+            context: context,
+
+            onRefresh: () => _userCubit.getMessage( bkey: token, receiver: receiverEmail),
+          );
+        } else if (state is UserNetworkErrApiErr) {
+          return EmptyWidget(
+            title: 'Network error',
+            context: context,
+
+            description: state.message,
+            onRefresh: () => _userCubit.getMessage( bkey: token, receiver: receiverEmail),
+          );
+        }
+
+        return (state is SendMessageLoading || state is GetMessageLoading)
+            ? Scaffold(body: const LoadingPage())
+            : Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                        AppImages.bg,
+                      ),
+                      fit: BoxFit.cover)),
+            ),
+            Container(
+              color: Colors.white70,
+              height: MediaQuery.sizeOf(context).height,
+              width: MediaQuery.sizeOf(context).width,
+            ),
+            Column(
+              children: [
+                Flexible(
+                  child: ListView.builder(
+                    itemCount: messages.length,
+                    itemBuilder: (context, index) {
+                      final message = messages[index];
+                      return ListTile(
+                        title: Align(
+                          alignment: (currentUser == messages[index].sender) ? Alignment.centerRight : Alignment.centerLeft,
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                                color: AppColors.lightPrimary,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15),
+                                  bottomLeft: Radius.circular(15),
+                                  bottomRight: Radius.circular(3),
+                                )),
+                            child: Text(
+                              messages[index].message ?? "",
+                              style: TextStyle(
+                                color: Colors.white,
                               ),
+                            ),
                           ),
                         ),
-                      ),
-                      subtitle: Text(
-                        message.isMe ? formattedTime : 'Other User',
-                        textAlign:
-                            message.isMe ? TextAlign.right : TextAlign.left,
-                      ),
-                      // Display timestamp here if needed
-                    );
-                  },
+                        subtitle: GestureDetector(
+                          onTap: (){
+                  Modals.showToast(message.sender?[index].toString() ?? '');
+
+                          },
+                          child: Text(
+                             (currentUser == messages[index].sender) ? formattedTime : 'Other User',
+                            textAlign:
+                                (currentUser == messages[index].sender) ? TextAlign.right : TextAlign.left,
+                          ),
+                        ),
+                        
+                      );
+                    },
+                  ),
                 ),
-              ),
-              const Divider(height: 1.0),
-              Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor,
+                const Divider(height: 1.0),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                  ),
+                  child: _buildTextComposer(),
                 ),
-                child: _buildTextComposer(),
-              ),
-            ],
-          ),
-        ],
-      ),
+              ],
+            ),
+          ],
+        );
+  }),
     );
   }
 
@@ -175,20 +241,7 @@ class _ChatScreenState extends State<ChatScreen> {
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Row(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(width: 0.5, color: Colors.grey),
-                //color: AppColors.lightPrimary,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: IconButton(
-                icon: Image.asset(
-                  'assets/images/gallery-add.png',
-                  color: AppColors.lightPrimary,
-                ),
-                onPressed: () {},
-              ),
-            ),
+            
             const SizedBox(
               width: 5,
             ),
@@ -197,7 +250,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 borderWidth: 0.5,
                 controller: _textController,
                 hintText: 'Type something',
-                onFieldSubmitted: _handleSubmittedMessage,
+                
                 filled: false,
                 autofocus: false,
                 isDense: true,
@@ -214,12 +267,23 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               child: IconButton(
                 icon: const Icon(Icons.send),
-                onPressed: () => _handleSubmittedMessage(_textController.text),
+                onPressed: () {
+                  if(_textController.text.isNotEmpty){
+                    sendMessage();
+                  }
+                },
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  sendMessage()async {
+   await  _userCubit.sendMessage(bkey: token, receiver: receiverEmail, message: _textController.text);
+
+     _userCubit.getMessage( bkey: token, receiver: receiverEmail);
+
   }
 }

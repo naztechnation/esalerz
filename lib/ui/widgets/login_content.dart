@@ -95,32 +95,29 @@ class _LoginContentState extends State<LoginContent> {
               if (state.userData.status == 1) {
                 Modals.showToast(state.userData.message ?? '',
                     messageType: MessageType.success);
-               
-               sendCode(context);
 
+                sendCode(context);
               } else {
                 Modals.showToast(state.userData.message ?? '',
                     messageType: MessageType.success);
               }
-            }else if (state is SendCodeLoaded) {
-            if (state.userData.status == 1) {
-              Modals.showToast(state.userData.message ?? '',
-                  messageType: MessageType.success);
-              AppNavigator.pushAndReplacePage(context,
-                                page: OtpScreen(
-                                  email: _emailController.text.trim(),
-                                   resetType: 'activate_account',
-                                ));
+            } else if (state is SendCodeLoaded) {
+              if (state.userData.status == 1) {
+                Modals.showToast(state.userData.message ?? '',
+                    messageType: MessageType.success);
+                AppNavigator.pushAndReplacePage(context,
+                    page: OtpScreen(
+                      email: _emailController.text.trim(),
+                      resetType: 'activate_account',
+                    ));
 
                 clearTextViews();
-              
-            } else {
-              Modals.showToast(state.userData.message ?? '',
-                  );
-
-                 
+              } else {
+                Modals.showToast(
+                  state.userData.message ?? '',
+                );
+              }
             }
-          }
             if (state is AccountUpdated) {
               if (state.user.status == 1) {
                 if (state.user.data?.bkey == '' ||
@@ -128,7 +125,7 @@ class _LoginContentState extends State<LoginContent> {
                   Modals.showToast(
                     'Unknown user',
                   );
-                }else{
+                } else {
                   Modals.showToast(
                     state.user.message ?? '',
                   );
@@ -142,11 +139,12 @@ class _LoginContentState extends State<LoginContent> {
                 AppNavigator.pushAndReplacePage(context,
                     page: const LandingPage());
               } else {
-                Modals.showToast(state.user.message ?? '',
-                     );
-                      if(state.user.message == 'Verify your email to continue'){
-                     sendCode(context);
-                  }
+                Modals.showToast(
+                  state.user.message ?? '',
+                );
+                if (state.user.message == 'Verify your email to continue') {
+                  sendCode(context);
+                }
               }
             } else if (state is AccountApiErr) {
               if (state.message != null) {
@@ -472,7 +470,8 @@ class _LoginContentState extends State<LoginContent> {
                                     horizontal: 16, vertical: 16),
                                 child: ButtonView(
                                   color: AppColors.lightPrimary,
-                                  processing: state is AccountLoading || state is AccountProcessing,
+                                  processing: state is AccountLoading ||
+                                      state is AccountProcessing,
                                   borderColor: Colors.white,
                                   borderRadius: 30,
                                   onPressed: () {
@@ -584,7 +583,8 @@ class _LoginContentState extends State<LoginContent> {
   sendCode(BuildContext ctx) {
     if (_formKey.currentState!.validate()) {
       ctx.read<AccountCubit>().forgotPassword(
-            email: _emailController.text.trim(), type: 'activate_account',
+            email: _emailController.text.trim(),
+            type: 'activate_account',
           );
       FocusScope.of(ctx).unfocus();
     }

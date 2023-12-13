@@ -358,4 +358,55 @@ class UserCubit extends Cubit<UserStates> {
       }
     }
   }
+
+  Future<void> sendMessage({ required String bkey,required String receiver, required String message}) async {
+    try {
+      emit(SendMessageLoading());
+
+      final messageSent = await userRepository.sendChatMessage(
+        bkey: bkey,
+        receiver: receiver,
+        message: message,
+      );
+
+      emit(SendMessageLoaded(messageSent));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+  Future<void> getMessage({ required String bkey,required String receiver, }) async {
+    try {
+      emit(GetMessageLoading());
+
+      final messageList = await userRepository.getChatMessages(
+        bkey: bkey,
+        receiver: receiver,
+      );
+
+      emit(GetMessageLoaded(messageList));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
 }

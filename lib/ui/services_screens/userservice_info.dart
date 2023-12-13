@@ -418,29 +418,16 @@ serviceProvider.getUserKyc();
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 14),
-                                TextEditView(
-                                  borderWidth: 0.5,
-                                  controller: messageController,
-                                  hintText: 'Write your message here',
-                                  filled: false,
-                                  autofocus: false,
-                                  isDense: true,
-                                  borderColor: AppColors.lightPrimary,
-                                ),
+                                 
+                                
                                 const SizedBox(height: 25),
                                 ButtonView(
                                   onPressed: () {
-                                    final initialMessages = [
-                                      ChatMessage(
-                                          text: messageController.text,
-                                          timestamp: DateTime.now(),
-                                          isMe: true)
-                                    ];
+                                    
 
                                       NavigationHelper.navigateToPage(
                                         context,
-                                        ChatScreen(initialMessages: initialMessages),
+                                        ChatScreen(receiverEmail: products.first.poster ?? ''),
                                       );
                                   },
                                   padding: const EdgeInsets.symmetric(
