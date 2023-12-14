@@ -46,4 +46,8 @@ class AppStrings {
       '$mainBaseUrl/get_chat?bkey=$bkey&receiver=$receiver';
   static String getChatConversations(String bkey) =>
       '$mainBaseUrl/get_conversations?bkey=$bkey';
+ static String getAllServices(String bkey) =>
+      '$mainBaseUrl/get_services?bkey=$bkey';
+
+      
 }

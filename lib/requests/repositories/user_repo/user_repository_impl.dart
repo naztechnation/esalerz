@@ -3,6 +3,7 @@
 
 import 'package:esalerz/model/auth_model/auth_user.dart';
 import 'package:esalerz/model/user_model/all_products.dart';
+import 'package:esalerz/model/user_model/all_services.dart';
 import 'package:esalerz/model/user_model/categories_list.dart';
 import 'package:esalerz/model/user_model/conversation_list.dart';
 import 'package:esalerz/model/user_model/feedback_lists.dart';
@@ -149,6 +150,12 @@ class UserRepositoryImpl implements UserRepository {
     final map = await Requests().get(AppStrings.getChatConversations(bkey,));
 
     return ConversationList.fromJson(map);
+  }
+
+  @override
+  Future<AllServices> getAllServices({required String bkey}) {
+    // TODO: implement getAllServices
+    throw UnimplementedError();
   }
 
   
