@@ -4,6 +4,7 @@ import 'package:esalerz/model/auth_model/auth_user.dart';
 
 import '../../../model/user_model/all_products.dart';
 import '../../../model/user_model/categories_list.dart';
+import '../../../model/user_model/conversation_list.dart';
 import '../../../model/user_model/feedback_lists.dart';
 import '../../../model/user_model/message_list.dart';
 import '../../../model/user_model/notification_details.dart';
@@ -27,6 +28,7 @@ abstract class UserRepository {
      Future<CategoriesList> getSubCategories({ required String token,required String catId,});
      Future<AuthUser> sendChatMessage({ required String bkey,required String receiver, required String message});
      Future<MessageList> getChatMessages({ required String bkey,required String receiver,  });
+     Future<ConversationList> getConversations({ required String bkey, });
     
 
 

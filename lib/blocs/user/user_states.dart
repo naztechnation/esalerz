@@ -4,6 +4,7 @@ import 'package:esalerz/model/user_model/message_list.dart';
 import '../../model/auth_model/auth_user.dart';
 import '../../model/user_model/all_products.dart';
 import '../../model/user_model/categories_list.dart';
+import '../../model/user_model/conversation_list.dart';
 import '../../model/user_model/feedback_lists.dart';
 import '../../model/user_model/notification_details.dart';
 import '../../model/user_model/notifications.dart';
@@ -186,6 +187,18 @@ class GetMessageLoaded extends UserStates {
   const GetMessageLoaded(this.messageList);
   @override
   List<Object> get props => [messageList];
+}
+
+class  GetConversationsLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class GetGetConversationsLoaded extends UserStates {
+  final ConversationList conversationList  ;
+  const GetGetConversationsLoaded(this.conversationList);
+  @override
+  List<Object> get props => [conversationList];
 }
 class UserNetworkErr extends UserStates {
   final String? message;

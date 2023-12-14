@@ -409,4 +409,28 @@ class UserCubit extends Cubit<UserStates> {
       }
     }
   }
+
+  Future<void> getConversationMessages({ required String bkey, }) async {
+    try {
+      emit(GetConversationsLoading());
+
+      final messageList = await userRepository.getConversations(
+        bkey: bkey,
+      );
+
+      emit(GetGetConversationsLoaded(messageList));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
 }

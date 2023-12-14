@@ -4,9 +4,9 @@
 import 'package:esalerz/model/auth_model/auth_user.dart';
 import 'package:esalerz/model/user_model/all_products.dart';
 import 'package:esalerz/model/user_model/categories_list.dart';
+import 'package:esalerz/model/user_model/conversation_list.dart';
 import 'package:esalerz/model/user_model/feedback_lists.dart';
 import 'package:esalerz/model/user_model/message_list.dart';
-import 'package:esalerz/ui/widgets/modals.dart';
 
 import '../../../model/user_model/notification_details.dart';
 import '../../../model/user_model/notifications.dart';
@@ -126,13 +126,13 @@ class UserRepositoryImpl implements UserRepository {
   Future<AuthUser> sendChatMessage({required String bkey, required String receiver, required String message}) async {
     final map = await Requests().post(AppStrings.sendChatUrl, 
     body: {
-      'bkey' : 'uznZGinHILbH0YkszygUumtxcU1VWUYxMHBwTHBqWm4yRUU1Y2ZXN3lVdmoyR3VKRy8rVWpPVmk3YVplakE9PQ%3D%3D',
+      'bkey' : bkey,
       'receiver' : receiver,
       'message' : message,
 
     }
     );
-    print('message$bkey');
+   
  
     return AuthUser.fromJson(map);
   }
@@ -142,6 +142,13 @@ class UserRepositoryImpl implements UserRepository {
     final map = await Requests().get(AppStrings.getChatMessages(bkey, receiver));
 
     return MessageList.fromJson(map);
+  }
+
+  @override
+  Future<ConversationList> getConversations({required String bkey,  }) async {
+    final map = await Requests().get(AppStrings.getChatConversations(bkey,));
+
+    return ConversationList.fromJson(map);
   }
 
   

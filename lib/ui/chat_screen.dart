@@ -1,4 +1,3 @@
-import 'package:esalerz/model/chat/chatmodel.dart';
 import 'package:esalerz/model/user_model/message_list.dart';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart';
@@ -19,7 +18,8 @@ import 'widgets/modals.dart';
 class ChatScreen extends StatelessWidget {
   final String receiverEmail;
   const ChatScreen({
-    Key? key, required this.receiverEmail,
+    Key? key,
+    required this.receiverEmail,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,9 @@ class ChatScreen extends StatelessWidget {
       create: (BuildContext context) => UserCubit(
           userRepository: UserRepositoryImpl(),
           viewModel: Provider.of<UserViewModel>(context, listen: false)),
-      child: Chat(receiverEmail:  receiverEmail,),
+      child: Chat(
+        receiverEmail: receiverEmail,
+      ),
     );
   }
 }
@@ -47,22 +49,20 @@ class _ChatState extends State<Chat> {
 
   final String receiverEmail;
 
-
   final TextEditingController _textController = TextEditingController();
 
-
-   late UserCubit _userCubit;
+  late UserCubit _userCubit;
 
   String token = '';
 
   _ChatState({required this.receiverEmail});
 
-    List<ChatData> messages = [];
-   MessageList?  allMessageData;
+  List<ChatData> messages = [];
+  MessageList? allMessageData;
 
-   String username = '';
+  String username = '';
 
-   String currentUser = '';
+  String currentUser = '';
 
   initMessageCall() async {
     _userCubit = context.read<UserCubit>();
@@ -70,8 +70,7 @@ class _ChatState extends State<Chat> {
     token = await StorageHandler.getUserToken() ?? '';
     currentUser = await StorageHandler.getUserEmail() ?? '';
 
-     _userCubit.getMessage( bkey: token, receiver: receiverEmail);
-     
+    _userCubit.getMessage(bkey: token, receiver: receiverEmail);
   }
 
   @override
@@ -115,120 +114,121 @@ class _ChatState extends State<Chat> {
             ),
           ),
         ),
-        actions: [
-          
-        ],
+        actions: [],
       ),
       body: BlocConsumer<UserCubit, UserStates>(listener: (context, state) {
         if (state is SendMessageLoaded) {
           if (state.messageSent.status == 1) {
-          
-
-          } else {
-          }
+          } else {}
         } else if (state is GetMessageLoaded) {
           if (state.messageList.status == 1) {
-
             username = state.messageList.receiver ?? '';
             messages = state.messageList.data ?? [];
-              _textController.clear();
-        FocusScope.of(context).unfocus();
-          } else {
-          }
-        }  
+            _textController.clear();
+            FocusScope.of(context).unfocus();
+          } else {}
+        }
       }, builder: (context, state) {
         if (state is UserNetworkErr) {
           return EmptyWidget(
             title: 'Network error',
             description: state.message,
             context: context,
-
-            onRefresh: () => _userCubit.getMessage( bkey: token, receiver: receiverEmail),
+            onRefresh: () =>
+                _userCubit.getMessage(bkey: token, receiver: receiverEmail),
           );
         } else if (state is UserNetworkErrApiErr) {
           return EmptyWidget(
             title: 'Network error',
             context: context,
-
             description: state.message,
-            onRefresh: () => _userCubit.getMessage( bkey: token, receiver: receiverEmail),
+            onRefresh: () =>
+                _userCubit.getMessage(bkey: token, receiver: receiverEmail),
           );
         }
 
         return (state is SendMessageLoading || state is GetMessageLoading)
             ? Scaffold(body: const LoadingPage())
             : Stack(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                        AppImages.bg,
-                      ),
-                      fit: BoxFit.cover)),
-            ),
-            Container(
-              color: Colors.white70,
-              height: MediaQuery.sizeOf(context).height,
-              width: MediaQuery.sizeOf(context).width,
-            ),
-            Column(
-              children: [
-                Flexible(
-                  child: ListView.builder(
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) {
-                      final message = messages[index];
-                      return ListTile(
-                        title: Align(
-                          alignment: (currentUser == messages[index].sender) ? Alignment.centerRight : Alignment.centerLeft,
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: const BoxDecoration(
-                                color: AppColors.lightPrimary,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                  topRight: Radius.circular(15),
-                                  bottomLeft: Radius.circular(15),
-                                  bottomRight: Radius.circular(3),
-                                )),
-                            child: Text(
-                              messages[index].message ?? "",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(
+                              AppImages.bg,
                             ),
-                          ),
-                        ),
-                        subtitle: GestureDetector(
-                          onTap: (){
-                  Modals.showToast(message.sender?[index].toString() ?? '');
-
+                            fit: BoxFit.cover)),
+                  ),
+                  Container(
+                    color: Colors.white70,
+                    height: MediaQuery.sizeOf(context).height,
+                    width: MediaQuery.sizeOf(context).width,
+                  ),
+                  Column(
+                    children: [
+                      Flexible(
+                        child: ListView.builder(
+                          itemCount: messages.length,
+                          itemBuilder: (context, index) {
+                            final message = messages[index];
+                            return ListTile(
+                              title: Align(
+                                alignment:
+                                    (currentUser == messages[index].sender)
+                                        ? Alignment.centerRight
+                                        : Alignment.centerLeft,
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration:   BoxDecoration(
+                                      color:  (currentUser == messages[index].sender)
+                                        ? AppColors.lightSecondary.withOpacity(0.3) :AppColors.lightPrimary,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(15),
+                                        topRight: Radius.circular(15),
+                                        bottomLeft: Radius.circular(15),
+                                        bottomRight: Radius.circular(3),
+                                      )),
+                                  child: Text(
+                                    messages[index].message ?? "",
+                                    style: TextStyle(
+                                      color: (currentUser == messages[index].sender)
+                                        ? AppColors.lightPrimary  : Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              subtitle: GestureDetector(
+                                onTap: () {
+                                  Modals.showToast(
+                                      message.sender?[index].toString() ?? '');
+                                },
+                                child: Text(
+                                  (currentUser == messages[index].sender)
+                                      ? formattedTime
+                                      : formattedTime,
+                                  textAlign:
+                                      (currentUser == messages[index].sender)
+                                          ? TextAlign.right
+                                          : TextAlign.left,
+                                ),
+                              ),
+                            );
                           },
-                          child: Text(
-                             (currentUser == messages[index].sender) ? formattedTime : 'Other User',
-                            textAlign:
-                                (currentUser == messages[index].sender) ? TextAlign.right : TextAlign.left,
-                          ),
                         ),
-                        
-                      );
-                    },
+                      ),
+                      const Divider(height: 1.0),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor,
+                        ),
+                        child: _buildTextComposer(),
+                      ),
+                    ],
                   ),
-                ),
-                const Divider(height: 1.0),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).cardColor,
-                  ),
-                  child: _buildTextComposer(),
-                ),
-              ],
-            ),
-          ],
-        );
-  }),
+                ],
+              );
+      }),
     );
   }
 
@@ -241,7 +241,6 @@ class _ChatState extends State<Chat> {
         margin: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Row(
           children: [
-            
             const SizedBox(
               width: 5,
             ),
@@ -250,7 +249,6 @@ class _ChatState extends State<Chat> {
                 borderWidth: 0.5,
                 controller: _textController,
                 hintText: 'Type something',
-                
                 filled: false,
                 autofocus: false,
                 isDense: true,
@@ -268,7 +266,7 @@ class _ChatState extends State<Chat> {
               child: IconButton(
                 icon: const Icon(Icons.send),
                 onPressed: () {
-                  if(_textController.text.isNotEmpty){
+                  if (_textController.text.isNotEmpty) {
                     sendMessage();
                   }
                 },
@@ -280,10 +278,10 @@ class _ChatState extends State<Chat> {
     );
   }
 
-  sendMessage()async {
-   await  _userCubit.sendMessage(bkey: token, receiver: receiverEmail, message: _textController.text);
+  sendMessage() async {
+    await _userCubit.sendMessage(
+        bkey: token, receiver: receiverEmail, message: _textController.text);
 
-     _userCubit.getMessage( bkey: token, receiver: receiverEmail);
-
+    _userCubit.getMessage(bkey: token, receiver: receiverEmail);
   }
 }
