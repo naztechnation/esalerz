@@ -1,4 +1,3 @@
- 
 import 'package:esalerz/model/chat/chatmodel.dart';
 import 'package:esalerz/model/service_term.dart';
 import 'package:esalerz/res/app_colors.dart';
@@ -22,6 +21,7 @@ import '../../requests/repositories/user_repo/user_repository_impl.dart';
 import '../../res/app_strings.dart';
 import '../../utils/navigator/page_navigator.dart';
 import '../../utils/validator.dart';
+import '../chat_screen.dart';
 import '../kyc/service_kyc_one.dart';
 import '../post_ads/select_post_type.dart';
 import '../widgets/button_view.dart';
@@ -116,10 +116,9 @@ class _UserInfoState extends State<UserInfo> {
 
   @override
   Widget build(BuildContext context) {
-     final serviceProvider =
+    final serviceProvider =
         Provider.of<AccountViewModel>(context, listen: true);
-serviceProvider.getUserKyc();
-
+    serviceProvider.getUserKyc();
 
     return BlocConsumer<UserCubit, UserStates>(listener: (context, state) {
       if (state is ProductsDetailsLoaded) {
@@ -135,12 +134,12 @@ serviceProvider.getUserKyc();
         } else {
           products = [];
         }
-      }else if (state is AddFeedbackLoaded){
-        Modals.showToast(state.products.message ??'');
-      }else if (state is ReportUserLoaded){
-        Modals.showToast(state.report.message ??'');
-      }else if (state is BookmarkLoaded){
-        Modals.showToast(state.bookmark.message ??'');
+      } else if (state is AddFeedbackLoaded) {
+        Modals.showToast(state.products.message ?? '');
+      } else if (state is ReportUserLoaded) {
+        Modals.showToast(state.report.message ?? '');
+      } else if (state is BookmarkLoaded) {
+        Modals.showToast(state.bookmark.message ?? '');
       }
     }, builder: (context, state) {
       if (state is UserNetworkErr) {
@@ -149,7 +148,6 @@ serviceProvider.getUserKyc();
             title: 'Network error',
             description: state.message,
             context: context,
-
             onRefresh: () => _userCubit.getProducts(token: token),
           ),
         );
@@ -159,13 +157,15 @@ serviceProvider.getUserKyc();
             title: 'Network error',
             description: state.message,
             context: context,
-
             onRefresh: () => _userCubit.getProducts(token: token),
           ),
         );
       }
 
-      return (isLoading || state is AddFeedbackLoading || state is ReportUserLoading || state is BookmarkLoading)
+      return (isLoading ||
+              state is AddFeedbackLoading ||
+              state is ReportUserLoading ||
+              state is BookmarkLoading)
           ? Scaffold(body: const LoadingPage())
           : Scaffold(
               appBar: AppBar(
@@ -191,8 +191,9 @@ serviceProvider.getUserKyc();
                 ),
                 actions: [
                   GestureDetector(
-                    onTap: (){
-                      saveProduct(context, products.first.id ?? '', AppStrings.saveProduct);
+                    onTap: () {
+                      saveProduct(context, products.first.id ?? '',
+                          AppStrings.saveProduct);
                     },
                     child: Container(
                       height: 50,
@@ -203,12 +204,10 @@ serviceProvider.getUserKyc();
                       ),
                       child: const Center(
                         child: Icon(Icons.bookmark_border_outlined,
-                            size: 35,
-                            color: AppColors.lightPrimary),
+                            size: 35, color: AppColors.lightPrimary),
                       ),
                     ),
                   ),
-                   
                 ],
               ),
               body: Stack(
@@ -417,30 +416,15 @@ serviceProvider.getUserKyc();
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 14),
-                                TextEditView(
-                                  borderWidth: 0.5,
-                                  controller: messageController,
-                                  hintText: 'Write your message here',
-                                  filled: false,
-                                  autofocus: false,
-                                  isDense: true,
-                                  borderColor: AppColors.lightPrimary,
-                                ),
                                 const SizedBox(height: 25),
                                 ButtonView(
                                   onPressed: () {
-                                    final initialMessages = [
-                                      ChatMessage(
-                                          text: messageController.text,
-                                          timestamp: DateTime.now(),
-                                          isMe: true)
-                                    ];
-
-                                    //   NavigationHelper.navigateToPage(
-                                    //     context,
-                                    //  //   ChatScreen(initialMessages: initialMessages),
-                                    //   );
+                                    NavigationHelper.navigateToPage(
+                                      context,
+                                      ChatScreen(
+                                          receiverEmail:
+                                              products.first.poster ?? ''),
+                                    );
                                   },
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 13, horizontal: 14),
@@ -716,7 +700,9 @@ serviceProvider.getUserKyc();
                                             onPressed: () {
                                               NavigationHelper.navigateToPage(
                                                   context,
-                                                    CustomerReviews(adsId: widget.adsId,));
+                                                  CustomerReviews(
+                                                    adsId: widget.adsId,
+                                                  ));
                                             },
                                             color: Colors.white,
                                             padding: const EdgeInsets.symmetric(
@@ -745,9 +731,10 @@ serviceProvider.getUserKyc();
                                         isDissmissible: true,
                                         heightFactor: 1,
                                         page: Ratings(
-                                            context: context,
-                                            isProcessing: state is AddFeedbackLoading,
-                                            ));
+                                          context: context,
+                                          isProcessing:
+                                              state is AddFeedbackLoading,
+                                        ));
                                   },
                                   color: Colors.white,
                                   padding: const EdgeInsets.symmetric(
@@ -772,9 +759,10 @@ serviceProvider.getUserKyc();
                                         isDissmissible: true,
                                         heightFactor: 1,
                                         page: ReportAbuse(
-                                            context: context,
-                                            isProcessing: state is ReportUserLoading,
-                                            ));
+                                          context: context,
+                                          isProcessing:
+                                              state is ReportUserLoading,
+                                        ));
                                   },
                                   color: Colors.white,
                                   padding: const EdgeInsets.symmetric(
@@ -794,12 +782,14 @@ serviceProvider.getUserKyc();
                                 ),
                                 ButtonView(
                                   onPressed: () {
-                                    if(serviceProvider.completedKyc == 'true'){
-                AppNavigator.pushAndStackPage(context,
-                          page: SelectPostType());
-            }else{
-               NavigationHelper.navigateToPage(context, KycServiceScreenOne());
-            }
+                                    if (serviceProvider.completedKyc ==
+                                        'true') {
+                                      AppNavigator.pushAndStackPage(context,
+                                          page: SelectPostType());
+                                    } else {
+                                      NavigationHelper.navigateToPage(
+                                          context, KycServiceScreenOne());
+                                    }
                                   },
                                   color: Colors.white,
                                   padding: const EdgeInsets.symmetric(
@@ -880,10 +870,7 @@ serviceProvider.getUserKyc();
     });
   }
 
-  Ratings({
-    required bool isProcessing,
-    required BuildContext context
-  }) {
+  Ratings({required bool isProcessing, required BuildContext context}) {
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
       return Container(
@@ -916,7 +903,9 @@ serviceProvider.getUserKyc();
                 child: TextEditView(
                   controller: commentController,
                   validator: (value) {
-                    return Validator.validate(value,);
+                    return Validator.validate(
+                      value,
+                    );
                   },
                   isDense: true,
                   textViewTitle: 'Write a review',
@@ -926,8 +915,7 @@ serviceProvider.getUserKyc();
                   borderColor: Color.fromARGB(255, 41, 12, 12),
                   borderRadius: 30,
                   onChanged: ((value) {
-                   setState(() {});
-                   
+                    setState(() {});
                   }),
                   maxLines: 6,
                 ),
@@ -935,16 +923,15 @@ serviceProvider.getUserKyc();
               const SizedBox(
                 height: 20,
               ),
-             
               const SizedBox(
                 height: 20,
               ),
-               if (commentController.text.isNotEmpty)
+              if (commentController.text.isNotEmpty)
                 ButtonView(
-                    processing: isFeedbackLoading,
+                  processing: isFeedbackLoading,
                   onPressed: () {
                     Navigator.pop(context);
-                    setState((){});
+                    setState(() {});
                     rateUser(context, products.first.id ?? '');
                   },
                   color: AppColors.lightSecondary,
@@ -967,10 +954,7 @@ serviceProvider.getUserKyc();
     });
   }
 
-  ReportAbuse({
-    required bool isProcessing,
-    required BuildContext context
-  }) {
+  ReportAbuse({required bool isProcessing, required BuildContext context}) {
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
       return Container(
@@ -983,7 +967,6 @@ serviceProvider.getUserKyc();
                 'Report this Seller',
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
               ),
-              
               const SizedBox(
                 height: 20,
               ),
@@ -992,7 +975,9 @@ serviceProvider.getUserKyc();
                 child: TextEditView(
                   controller: reasonController,
                   validator: (value) {
-                    return Validator.validate(value,);
+                    return Validator.validate(
+                      value,
+                    );
                   },
                   isDense: true,
                   textViewTitle: 'Write your complaint',
@@ -1002,8 +987,7 @@ serviceProvider.getUserKyc();
                   borderColor: Color.fromARGB(255, 41, 12, 12),
                   borderRadius: 30,
                   onChanged: ((value) {
-                   setState(() {});
-                   
+                    setState(() {});
                   }),
                   maxLines: 6,
                 ),
@@ -1011,16 +995,15 @@ serviceProvider.getUserKyc();
               const SizedBox(
                 height: 20,
               ),
-             
               const SizedBox(
                 height: 20,
               ),
-               if (reasonController.text.isNotEmpty)
+              if (reasonController.text.isNotEmpty)
                 ButtonView(
-                    processing: isFeedbackLoading,
+                  processing: isFeedbackLoading,
                   onPressed: () {
                     Navigator.pop(context);
-                    setState((){});
+                    setState(() {});
                     reportUser(context, products.first.id ?? '');
                   },
                   color: AppColors.lightSecondary,
@@ -1043,53 +1026,42 @@ serviceProvider.getUserKyc();
     });
   }
 
-   rateUser(
-    BuildContext ctx,
-    String adId
-  ) async{
-                   
-  setState(() {
+  rateUser(BuildContext ctx, String adId) async {
+    setState(() {
       isFeedbackLoading = true;
     });
-  await  _userCubit
-         
-        .sendFeedback(token: token, adId: adId, message: commentController.text, rating: ratingNumber.toString() );
+    await _userCubit.sendFeedback(
+        token: token,
+        adId: adId,
+        message: commentController.text,
+        rating: ratingNumber.toString());
 
-        setState(() {
+    setState(() {
       isFeedbackLoading = false;
     });
   }
 
-
-   reportUser(
-    BuildContext ctx,
-    String adId
-  ) async{
-                   
-  setState(() {
+  reportUser(BuildContext ctx, String adId) async {
+    setState(() {
       isFeedbackLoading = true;
     });
-  await  _userCubit
-         
-        .sendReport(token: token, adId: adId, reason: reasonController.text, );
+    await _userCubit.sendReport(
+      token: token,
+      adId: adId,
+      reason: reasonController.text,
+    );
 
-        setState(() {
+    setState(() {
       isFeedbackLoading = false;
     });
   }
 
-  saveProduct(
-    BuildContext ctx,
-    String adId,
-    String url
-  ) async{
-                   
-   
-  await  _userCubit
-         
-        .saveProduct(token: token, adId: adId, url: url, );
-
-       
+  saveProduct(BuildContext ctx, String adId, String url) async {
+    await _userCubit.saveProduct(
+      token: token,
+      adId: adId,
+      url: url,
+    );
   }
 }
 

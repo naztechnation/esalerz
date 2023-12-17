@@ -63,45 +63,38 @@ class UserViewModel extends BaseViewModel {
     return file;
   }
 
-  String getCurrentTime(int timestampInSeconds) {
-    DateTime date =
-        DateTime.fromMillisecondsSinceEpoch(timestampInSeconds * 1000);
+  
 
-    String time = formatTimeAgo(date);
+  
+  String formatTimeAgo(String date) {
+    final DateTime dateTime = DateTime.parse(date);
+    final DateTime now = DateTime.now();
+    final DateTime yesterday = now.subtract(Duration(days: 1));
 
-    setViewState(ViewState.success);
+    if (isSameDay(dateTime, now)) {
+      return 'today';
+    } else if (isSameDay(dateTime, yesterday)) {
+      return 'yesterday';
+    }
 
-    return time;
-  }
+    final Duration difference = now.difference(dateTime);
 
-  String formatTimeAgo(DateTime inputDate) {
-    DateTime now = DateTime.now();
-    Duration difference = now.difference(inputDate);
-
-    if (difference.inDays >= 3) {
-      return DateFormat.yMMMd().format(inputDate);
-    } else if (difference.inDays >= 1) {
-      if (difference.inDays == 1) {
-        return 'Yesterday';
-      } else {
-        return '${difference.inDays} days ago';
-      }
-    } else if (difference.inHours >= 1) {
-      if (difference.inHours == 1) {
-        return '1 hour ago';
-      } else {
-        return '${difference.inHours} hours ago';
-      }
-    } else if (difference.inMinutes >= 1) {
-      if (difference.inMinutes == 1) {
-        return '1 minute ago';
-      } else {
-        return '${difference.inMinutes} minutes ago';
-      }
+    if (difference.inDays > 0) {
+      return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
+    } else if (difference.inHours > 0) {
+      return '${difference.inHours} hour${difference.inHours > 1 ? 's' : ''} ago';
+    } else if (difference.inMinutes > 0) {
+      return '${difference.inMinutes} minute${difference.inMinutes > 1 ? 's' : ''} ago';
     } else {
-      return 'Just now';
+      return 'just now';
     }
   }
+
+  bool isSameDay(DateTime date1, DateTime date2) {
+    return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
+  }
+
+
 
   File? get imgURl => imageURl;
 

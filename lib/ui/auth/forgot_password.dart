@@ -44,12 +44,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             if (state.userData.status == 1) {
               Modals.showToast(state.userData.message ?? '',
                   messageType: MessageType.success);
-              // setToken.setToken(state.userData.token!);
-
+              AppNavigator.pushAndReplacePage(context,
+                                page: OtpScreen(
+                                  email: _emailController.text.trim(),
+                                   resetType: 'reset_password',
+                                ));
               
             } else {
               Modals.showToast(state.userData.message ?? '',
-                  messageType: MessageType.success);
+                  );
             }
           } else if (state is AccountApiErr) {
             if (state.message != null) {
@@ -162,11 +165,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           borderColor: AppColors.lightPrimary,
                           borderRadius: 30,
                           onPressed: () {
-                            // AppNavigator.pushAndReplacePage(context,
-                            //     page: OtpScreen(
-                            //       email: _emailController.text.trim(),
-                            //       isForgotPassword: true,
-                            //     ));
+                            
                              forgotPassword(context);
                           },
                           child: const Text(

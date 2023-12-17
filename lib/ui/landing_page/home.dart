@@ -480,36 +480,36 @@ class _HomeState extends State<HomePage> {
                                 ),
                               ],
                             ),
-                            Visibility(
-                              visible: isGridView,
-                              child: ServiceItem(
-                                products: products,
-                                onTapLike: (adId, isLiked) {
-                                  if(isLiked) {
-                                  unLikeAds(context, adId);
+                            // Visibility(
+                            //   visible: isGridView,
+                            //   child: ServiceItem(
+                            //     products: products,
+                            //     onTapLike: (adId, isLiked) {
+                            //       if(isLiked) {
+                            //       unLikeAds(context, adId);
 
-                                  }else{
-                                  likeAds(context, adId);
+                            //       }else{
+                            //       likeAds(context, adId);
 
-                                  }
-                                }, isHome: true, isListView: false, isLoading: (state is RemoveLikeLoading || state is CreateLikeLoading), 
-                              ),
-                            ),
-                            Visibility(
-                              visible: !isGridView,
-                              child: ServiceItem(
-                                products: products,
-                                onTapLike: (adId, isLiked) {
-                                  if(isLiked) {
-                                  unLikeAds(context, adId);
+                            //       }
+                            //     }, isHome: true, isListView: false, isLoading: (state is RemoveLikeLoading || state is CreateLikeLoading), 
+                            //   ),
+                            // ),
+                            // Visibility(
+                            //   visible: !isGridView,
+                            //   child: ServiceItem(
+                            //     products: products,
+                            //     onTapLike: (adId, isLiked) {
+                            //       if(isLiked) {
+                            //       unLikeAds(context, adId);
 
-                                  }else{
-                                  likeAds(context, adId);
+                            //       }else{
+                            //       likeAds(context, adId);
 
-                                  }
-                                }, isHome: true, isListView: true, isLoading: (state is RemoveLikeLoading || state is CreateLikeLoading),
-                              ),
-                            ),
+                            //       }
+                            //     }, isHome: true, isListView: true, isLoading: (state is RemoveLikeLoading || state is CreateLikeLoading),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

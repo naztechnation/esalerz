@@ -45,17 +45,17 @@ class EmptyWidget extends StatelessWidget {
                             fontSize: 18)))
               ],
                 const SizedBox(height: 30,),
-              GestureDetector(
-                onTap: (){
-                  Navigator.pop(context);
-                },
-                child: Text(
-                      'Close',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 18,
-                      color: Colors.red,
-                          fontWeight: FontWeight.w400)),
-              )
+              // GestureDetector(
+              //   onTap: (){
+              //     Navigator.pop(context);
+              //   },
+              //   child: Text(
+              //         'Close',
+              //         textAlign: TextAlign.center,
+              //         style: const TextStyle(fontSize: 18,
+              //         color: Colors.red,
+              //             fontWeight: FontWeight.w400)),
+              // )
 
             ],
           ),

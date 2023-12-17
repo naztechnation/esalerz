@@ -13,6 +13,7 @@ import '../../res/enum.dart';
 import '../../utils/navigator/page_navigator.dart';
 import '../../utils/validator.dart';
 import '../auth/forgot_password.dart';
+import '../auth/otp_page.dart';
 import '../services_screens/landingpage.dart';
 import 'button_view.dart';
 import 'image_view.dart';
@@ -94,20 +95,27 @@ class _LoginContentState extends State<LoginContent> {
               if (state.userData.status == 1) {
                 Modals.showToast(state.userData.message ?? '',
                     messageType: MessageType.success);
-                //     FirebaseMessaging messaging = FirebaseMessaging.instance;
-                // messaging.subscribeToTopic('subscribed_users');
-                // AppNavigator.pushAndReplacePage(context,
-                //     page: OtpScreen(
-                //       email: _emailController.text.trim(),
-                //       isForgotPassword: false,
-                //     ));
-                AppNavigator.pushAndReplacePage(context,
-                    page: const LandingPage());
 
-                clearTextViews();
+                sendCode(context);
               } else {
                 Modals.showToast(state.userData.message ?? '',
                     messageType: MessageType.success);
+              }
+            } else if (state is SendCodeLoaded) {
+              if (state.userData.status == 1) {
+                Modals.showToast(state.userData.message ?? '',
+                    messageType: MessageType.success);
+                AppNavigator.pushAndReplacePage(context,
+                    page: OtpScreen(
+                      email: _emailController.text.trim(),
+                      resetType: 'activate_account',
+                    ));
+
+                clearTextViews();
+              } else {
+                Modals.showToast(
+                  state.userData.message ?? '',
+                );
               }
             }
             if (state is AccountUpdated) {
@@ -117,7 +125,7 @@ class _LoginContentState extends State<LoginContent> {
                   Modals.showToast(
                     'Unknown user',
                   );
-                }else{
+                } else {
                   Modals.showToast(
                     state.user.message ?? '',
                   );
@@ -131,8 +139,12 @@ class _LoginContentState extends State<LoginContent> {
                 AppNavigator.pushAndReplacePage(context,
                     page: const LandingPage());
               } else {
-                Modals.showToast(state.user.message ?? '',
-                     );
+                Modals.showToast(
+                  state.user.message ?? '',
+                );
+                if (state.user.message == 'Verify your email to continue') {
+                  sendCode(context);
+                }
               }
             } else if (state is AccountApiErr) {
               if (state.message != null) {
@@ -458,7 +470,8 @@ class _LoginContentState extends State<LoginContent> {
                                     horizontal: 16, vertical: 16),
                                 child: ButtonView(
                                   color: AppColors.lightPrimary,
-                                  processing: state is AccountLoading,
+                                  processing: state is AccountLoading ||
+                                      state is AccountProcessing,
                                   borderColor: Colors.white,
                                   borderRadius: 30,
                                   onPressed: () {
@@ -565,5 +578,15 @@ class _LoginContentState extends State<LoginContent> {
       _phoneController.clear();
       _passwordController.clear();
     });
+  }
+
+  sendCode(BuildContext ctx) {
+    if (_formKey.currentState!.validate()) {
+      ctx.read<AccountCubit>().forgotPassword(
+            email: _emailController.text.trim(),
+            type: 'activate_account',
+          );
+      FocusScope.of(ctx).unfocus();
+    }
   }
 }

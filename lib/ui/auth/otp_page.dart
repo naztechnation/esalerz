@@ -19,11 +19,11 @@ import 'auth.dart';
 import 'reset_password.dart';
 
 class OtpScreen extends StatefulWidget {
-  final bool isForgotPassword;
-  
+  final String resetType;
   final String email;
+  
   const OtpScreen(
-      {super.key, required this.email, required this.isForgotPassword});
+      {super.key, required this.email, required this.resetType});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -33,7 +33,7 @@ class _OtpScreenState extends State<OtpScreen> {
   final _formKey = GlobalKey<FormState>();
 
   bool isCountdownComplete = false;
-  int countdown = 180;
+  int countdown = 60;
 
   bool isResetPassword = false;
 
@@ -47,9 +47,6 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final getToken = Provider.of<AccountViewModel>(context, listen: true);
-
-    getToken.getToken();
     
 
     return Scaffold(
@@ -60,39 +57,51 @@ class _OtpScreenState extends State<OtpScreen> {
           viewModel: Provider.of<AccountViewModel>(context, listen: false)),
       child: BlocConsumer<AccountCubit, AccountStates>(
         listener: (context, state) {
-          if (state is AccountLoaded) {
+          if (state is VerifyCodeLoaded) {
             if (state.userData.status == 1) {
-              if (widget.isForgotPassword) {
+              if (widget.resetType == 'reset_password') {
                 Modals.showToast('Token verified Successfully.',
                     messageType: MessageType.success);
-                // AppNavigator.pushAndReplacePage(context,
-                //     page: ResetPasswordScreen(
-                //       email: widget.email,
-                //       token: state.userData.token!,
-                //     ));
+                AppNavigator.pushAndReplacePage(context,
+                    page: ResetPasswordScreen(
+                      email: widget.email,
+                    ));
+
+                    _pinController.clear();
               }else if (isResetPassword){
                 //  Modals.showToast(state.userData.message!,
                 //     messageType: MessageType.success);
                 //      getToken.setToken(state.userData.token!);
                      startCountdown();
+                    _pinController.clear();
 
-              } else {
+
+              } else if(widget.resetType == 'activate_account'){
                 AppNavigator.pushAndReplacePage(context,
                     page: const LoginScreen());
                 Modals.showToast(state.userData.message!,
                     messageType: MessageType.success);
+
+                    _pinController.clear();
+
               }
             } else {
               Modals.showToast(state.userData.message!,
                   messageType: MessageType.error);
+                    _pinController.clear();
+
             }
           } else if (state is AccountApiErr) {
             if (state.message != null) {
               Modals.showToast(state.message!, messageType: MessageType.error);
+                    _pinController.clear();
+
             }
           } else if (state is AccountNetworkErr) {
             if (state.message != null) {
               Modals.showToast(state.message!, messageType: MessageType.error);
+                    _pinController.clear();
+
             }
           }
         },
@@ -152,11 +161,12 @@ class _OtpScreenState extends State<OtpScreen> {
                           horizontal: MediaQuery.sizeOf(context).width * 0.14),
                       child: PinCodeView(
                           length: 4,
-                          obscureText: true,
+                          obscureText: false,
                           controller: _pinController,
                           onChanged: (_) {},
                           onCompleted: (_) {
-                            //_verifyCode(context, token);
+                            
+                           
                           },
                           validator: Validator.validate),
                     ),
@@ -200,7 +210,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
                                              
-                                              // forgotPassword(context);
+                                               forgotPassword(context);
                                             },
                                           text: (state is AccountProcessing) ? '':'Resend',
                                           style: const TextStyle(
@@ -226,12 +236,13 @@ class _OtpScreenState extends State<OtpScreen> {
                       processing: state is AccountLoading || state is AccountProcessing,
                       borderRadius: 30,
                       onPressed: () {
-                         AppNavigator.pushAndReplacePage(context,
-                    page: ResetPasswordScreen(
-                      email: widget.email,
-                      token: 'state.userData.token!',
-                    ));
-                        // _verifyCode(context, getToken.token);
+                    
+                        if (widget.resetType == 'reset_password'){
+                               _verifyCode(context, 'reset_password');
+                            }else{
+                               _verifyCode(context, 'activate_account');
+
+                            }
                       },
                       child: const Text(
                         'Verify Code',
@@ -251,7 +262,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   Future<void> startCountdown() async {
     
-    for (int i = 180; i >= 0; i--) {
+    for (int i = 60; i >= 0; i--) {
       await Future.delayed(const Duration(seconds: 1));
       setState(() {
         countdown = i;
@@ -262,19 +273,17 @@ class _OtpScreenState extends State<OtpScreen> {
     });
   }
 
-  // _verifyCode(BuildContext ctx, String token) async{
+  _verifyCode(BuildContext ctx, String type) async{
 
-  //   if (_formKey.currentState!.validate()) {
-  //    await ctx
-  //         .read<AccountCubit>()
-  //         .verifyCode(code: _pinController.text, token: token);
+    if (_formKey.currentState!.validate()) {
+     await ctx
+          .read<AccountCubit>()
+          .verifyCode(token: _pinController.text, type: type, email: widget.email);
 
-  //          setState(() {
-  //           isResetPassword = false;
-  //         });
-  //     FocusScope.of(ctx).unfocus();
-  //   }
-  // }
+            
+      FocusScope.of(ctx).unfocus();
+    }
+  }
 
   String replaceSubstring(String input) {
     input = input.replaceRange(3, 6, '****');
@@ -282,17 +291,17 @@ class _OtpScreenState extends State<OtpScreen> {
     return input;
   }
 
-  // forgotPassword(BuildContext ctx) async{
+  forgotPassword(BuildContext ctx) async{
    
-  //   await  ctx.read<AccountCubit>().forgotPassword(
-  //           email: widget.email, 
-  //         );
+    await  ctx.read<AccountCubit>().forgotPassword(
+            email: widget.email, type: widget.resetType, 
+          );
           
 
-  //         setState(() {
-  //           isResetPassword = true;
-  //         });
-  //     FocusScope.of(ctx).unfocus();
+          setState(() {
+            isResetPassword = true;
+          });
+      FocusScope.of(ctx).unfocus();
     
-  // }
+  }
 }

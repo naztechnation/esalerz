@@ -19,9 +19,8 @@ import 'auth.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   final String email;
-  final String token;
   const ResetPasswordScreen(
-      {super.key, required this.email, required this.token});
+      {super.key, required this.email, });
 
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
@@ -58,7 +57,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         listener: (context, state) {
           if (state is ResetPasswordLoaded) {
             if (state.userData.status == 1) {
-              Modals.showDialogModal(context, page: successWidget());
+              Modals.showToast(state.userData.message!,
+                  messageType: MessageType.success);
               navigateToNextPage(context);
               SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
                   overlays: SystemUiOverlay.values);
@@ -203,8 +203,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         borderColor: AppColors.lightPrimary,
                         borderRadius: 30,
                         onPressed: () {
-                          navigateToNextPage(context, );
-                       //   resetPassword(context);
+                          // navigateToNextPage(context, );
+                           resetPassword(context);
                         },
                         child: const Text(
                           'Continue',
@@ -223,15 +223,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     ));
   }
 
-  // resetPassword(
-  //   BuildContext ctx,
-  // ) {
-  //   if (_formKey.currentState!.validate()) {
-  //     ctx.read<AccountCubit>().resetPassword(
-  //         token: widget.token, password: _passwordController.text.trim());
-  //     FocusScope.of(ctx).unfocus();
-  //   }
-  // }
+  resetPassword(
+    BuildContext ctx,
+  ) {
+    if (_formKey.currentState!.validate()) {
+      ctx.read<AccountCubit>().resetPassword(
+            password: _passwordController.text.trim(), email: widget.email);
+      FocusScope.of(ctx).unfocus();
+    }
+  }
 
   successWidget() {
     return   SizedBox(
