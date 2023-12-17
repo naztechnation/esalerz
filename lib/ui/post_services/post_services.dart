@@ -1,19 +1,21 @@
+
+
 import 'package:esalerz/res/app_colors.dart';
 import 'package:esalerz/res/app_images.dart'; 
 import 'package:flutter/material.dart';
 
-import '../../utils/navigator/page_navigator.dart';
+import '../../../utils/navigator/page_navigator.dart';
 import '../widgets/image_view.dart';
-import 'ads_category.dart';
+import 'serviecs_categories.dart';
 
-class PostAd extends StatefulWidget {
-  const PostAd({super.key});
+class PostServices extends StatefulWidget {
+  const PostServices({super.key});
 
   @override
-  State<PostAd> createState() => _PostAdState();
+  State<PostServices> createState() => _PostAdState();
 }
 
-class _PostAdState extends State<PostAd> {
+class _PostAdState extends State<PostServices> {
   final categoryController = TextEditingController();
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -36,7 +38,7 @@ class _PostAdState extends State<PostAd> {
                 width: 12,
               ),
               const Text(
-                'Ads Category',
+                'Services Category',
                 style: TextStyle(fontSize: 18, color: Colors.black),
               ),
             ],
@@ -108,7 +110,7 @@ class _PostAdState extends State<PostAd> {
                           GestureDetector(
                             onTap: () {
                               AppNavigator.pushAndStackPage(context,
-                          page: AdsCategory());
+                          page: ServicesCategory());
                             },
                             child: Container(
                               decoration: BoxDecoration(

@@ -8,6 +8,7 @@ import 'package:esalerz/model/user_model/categories_list.dart';
 import 'package:esalerz/model/user_model/conversation_list.dart';
 import 'package:esalerz/model/user_model/feedback_lists.dart';
 import 'package:esalerz/model/user_model/message_list.dart';
+import 'package:esalerz/model/user_model/services_sub_cat.dart';
 
 import '../../../model/user_model/notification_details.dart';
 import '../../../model/user_model/notifications.dart';
@@ -153,9 +154,16 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<AllServices> getAllServices({required String bkey}) {
-    // TODO: implement getAllServices
-    throw UnimplementedError();
+  Future<AllServices> getAllServices({required String bkey}) async {
+    final map = await Requests().get(AppStrings.getAllServices(bkey,));
+
+    return AllServices.fromJson(map);
+  }
+  @override
+  Future<ServicesSubCat> getServicesSubCat({required String bkey, required String serviceId, }) async {
+    final map = await Requests().get(AppStrings.getServicesSubCat(bkey,serviceId));
+
+    return ServicesSubCat.fromJson(map);
   }
 
   

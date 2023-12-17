@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../res/app_routes.dart';
 import '../../utils/navigator/page_navigator.dart';
+import '../post_services/post_services.dart';
 import '../services_screens/landingpage.dart';
 import '../widgets/image_view.dart';
 
@@ -107,8 +108,7 @@ class _SelectPostTypeState extends State<SelectPostType> {
                           const SizedBox(height: 30,),
                           
                           ButtonView(onPressed: (){
-                             AppNavigator.pushAndStackNamed(context,
-                          name: AppRoutes.postAd);
+                             AppNavigator.pushAndStackPage(context, page: PostServices());
                           
                           }, child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

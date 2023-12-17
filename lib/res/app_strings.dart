@@ -49,5 +49,7 @@ class AppStrings {
  static String getAllServices(String bkey) =>
       '$mainBaseUrl/get_services?bkey=$bkey';
 
-      
+  static String getServicesSubCat(String bkey, String serviceId) =>
+      '$mainBaseUrl/sub_service?bkey=$bkey&service_parent=$serviceId';
+    
 }

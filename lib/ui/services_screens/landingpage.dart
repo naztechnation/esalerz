@@ -57,21 +57,24 @@ serviceProvider.getUserKyc();
               borderRadius: BorderRadius.circular(100.0),
               side: const BorderSide(color: AppColors.lightPrimary)),
           splashColor: AppColors.lightPrimary,
-          child: const Text('Sell'),
+          child: const Text('Sell',style: TextStyle(color: Colors.white),),
           onPressed: () {
             
-            if(serviceProvider.completedKyc == 'true'){
-                AppNavigator.pushAndStackPage(context,
+
+              AppNavigator.pushAndStackPage(context,
                           page: SelectPostType());
-            }else{
-               NavigationHelper.navigateToPage(context, KycServiceScreenOne());
-            }
+            // if(serviceProvider.completedKyc == 'true'){
+            //     AppNavigator.pushAndStackPage(context,
+            //               page: SelectPostType());
+            // }else{
+            //    NavigationHelper.navigateToPage(context, KycServiceScreenOne());
+            // }
            
           },
         ),
       ),
       bottomNavigationBar: Container(
-        height: 50,
+      //  height: 50,
         decoration: const BoxDecoration(
           boxShadow: <BoxShadow>[
             BoxShadow(

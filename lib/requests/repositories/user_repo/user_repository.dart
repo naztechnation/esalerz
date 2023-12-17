@@ -9,7 +9,8 @@ import '../../../model/user_model/conversation_list.dart';
 import '../../../model/user_model/feedback_lists.dart';
 import '../../../model/user_model/message_list.dart';
 import '../../../model/user_model/notification_details.dart';
-import '../../../model/user_model/notifications.dart'; 
+import '../../../model/user_model/notifications.dart';
+import '../../../model/user_model/services_sub_cat.dart'; 
  
 
 abstract class UserRepository {
@@ -31,6 +32,7 @@ abstract class UserRepository {
      Future<MessageList> getChatMessages({ required String bkey,required String receiver,  });
      Future<ConversationList> getConversations({ required String bkey, });
      Future<AllServices> getAllServices({ required String bkey, });
+     Future<ServicesSubCat> getServicesSubCat({ required String bkey, required String serviceId, });
     
 
 

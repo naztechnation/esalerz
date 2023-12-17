@@ -3,11 +3,13 @@ import 'package:esalerz/model/user_model/message_list.dart';
 
 import '../../model/auth_model/auth_user.dart';
 import '../../model/user_model/all_products.dart';
+import '../../model/user_model/all_services.dart';
 import '../../model/user_model/categories_list.dart';
 import '../../model/user_model/conversation_list.dart';
 import '../../model/user_model/feedback_lists.dart';
 import '../../model/user_model/notification_details.dart';
 import '../../model/user_model/notifications.dart';
+import '../../model/user_model/services_sub_cat.dart';
 
 
 abstract class UserStates extends Equatable {
@@ -199,6 +201,30 @@ class GetGetConversationsLoaded extends UserStates {
   const GetGetConversationsLoaded(this.conversationList);
   @override
   List<Object> get props => [conversationList];
+}
+
+class  GetAllServicesLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class GetAllServicesLoaded extends UserStates {
+  final AllServices services  ;
+  const GetAllServicesLoaded(this.services);
+  @override
+  List<Object> get props => [services];
+}
+
+class  ServicesSubCatLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class ServicesSubCatLoaded extends UserStates {
+  final ServicesSubCat services  ;
+  const ServicesSubCatLoaded(this.services);
+  @override
+  List<Object> get props => [services];
 }
 class UserNetworkErr extends UserStates {
   final String? message;

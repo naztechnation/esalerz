@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -419,6 +418,54 @@ class UserCubit extends Cubit<UserStates> {
       );
 
       emit(GetGetConversationsLoaded(messageList));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+    Future<void> getAllServices({ required String bkey, }) async {
+    try {
+      emit(GetAllServicesLoading());
+
+      final servicesList = await userRepository.getAllServices(
+        bkey: bkey,
+      );
+
+      emit(GetAllServicesLoaded(servicesList));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+    Future<void> getServicesSubCat({ required String bkey,required String serviceId, }) async {
+    try {
+      emit(ServicesSubCatLoading());
+
+      final servicesList = await userRepository.getServicesSubCat(
+        bkey: bkey, serviceId: serviceId,
+      );
+
+      emit(ServicesSubCatLoaded(servicesList));
     } on ApiException catch (e) {
       emit(UserNetworkErrApiErr(e.message));
     } catch (e) {

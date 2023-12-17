@@ -1,3 +1,5 @@
+
+
 import 'package:esalerz/model/user_model/categories_list.dart';
 import 'package:esalerz/res/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +8,14 @@ import 'package:provider/provider.dart';
 
 import '../../blocs/user/user.dart';
 import '../../handlers/secure_handler.dart';
+import '../../model/user_model/all_services.dart';
+import '../../model/user_model/services_sub_cat.dart';
 import '../../model/view_models/user_view_model.dart';
 import '../../requests/repositories/user_repo/user_repository_impl.dart';
 import '../../res/app_images.dart';
 import '../widgets/empty_widget.dart';
 import '../widgets/image_view.dart';
 import '../widgets/loading_page.dart';
-import '../widgets/modals.dart';
 import '../widgets/text_edit_view.dart';
 
 class ServicesCategory extends StatelessWidget {
@@ -50,15 +53,15 @@ class _ServicesCategoryState extends State<CategoriesScreen> {
 
   String token = '';
 
-  List<CategoriesData> categories = [];
-  List<CategoriesData> subcategory = [];
+  List<AllServicesData> categories = [];
+  List<ServicesSubCatData> subcategory = [];
 
   getCategories() async {
     _userCubit = context.read<UserCubit>();
 
     token = await StorageHandler.getUserToken() ?? '';
 
-    _userCubit.getCategories(token: token);
+    _userCubit.getAllServices( bkey: token);
   }
 
   @override
@@ -70,16 +73,16 @@ class _ServicesCategoryState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserStates>(listener: (context, state) {
-      if (state is CategoriesLoaded) {
-        if (state.categoriesList.status == 1) {
-          categories = state.categoriesList.data ?? [];
+      if (state is GetAllServicesLoaded) {
+        if (state.services.status == 1) {
+          categories = state.services.data ?? [];
           setState(() {});
         } else {
           categories = [];
         }
-      } else if (state is SubCategoriesLoaded) {
-        if (state.categoriesList.status == 1) {
-          subcategory = state.categoriesList.data ?? [];
+      } else if (state is ServicesSubCatLoaded) {
+        if (state.services.status == 1) {
+          subcategory = state.services.data ?? [];
            
             selectedIndex = 1;
           
@@ -97,24 +100,26 @@ class _ServicesCategoryState extends State<CategoriesScreen> {
       }
     }, builder: (context, state) {
       if (state is UserNetworkErr) {
+        selectedIndex = 0;
         return EmptyWidget(
           title: 'Network error',
           description: state.message,
             context: context,
 
-          onRefresh: () => _userCubit.getProducts(token: token),
+          onRefresh: () => _userCubit.getAllServices( bkey: token),
         );
       } else if (state is UserNetworkErrApiErr) {
+        selectedIndex = 0;
         return EmptyWidget(
           title: 'Network error',
           description: state.message,
             context: context,
 
-          onRefresh: () => _userCubit.getProducts(token: token),
+          onRefresh: () => _userCubit.getAllServices( bkey: token),
         );
       }
 
-      return (state is SubCategoriesLoading || state is CategoriesLoading)
+      return (state is ServicesSubCatLoading || state is GetAllServicesLoading)
           ? Scaffold(body: const LoadingPage())
           : Scaffold(
               appBar: AppBar(
@@ -244,20 +249,20 @@ class _ServicesCategoryState extends State<CategoriesScreen> {
                                       leading: ClipRRect(
                                         borderRadius: BorderRadius.circular(30),
                                         child: ImageView.network(
-                                          categories[index].categIcon,
+                                          categories[index].serviceIcon,
                                           height: 50,
                                           width: 50,
                                         ),
                                       ),
                                       title: Text(
-                                          categories[index].categName ?? ''),
+                                          categories[index].name ?? ''),
                                       trailing: const Icon(
                                           Icons.keyboard_arrow_right,
                                           color: AppColors.lightPrimary),
                                       onTap: () {
-                                        _userCubit.getSubCategories(
-                                            token: token,
-                                            catId: categories[index].id ?? '');
+                                        _userCubit.getServicesSubCat(
+                                            bkey: token,
+                                            serviceId: categories[index].id ?? '');
                                       },
                                     );
                                   },
@@ -276,13 +281,13 @@ class _ServicesCategoryState extends State<CategoriesScreen> {
                                       leading: ClipRRect(
                                           borderRadius: BorderRadius.circular(30),
                                           child: ImageView.network(
-                                            subcategory[index].categIcon,
+                                            subcategory[index].childIcon,
                                             height: 50,
                                             width: 50,
                                           ),
                                         ),
                                       title: Text(
-                                          subcategory[index].categName ?? ''),
+                                          subcategory[index].childName ?? ''),
                                       trailing: const Icon(
                                           Icons.keyboard_arrow_right,
                                           color: AppColors.lightPrimary),

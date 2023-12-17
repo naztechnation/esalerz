@@ -155,7 +155,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   textStyle: TextStyle(
                                       fontSize: (width <= 550) ? 13 : 17),
                                 ),
-                                child: const Text("GET STARTED"),
+                                child: const Text("GET STARTED", style: TextStyle(color: Colors.white),),
                               ),
                             )
                           : Padding(
@@ -202,7 +202,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       textStyle: TextStyle(
                                           fontSize: (width <= 550) ? 13 : 17),
                                     ),
-                                    child: const Text("NEXT"),
+                                    child: const Text("NEXT", style: TextStyle(color: Colors.white),),
                                   ),
                                 ],
                               ),
