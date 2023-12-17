@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'model/view_models/account_view_model.dart';
 import 'model/view_models/user_view_model.dart';
