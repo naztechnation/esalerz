@@ -37,7 +37,7 @@ class AppStrings {
   ) =>
       '$mainBaseUrl/get_categories?bkey=$token';
   static String getSubCategories(String token, String catId) =>
-      '$mainBaseUrl/sub_categories?bkey=$token&parent_id=$catId';
+      '$mainBaseUrl/get_sub_category?bkey=$token&parent_id=$catId';
   static const String sendResetToken = '$mainBaseUrl/send_verify_token';
   static const String confirmToken = '$mainBaseUrl/verify_email_token';
   static const String resetPassword = '$mainBaseUrl/reset_password';
@@ -51,5 +51,8 @@ class AppStrings {
 
   static String getServicesSubCat(String bkey, String serviceId) =>
       '$mainBaseUrl/sub_service?bkey=$bkey&service_parent=$serviceId';
+
+      static String getAdsOptions(String bkey, String catId) =>
+      '$mainBaseUrl/get_param_options?bkey=$bkey&categ_id=$catId';
     
 }

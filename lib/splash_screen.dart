@@ -33,11 +33,11 @@ class SplashScreenState extends State<SplashScreen>
   }
 
   startTime() async {
-    // var duration = const Duration(seconds: 3);
+     
     Future.delayed(const Duration(seconds:2, ),(){
   navigationPage();
     });
-    //  Timer(duration, navigationPage);
+   
   }
 
     void navigationPage() {

@@ -2,6 +2,7 @@
  
 import 'package:esalerz/model/auth_model/auth_user.dart';
 
+import '../../../model/user_model/ads_options.dart';
 import '../../../model/user_model/all_products.dart';
 import '../../../model/user_model/all_services.dart';
 import '../../../model/user_model/categories_list.dart';
@@ -33,6 +34,7 @@ abstract class UserRepository {
      Future<ConversationList> getConversations({ required String bkey, });
      Future<AllServices> getAllServices({ required String bkey, });
      Future<ServicesSubCat> getServicesSubCat({ required String bkey, required String serviceId, });
+     Future<AdsOptions> getAdsOptions({ required String bkey, required String adsId, });
     
 
 

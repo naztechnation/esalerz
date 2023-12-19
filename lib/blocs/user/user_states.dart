@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:esalerz/model/user_model/message_list.dart';
 
 import '../../model/auth_model/auth_user.dart';
+import '../../model/user_model/ads_options.dart';
 import '../../model/user_model/all_products.dart';
 import '../../model/user_model/all_services.dart';
 import '../../model/user_model/categories_list.dart';
@@ -225,6 +226,18 @@ class ServicesSubCatLoaded extends UserStates {
   const ServicesSubCatLoaded(this.services);
   @override
   List<Object> get props => [services];
+}
+
+class  AdsOptionsLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class AdsOptionsLoaded extends UserStates {
+  final AdsOptions adsOptions  ;
+  const AdsOptionsLoaded(this.adsOptions);
+  @override
+  List<Object> get props => [adsOptions];
 }
 class UserNetworkErr extends UserStates {
   final String? message;

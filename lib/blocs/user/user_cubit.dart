@@ -480,4 +480,28 @@ class UserCubit extends Cubit<UserStates> {
       }
     }
   }
+
+      Future<void> getAdsOptions({ required String bkey,required String adsId, }) async {
+    try {
+      emit(AdsOptionsLoading());
+
+      final adsOptions = await userRepository.getAdsOptions(
+        bkey: bkey, adsId: adsId,
+      );
+
+      emit(AdsOptionsLoaded(adsOptions));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
 }

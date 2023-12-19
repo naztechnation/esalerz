@@ -1,5 +1,6 @@
 import 'package:esalerz/model/user_model/categories_list.dart';
 import 'package:esalerz/res/app_colors.dart';
+import 'package:esalerz/utils/navigator/page_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,7 @@ import '../widgets/empty_widget.dart';
 import '../widgets/image_view.dart';
 import '../widgets/loading_page.dart';
 import '../widgets/text_edit_view.dart';
+import 'ads_options_screen.dart';
 
 class AdsCategory extends StatelessWidget {
   const AdsCategory({
@@ -132,8 +134,8 @@ class _ServicesCategoryState extends State<CategoriesScreen> {
                     const SizedBox(
                       width: 12,
                     ),
-                    const Text(
-                      'Ads Category',
+                      Text(
+                     (selectedIndex == 0) ? 'Ads Category' :   'Ads SubCategories',
                       style: TextStyle(fontSize: 18, color: Colors.black),
                     ),
                   ],
@@ -287,7 +289,9 @@ class _ServicesCategoryState extends State<CategoriesScreen> {
                                       trailing: const Icon(
                                           Icons.keyboard_arrow_right,
                                           color: AppColors.lightPrimary),
-                                      onTap: () {},
+                                      onTap: () {
+                                        AppNavigator.pushAndStackPage(context, page: AdsOptionPage(adsId: subcategory[index].id ?? '',));
+                                      },
                                     );
                                   },
                                 ),

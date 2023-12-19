@@ -10,6 +10,7 @@ import 'package:esalerz/model/user_model/feedback_lists.dart';
 import 'package:esalerz/model/user_model/message_list.dart';
 import 'package:esalerz/model/user_model/services_sub_cat.dart';
 
+import '../../../model/user_model/ads_options.dart';
 import '../../../model/user_model/notification_details.dart';
 import '../../../model/user_model/notifications.dart';
 import '../../../res/app_strings.dart';
@@ -165,6 +166,12 @@ class UserRepositoryImpl implements UserRepository {
 
     return ServicesSubCat.fromJson(map);
   }
+  
+  @override
+  Future<AdsOptions> getAdsOptions({required String bkey, required String adsId}) async {
+    final map = await Requests().get(AppStrings.getAdsOptions(bkey,adsId));
 
+    return AdsOptions.fromJson(map);
+  }
   
 }
