@@ -54,5 +54,7 @@ class AppStrings {
 
       static String getAdsOptions(String bkey, String catId) =>
       '$mainBaseUrl/get_param_options?bkey=$bkey&categ_id=$catId';
+     static String createPostAds =
+      '$mainBaseUrl/create_ad';
     
 }

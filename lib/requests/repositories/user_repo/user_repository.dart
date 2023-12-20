@@ -1,5 +1,7 @@
  
  
+import 'dart:io';
+
 import 'package:esalerz/model/auth_model/auth_user.dart';
 
 import '../../../model/user_model/ads_options.dart';
@@ -35,6 +37,7 @@ abstract class UserRepository {
      Future<AllServices> getAllServices({ required String bkey, });
      Future<ServicesSubCat> getServicesSubCat({ required String bkey, required String serviceId, });
      Future<AdsOptions> getAdsOptions({ required String bkey, required String adsId, });
+     Future<AuthUser> uploadAds({required List<AdsOptionsData> options, required File image, var controllers, required String token});
     
 
 

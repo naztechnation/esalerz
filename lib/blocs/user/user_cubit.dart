@@ -1,6 +1,9 @@
 
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../model/user_model/ads_options.dart';
 import '../../model/view_models/user_view_model.dart';
 import '../../requests/repositories/user_repo/user_repository.dart';
 
@@ -490,6 +493,33 @@ class UserCubit extends Cubit<UserStates> {
       );
 
       emit(AdsOptionsLoaded(adsOptions));
+    } on ApiException catch (e) {
+      emit(UserNetworkErrApiErr(e.message));
+    } catch (e) {
+      if (e is NetworkException ||
+          e is BadRequestException ||
+          e is UnauthorisedException ||
+          e is FileNotFoundException ||
+          e is AlreadyRegisteredException) {
+        emit(UserNetworkErr(e.toString()));
+      } else {
+        rethrow;
+      }
+    }
+  }
+
+      Future<void> postAds({required List<AdsOptionsData> options,
+      required File image,
+      var controllers,
+      required String token}) async {
+    try {
+      emit(PostAdsLoading());
+
+      final ads = await userRepository.uploadAds(options: options, image: image, token: token
+        
+      );
+
+      emit(PostAdsLoaded(ads));
     } on ApiException catch (e) {
       emit(UserNetworkErrApiErr(e.message));
     } catch (e) {

@@ -53,6 +53,7 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
             if (state is AccountKycLoaded) {
               if (state.userData.status! == 1) {
                 serviceProvider.setUserKycState('true');
+                serviceProvider.removeImage(); 
                   AppNavigator.pushAndStackPage(context,
                             page: KycServiceScreenNine(
 
@@ -60,15 +61,23 @@ class _KycServiceScreenEightState extends State<KycServiceScreenEight> {
                 Modals.showToast(state.userData.message ?? '',
                     messageType: MessageType.success);
               } else {
+                serviceProvider.removeImage(); 
+
                 Modals.showToast(state.userData.message ?? '',
                     messageType: MessageType.success);
               }
             } else if (state is AccountApiErr) {
+                serviceProvider.removeImage(); 
+
               if (state.message != null) {
+                serviceProvider.removeImage(); 
+
                 Modals.showToast(state.message!,
                     messageType: MessageType.error);
               }
             } else if (state is AccountNetworkErr) {
+                serviceProvider.removeImage(); 
+
               if (state.message != null) {
                 Modals.showToast(state.message!,
                     messageType: MessageType.error);

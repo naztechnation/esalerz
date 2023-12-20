@@ -47,6 +47,12 @@ class AccountViewModel extends BaseViewModel {
     setViewState(ViewState.success);
   }
 
+  removeImage() async {
+    _imageURl2 = null;
+
+    setViewState(ViewState.success);
+  }
+
    setDateOfBirth(String dob) async {
     _userDateOfBirth = dob;
 

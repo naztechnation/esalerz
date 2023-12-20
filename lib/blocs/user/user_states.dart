@@ -239,6 +239,18 @@ class AdsOptionsLoaded extends UserStates {
   @override
   List<Object> get props => [adsOptions];
 }
+
+class  PostAdsLoading extends UserStates {
+  @override
+  List<Object> get props => [];
+}
+
+class PostAdsLoaded extends UserStates {
+  final AuthUser success  ;
+  const PostAdsLoaded(this.success);
+  @override
+  List<Object> get props => [success];
+}
 class UserNetworkErr extends UserStates {
   final String? message;
   const UserNetworkErr(this.message);
