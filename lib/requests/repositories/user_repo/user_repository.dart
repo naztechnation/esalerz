@@ -37,7 +37,7 @@ abstract class UserRepository {
      Future<AllServices> getAllServices({ required String bkey, });
      Future<ServicesSubCat> getServicesSubCat({ required String bkey, required String serviceId, });
      Future<AdsOptions> getAdsOptions({ required String bkey, required String adsId, });
-     Future<AuthUser> uploadAds({required List<AdsOptionsData> options, required File image, var controllers, required String token});
+     Future<AuthUser> uploadAds({required List<AdsOptionsData> options, required File image, var controllers, required String token, var selectedValues});
     
 
 

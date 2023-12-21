@@ -19,7 +19,7 @@ class Requests {
     final client = RetryClient(http.Client());
     try {
       await client
-          .get(Uri.parse(route), headers: headers ?? await rawDataHeader())
+          .get(Uri.parse(route), headers: headers ?? await formDataHeader())
           .then((response) {
         map = json.decode(RequestHandler.handleServerError(response));
 
@@ -67,7 +67,7 @@ class Requests {
         await client
             .post(Uri.parse(route),
                 body: body,
-               // headers: headers ?? await formDataHeader(),
+                headers: headers ?? await formDataHeader(),
                 )
             .then((response) {
           map = json.decode(RequestHandler.handleServerError(response));

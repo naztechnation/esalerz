@@ -120,8 +120,8 @@ class _LoginContentState extends State<LoginContent> {
             }
             if (state is AccountUpdated) {
               if (state.user.status == 1) {
-                if (state.user.data?.bkey == '' ||
-                    state.user.data?.bkey == null) {
+                if (state.user.bkey == '' ||
+                    state.user.bkey == null) {
                   Modals.showToast(
                     'Unknown user',
                   );
@@ -129,15 +129,17 @@ class _LoginContentState extends State<LoginContent> {
                   Modals.showToast(
                     state.user.message ?? '',
                   );
-                  setToken.setToken(state.user.data?.bkey ?? '');
+                  setToken.setToken(state.user.bkey ?? '');
                   StorageHandler.saveUserEmail(_emailController.text);
                   StorageHandler.saveUserDetails(state.user.data?.fullName);
                   StorageHandler.saveUserPhone(state.user.data?.phone);
                   StorageHandler.saveAddress('');
                   StorageHandler.login();
-                }
-                AppNavigator.pushAndReplacePage(context,
+
+                  AppNavigator.pushAndReplacePage(context,
                     page: const LandingPage());
+                }
+                
               } else {
                 Modals.showToast(
                   state.user.message ?? '',

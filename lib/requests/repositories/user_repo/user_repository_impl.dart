@@ -13,6 +13,7 @@ import '../../../model/user_model/ads_options.dart';
 import '../../../model/user_model/notification_details.dart';
 import '../../../model/user_model/notifications.dart';
 import '../../../res/app_strings.dart';
+import '../../../ui/widgets/modals.dart';
 import '../../setup/requests.dart';
 import 'user_repository.dart';
 
@@ -203,22 +204,48 @@ class UserRepositoryImpl implements UserRepository {
       {required List<AdsOptionsData> options,
       required File image,
       var controllers,
+      var selectedValues,
       required String token}) async {
     Map<String, String> payload = {};
 
-    for (var param in options) {
-      String paramKey = param.paramName ?? '';
-      String paramValue = controllers[paramKey]!.text;
-      payload[paramKey] = paramValue;
-    }
+    
 
-    payload['bkey'] = token;
+    for (var param in options) {
+    if (param.paramType == 'textbox') {
+      print('paramName: ${param.paramName}, paramValue: ${param.paramName}');
+      String param1 = param.paramName?.split('-').first ?? '';
+
+
+      String paramKey = param.paramName ?? '';
+
+      String paramValue = controllers[paramKey]?.text;
+      
+
+      payload[param1] = paramValue; 
+    }else if (param.paramType == 'select') {
+
+      String param1 = param.paramName!.split('-').first;
+
+      
+      String paramKey = param.paramName ?? '';
+
+      String selectedValue = selectedValues[paramKey] ?? '';
+
+      payload[param1] = selectedValue;
+    }
+  }
+
+    
+
+   
 
     final map = await Requests().post(AppStrings.createPostAds,
         files: {
           'image[]': image,
         },
         body: payload);
+
+
 
     return AuthUser.fromJson(map);
   }

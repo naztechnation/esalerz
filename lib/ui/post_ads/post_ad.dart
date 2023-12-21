@@ -245,38 +245,5 @@ class _PostAdState extends State<PostAd> {
         ]));
   }
 
-  List<String> categories = [
-    'Agriculture & Foods',
-    'Babies & Kids',
-    'Commercial Equipments & Tools',
-    'Electronics',
-    'Fashion',
-    'Health & Beauty',
-    'Home, Furniture & Appliances',
-    'Jobs',
-    'Mobile Phone & Tablets',
-    'Pets',
-    'Property',
-    'Repair & Construction',
-    'Services',
-    'Sports, Arts & Outdorrs',
-    'Vehicles',
-  ];
-  List<IconData> categoryIcons = [
-    Icons.agriculture,
-    Icons.child_care,
-    Icons.build_circle,
-    Icons.electrical_services_rounded,
-    Icons.woman_2_outlined,
-    Icons.health_and_safety,
-    Icons.home,
-    Icons.work,
-    Icons.phone_android_sharp,
-    Icons.pets,
-    Icons.house_siding_rounded,
-    Icons.construction,
-    Icons.laptop_sharp,
-    Icons.sports_esports,
-    Icons.fire_truck,
-  ];
+ 
 }

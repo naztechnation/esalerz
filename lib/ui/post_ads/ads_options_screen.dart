@@ -131,9 +131,11 @@ class _AdsOptionState extends State<AdsOption> {
               if (param.paramType == 'textbox') {
                 String paramKey = param.paramName ?? '';
                 controllers[paramKey] = TextEditingController();
+
               }
             }
             setState(() {});
+
           } else {
             options = [];
           }
@@ -141,6 +143,9 @@ class _AdsOptionState extends State<AdsOption> {
           if (state.success.status == 1) {
             Modals.showToast(state.success.message ?? '',
                 messageType: MessageType.success);
+
+            _clearControllers();
+
           } else {
             Modals.showToast(state.success.message ?? '');
           }
@@ -268,7 +273,7 @@ class _AdsOptionState extends State<AdsOption> {
                             horizontal: 16, vertical: 16),
                         child: ButtonView(
                           color: AppColors.lightPrimary,
-                          processing: state is PostAdsLoading,
+                           processing: state is PostAdsLoading,
                           borderColor: Colors.white,
                           borderRadius: 30,
                           onPressed: () {
@@ -291,7 +296,7 @@ class _AdsOptionState extends State<AdsOption> {
   submitPost(var image) {
     if (validateForm()) {
       if (image != null) {
-        _userCubit.postAds(options: options, image: image, token: token);
+        _userCubit.postAds(options: options, image: image, token: token, controllers: controllers, selectedValues: selectedValues);
       } else {
         Modals.showToast('please select image');
       }
@@ -301,27 +306,41 @@ class _AdsOptionState extends State<AdsOption> {
  bool validateForm() {
   for (var param in options) {
     if (param.paramType == 'textbox') {
+      String param1 = param.paramName!.split('-').first;
+
       String paramKey = param.paramName ?? '';
       String paramValue = controllers[paramKey]?.text.trim() ?? '';
 
       if (paramValue.isEmpty) {
-        Modals.showToast('${paramKey.capitalizeFirstOfEach} cannot be empty');
-        print('Error: $paramKey cannot be empty');
+        Modals.showToast('${param1.capitalizeFirstOfEach} cannot be empty');
+        print('Error: $param1 cannot be empty');
         return false;
       }
     }else if (param.paramType == 'select') {
+
+      String param1 = param.paramName!.split('-').first;
+
+      
       String paramKey = param.paramName ?? '';
 
       String selectedValue = selectedValues[paramKey] ?? '';
 
       if (selectedValue.isEmpty) {
-        Modals.showToast('${paramKey.capitalizeFirstOfEach} must be selected');
+        Modals.showToast('${param1.capitalizeFirstOfEach} must be selected');
         return false;
       }
     }
   }
 
   return true;
+}
+
+void _clearControllers() {
+  for (var controller in controllers.values) {
+    controller.clear();
+  }
+ 
+  selectedValues.clear();
 }
 
 }

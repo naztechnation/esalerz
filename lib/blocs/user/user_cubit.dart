@@ -511,11 +511,12 @@ class UserCubit extends Cubit<UserStates> {
       Future<void> postAds({required List<AdsOptionsData> options,
       required File image,
       var controllers,
+      var selectedValues,
       required String token}) async {
     try {
       emit(PostAdsLoading());
 
-      final ads = await userRepository.uploadAds(options: options, image: image, token: token
+      final ads = await userRepository.uploadAds(options: options, image: image, token: token, controllers: controllers, selectedValues: selectedValues
         
       );
 
